@@ -45,10 +45,12 @@ namespace MVVM_SocialContractProject.ViewModels
         
         public ICommand LoginCommand { get; }
 
+        public ICommand connectToDB { get; }
         
-        public LogInViewModel(SocialContractMonitoringSystem scSystem, NavigationService navigate)
+        public LogInViewModel(SocialContractMonitoringSystem scSystem, NavigationService navigate, NavigationService ConnectToDB)
         {
             LoginCommand = new LogInCommand(this,scSystem, navigate);
+            connectToDB = new NavigateCommand(ConnectToDB);
         }
     }
 }

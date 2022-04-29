@@ -16,14 +16,34 @@ namespace MVVM_SocialContractProject.Models.Database
 {
     public class DatabaseQueries
     {
-        private readonly MySqlConnection conn = sqlDB.SqlQuery();
+        private readonly sqlDB dbConnect;
+        private MySqlConnection conn { get; set; }
         public DatabaseQueries()
         {
-           
+            dbConnect = new sqlDB();
         }
 
+        public bool RunConnectionCheck()
+        {
+            RunSystemCheck();
+            try
+            {
+                conn.Open();
+                MySqlCommand cmdDb = new MySqlCommand("SELECT * FROM tbl_recordtbl WHERE 1", conn);
+                cmdDb.ExecuteReader();
+                conn.Close();
+                return true;
+            }
+            catch (MySqlException e)
+            {
+                conn.Close();
+                MessageBox.Show("Error code:" + e.Number + "\nPlease contact the administrator for more details", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
         public void RunSystemCheck()
         {
+            conn = dbConnect.SqlQuery();
             if (conn != null && conn.State == System.Data.ConnectionState.Open)
             {
                 conn.Close();
@@ -196,7 +216,7 @@ namespace MVVM_SocialContractProject.Models.Database
                 }
                 conn.Close();
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
                 conn.Close();
                 MessageBox.Show("Error. Error message:" + ex);

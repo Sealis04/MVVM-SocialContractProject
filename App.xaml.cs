@@ -1,4 +1,5 @@
 ﻿using MVVM_SocialContractProject.Models;
+using MVVM_SocialContractProject.Models.Database;
 using MVVM_SocialContractProject.Services;
 using MVVM_SocialContractProject.Stores;
 using MVVM_SocialContractProject.ViewModels;
@@ -19,15 +20,18 @@ namespace MVVM_SocialContractProject
     {
         private readonly SocialContractMonitoringSystem _SCSystem;
         private readonly NavigationStore _navigationStore;
+        private readonly DatabaseQueries _dbQueries;
         public App()
         {
             _SCSystem = new SocialContractMonitoringSystem();
             _navigationStore = new NavigationStore();
+            _dbQueries = new DatabaseQueries();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = LogInViewModel();
+            
+            ConnectDB();
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)
@@ -35,7 +39,23 @@ namespace MVVM_SocialContractProject
             MainWindow.Show();
             base.OnStartup(e);
         }
-       private EncodeSCViewModel EncodeSocialContractViewModel()
+        private void ConnectDB()
+        {
+            bool x = _dbQueries.RunConnectionCheck();
+            if (x)
+            {
+                _navigationStore.CurrentViewModel = LogInViewModel();
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = ConnectDBViewModel();
+            }
+        }
+        private ConnectToDBViewModel ConnectDBViewModel()
+        {
+            return new ConnectToDBViewModel(new NavigationService(_navigationStore, LogInViewModel));
+        }
+        private EncodeSCViewModel EncodeSocialContractViewModel()
         {
             return new EncodeSCViewModel(_SCSystem, new NavigationService(_navigationStore, ViewStudentRecords),_navigationStore, 
                 new NavigationService(_navigationStore, SCViewModel));
@@ -53,7 +73,8 @@ namespace MVVM_SocialContractProject
 
         private LogInViewModel LogInViewModel()
         {
-            return new LogInViewModel(_SCSystem, new NavigationService(_navigationStore, ViewStudentRecords));
+            return new LogInViewModel(_SCSystem, new NavigationService(_navigationStore, ViewStudentRecords)
+                , new NavigationService(_navigationStore, ConnectDBViewModel));
         }
 
         private SignUpViewModel SignUpVM()

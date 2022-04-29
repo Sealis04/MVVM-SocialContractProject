@@ -90,6 +90,18 @@
                             VerticalAlignment="Bottom" 
                             Command="{Binding LoginCommand}"
                             />
+            <Button 
+                x:Name="button_Copy"
+                Grid.Row="3"
+                Content="Connect to DB"
+                FontFamily="Arial"
+                Foreground="Black"
+                FontWeight="ExtraBlack"
+                Width="300"
+                Height="44" 
+                VerticalAlignment="Bottom" 
+                Command="{Binding connectToDB}" Margin="-347,0,0,-73"
+                            />
         </Grid>
 
     </Grid>

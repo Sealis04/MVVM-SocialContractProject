@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CheckDBCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\EncodeSCCommand.cs" />
     <Compile Include="Commands\EncodeUserInfoCommand.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Models\UserInfoRecords.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="ViewModels\ConnectToDBViewModel.cs" />
     <Compile Include="ViewModels\CreatePDFEventViewModel.cs" />
     <Compile Include="ViewModels\EncodeSCViewModel.cs" />
     <Compile Include="ViewModels\EventsPDFViewModel.cs" />
@@ -116,6 +118,9 @@
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewPDFEventsViewModel.cs" />
+    <Compile Include="Views\ConnectToDBWindow.xaml.cs">
+      <DependentUpon>ConnectToDBWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateUserWindow.xaml.cs">
       <DependentUpon>CreateUserWindow.xaml</DependentUpon>
     </Compile>
@@ -149,6 +154,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ConnectToDBWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
