@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
               xmlns:commands="clr-namespace:MVVM_SocialContractProject.Commands"
-             mc:Ignorable="d" Height="704" Width="1248">
+             mc:Ignorable="d" Height="900" Width="1440">
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
     </UserControl.Resources>
@@ -293,7 +293,7 @@
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="92"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="Print"
