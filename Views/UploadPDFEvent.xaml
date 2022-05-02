@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="900" d:DesignWidth="1440">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -107,9 +107,9 @@
                 Grid.Row="2"
                 Height="30px"
                 VerticalAlignment="Bottom"
-                Width="180"
+                Width="341"
                 Text="{Binding EventDate}"
-                SelectedDate="{x:Static sys:DateTime.Now}"
+                SelectedDate="{x:Static sys:DateTime.Now}" Grid.ColumnSpan="2"
                 />
 
             <!--BN-->
@@ -134,15 +134,15 @@
                 />
             <!--PDF-->
             <Button x:Name="pdf"
-                           Grid.Column="4"
-                            Grid.Row="4"
+                           Grid.Column="6"
+                            Grid.Row="5"
                             Content="PDF"
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
                             Height="36" 
                             VerticalAlignment="Center"
-                            Margin="39,32,0,42" Width="222" Grid.ColumnSpan="3" Grid.RowSpan="2"
+                            Margin="4,3,0,72" Width="222"
                     Command="{Binding UploadPDF}"
                             />
             <Image
@@ -166,7 +166,6 @@
 
             <Button x:Name="Submit"
                            Grid.Column="1"
-                            Grid.Row="2"
                             Content="Submit"
                             FontFamily="Arial"
                             Foreground="Black"
@@ -174,11 +173,10 @@
                             
                             Height="45" 
                             VerticalAlignment="Center" 
-                            Command="{Binding SubmitEvent}"
+                            Command="{Binding SubmitEvent}" Margin="0,33" Width="259"
                             />
             <Button x:Name="Cancel"
                            Grid.Column="3"
-                            Grid.Row="2"
                             Content="Cancel"
                             FontFamily="Arial"
                             Foreground="Black"
@@ -186,7 +184,7 @@
                        
                             Height="45" 
                             VerticalAlignment="Center"
-                            Command="{Binding CancelEvent}"
+                            Command="{Binding CancelEvent}" Margin="0,33" Width="262"
                             />
         </Grid>
     </Grid>
