@@ -38,6 +38,7 @@ namespace MVVM_SocialContractProject.Commands
             return
                !string.IsNullOrEmpty(_loginVM.Username) &&
                _loginVM.SecurePassword.Length > 0 &&
+               !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
                base.CanExecute(parameter);
         }
         public override void Execute(object parameter)

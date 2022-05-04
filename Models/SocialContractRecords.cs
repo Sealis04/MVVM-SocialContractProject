@@ -34,6 +34,7 @@ namespace MVVM_SocialContractProject.Models
             {
                 if (existingSocialContract.Conflicts(socialContract))
                 {
+                    return false;
                     throw new SocialContractConflictExceptions(existingSocialContract, socialContract);
                     ///Update reservation on DB code to be updated
                 }

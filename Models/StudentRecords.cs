@@ -28,10 +28,10 @@ namespace MVVM_SocialContractProject.Models
             return _studentInfo.Where(r => r.StudentID == StudentID);
         }
 
-        public IEnumerable<StudentInfo> GetAllStudentInfo(string SearchQuery)
+        public IEnumerable<StudentInfo> GetAllStudentInfo(string SearchQuery, int page)
         {
             _studentInfo.Clear();
-            _dbQueries.LoadStudentInfo(_studentInfo, SearchQuery);
+            _dbQueries.LoadStudentInfo(_studentInfo, SearchQuery, page);
             return _studentInfo;
         }
         public IEnumerable<StudentInfo> SearchForStudentInfo(string StudentID)

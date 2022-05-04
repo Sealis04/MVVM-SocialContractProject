@@ -29,7 +29,7 @@ namespace MVVM_SocialContractProject.Commands
                 }
             }catch(Exception e)
             {
-                MessageBox.Show("Error Message" + e, "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error Message:" + e, "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
               

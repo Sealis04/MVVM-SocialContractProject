@@ -78,10 +78,14 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\EncodeSCCommand.cs" />
     <Compile Include="Commands\EncodeUserInfoCommand.cs" />
+    <Compile Include="Commands\FirstPageCommand.cs" />
     <Compile Include="Commands\ImageConverter.cs" />
+    <Compile Include="Commands\LastPageCommand.cs" />
     <Compile Include="Commands\LoadSocialContractPerUser.cs" />
     <Compile Include="Commands\LogInCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\NextPageComand.cs" />
+    <Compile Include="Commands\PreviousPageCommand.cs" />
     <Compile Include="Commands\PrintCommandForContract.cs" />
     <Compile Include="Commands\PrintPDFCommand.cs" />
     <Compile Include="Commands\PrintSocialContract.cs" />
@@ -131,6 +135,9 @@
     <Compile Include="Views\LogInWindow.xaml.cs">
       <DependentUpon>LogInWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PaginationView.xaml.cs">
+      <DependentUpon>PaginationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SocialContractPerUser.xaml.cs">
       <DependentUpon>SocialContractPerUser.xaml</DependentUpon>
     </Compile>
@@ -142,6 +149,9 @@
     </Compile>
     <Compile Include="Views\ViewStudentRecords.xaml.cs">
       <DependentUpon>ViewStudentRecords.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewUserList.xaml.cs">
+      <DependentUpon>ViewUserList.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +181,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PaginationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SocialContractFlowDocument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewStudentRecords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewUserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
