@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1440"
+             d:DesignHeight="600" d:DesignWidth="1000"
              Background="White">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -82,19 +82,21 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec" 
-                      ItemsSource="{Binding EventsPDF}" Background="White">
+                      ItemsSource="{Binding EventsPDF}" Background="White"
+                      BorderBrush="Black"
+                      BorderThickness="2px">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="EventName">
+                        <GridViewColumn Width="100" Header="EventName">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding EventName}"/>
@@ -102,7 +104,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Event Date">
+                        <GridViewColumn Width="150" Header="Event Date">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding EventDate}"/>
@@ -110,7 +112,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Event Venue">
+                        <GridViewColumn Width="150" Header="Event Venue">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding EventVenue}"/>
@@ -118,14 +120,14 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Event Supervisor">
+                        <GridViewColumn Width="150" Header="Event Supervisor">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding EventSupervisor}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Print">
+                        <GridViewColumn Width="150" Header="Print">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button

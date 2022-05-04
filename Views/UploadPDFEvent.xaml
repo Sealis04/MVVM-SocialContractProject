@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1440">
+             d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -20,6 +20,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
         <!--Logo-->
@@ -28,7 +30,7 @@
         <Border Grid.ColumnSpan="1"
                 Grid.Column="2"
                 Grid.Row="2"
-                Grid.RowSpan="1" 
+                Grid.RowSpan="2" 
                 Background="Gray"  
                 BorderThickness="1,1,1,1" 
                 CornerRadius="20,20,20,20"/>
@@ -45,12 +47,14 @@
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
             <!--Activity-->
@@ -60,11 +64,13 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                        FontSize="18px"
+                        FontSize="16px"
                        Grid.Column="1"
+                Grid.Row="1"
                        />
             <TextBox
                      Grid.Column="3"
+                Grid.Row="1"
                         Height="30px"
                        VerticalAlignment="Bottom"  
                     x:Name="actNameTb"
@@ -77,14 +83,14 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="18px"
+                       FontSize="16px"
                        Grid.Column="1"
-                        Grid.Row="1"
+                        Grid.Row="2"
                        />
             <TextBox
                 x:Name="venueTb"
                      Grid.Column="3"
-                    Grid.Row="1"
+                    Grid.Row="2"
                         Height="30px"
                        VerticalAlignment="Bottom"
                 Text="{Binding EventVenue}"
@@ -97,17 +103,17 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="18px"
+                           FontSize="16px"
                        Grid.Column="1"
-                        Grid.Row="2"
+                        Grid.Row="3"
                        />
             <DatePicker
                 x:Name="dateTb"
                 Grid.Column="3"
-                Grid.Row="2"
+                Grid.Row="3"
                 Height="30px"
                 VerticalAlignment="Bottom"
-                Width="341"
+                Width="230"
                 Text="{Binding EventDate}"
                 SelectedDate="{x:Static sys:DateTime.Now}" Grid.ColumnSpan="2"
                 />
@@ -119,14 +125,14 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="18px"
+                           FontSize="16px"
                        Grid.Column="1"
-                        Grid.Row="3"
+                        Grid.Row="4"
                        />
             <TextBox
                 x:Name="supervisorTb"
                      Grid.Column="3"
-                    Grid.Row="3"
+                    Grid.Row="4"
                         Height="30px"
                        VerticalAlignment="Bottom"
                 Text="{Binding EventSupervisor}"
@@ -146,8 +152,8 @@
                     Command="{Binding UploadPDF}"
                             />
             <Image
-                Grid.Column="4" 
-                Margin="58,34,63,9" 
+                Grid.Row="1"
+                Grid.Column="6" 
                 Grid.ColumnSpan="3" 
                 Grid.RowSpan="4" 
                 Source="{Binding ImageSource}"
@@ -170,10 +176,11 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                            
-                            Height="45" 
+                                    Width="100"
+                    HorizontalAlignment="Stretch"
+                            Height="35" 
                             VerticalAlignment="Center" 
-                            Command="{Binding SubmitEvent}" Margin="0,33" Width="259"
+                            Command="{Binding SubmitEvent}"  
                             />
             <Button x:Name="Cancel"
                            Grid.Column="3"
@@ -181,10 +188,10 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                       
-                            Height="45" 
+                        Width="100"
+                            Height="35" 
                             VerticalAlignment="Center"
-                            Command="{Binding CancelEvent}" Margin="0,33" Width="262"
+                            Command="{Binding CancelEvent}"
                             />
         </Grid>
     </Grid>
