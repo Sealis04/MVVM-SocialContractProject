@@ -47,11 +47,13 @@ namespace MVVM_SocialContractProject.ViewModels
 
         public ICommand CreatePDF { get; }
 
+        public ICommand PrintSCCommand { get; }
         public ICommand Logout  { get; } 
         public SocialContractRecordsViewModel(SocialContractMonitoringSystem SCSystem, NavigationService encodeSCNavigationView,
             NavigationService encodeUserNavigationView, NavigationService viewUserNavigationView, NavigationService createPDFNavigationView
             ,NavigationService LogOutView)
         {
+            PrintSCCommand = new PrintSocialContract();
             _navigationService = viewUserNavigationView;
              _scSystem = SCSystem;
             EncodeSCCommand = new NavigateCommand(encodeSCNavigationView);

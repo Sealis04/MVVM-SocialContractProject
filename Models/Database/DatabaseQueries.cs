@@ -375,6 +375,7 @@ namespace MVVM_SocialContractProject.Models.Database
 
         public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery)
         {
+            RunSystemCheck();
             string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue ";
             if (SearchQuery == null)
             {

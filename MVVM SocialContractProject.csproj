@@ -84,6 +84,7 @@
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\PrintCommandForContract.cs" />
     <Compile Include="Commands\PrintPDFCommand.cs" />
+    <Compile Include="Commands\PrintSocialContract.cs" />
     <Compile Include="Commands\RemoveSocialContract.cs" />
     <Compile Include="Commands\SubmitPDFEventCommand.cs" />
     <Compile Include="Commands\UploadPdfCommand.cs" />

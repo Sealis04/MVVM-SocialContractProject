@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MVVM_SocialContractProject.Services;
 using MVVM_SocialContractProject.Commands;
 using System.Windows.Input;
+using System.Windows;
 
 namespace MVVM_SocialContractProject.ViewModels
 {
@@ -51,6 +52,8 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             LoginCommand = new LogInCommand(this,scSystem, navigate);
             connectToDB = new NavigateCommand(ConnectToDB);
+            var UserConfig  = Environment.CurrentDirectory;
+            Properties.Settings.Default.SocialContractPDF = UserConfig + "\\SamplePDF.pdf";
         }
     }
 }

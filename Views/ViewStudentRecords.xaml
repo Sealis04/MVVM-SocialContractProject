@@ -209,6 +209,18 @@
                             VerticalAlignment="Center" 
                             Command="{Binding EncodeSCCommand}"
                             />
+            <Button x:Name="encode_btn_Copy"
+                Content="Print Social Contract"
+                FontFamily="Arial"
+                Foreground="Black"
+                FontWeight="ExtraBlack"
+                Width="243"
+                Height="54" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" 
+                Command="{Binding PrintSCCommand}"
+                            Margin="-323,-352,480,409"
+                            />
 
         </Grid>
     </Grid>
