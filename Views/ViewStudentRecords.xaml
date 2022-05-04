@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"	
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1440"
+             d:DesignHeight="600" d:DesignWidth="1000"
              Background= "White">
     <UserControl.Resources>
         <Style TargetType="ListViewItem" x:Key="listViewDoubleClick">
@@ -76,10 +76,11 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                            Width="242"
-                            Height="48" 
+                            Width="134"
+                            Height="35" 
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Center" 
-                            Command="{Binding CreatePDF}" Margin="0,1"
+                            Command="{Binding CreatePDF}" 
                             />
             <Button x:Name="CreateUser"
                            Grid.Column="1"
@@ -88,10 +89,11 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                            Width="242"
-                            Height="48" 
+                            Width="134"
+                            Height="35" 
                             VerticalAlignment="Center"
-                            Command="{Binding CreateUser}" Margin="0,4,0,3" Grid.RowSpan="2"
+                    HorizontalAlignment="Stretch"
+                            Command="{Binding CreateUser}"  Grid.RowSpan="2"
                             />
             <Button x:Name="LogOut"
                            Grid.Column="1"
@@ -99,10 +101,10 @@
                             Content="Log Out"
                             FontFamily="Arial"
                             Foreground="Black"
-                            
+                            HorizontalAlignment="Stretch"
                             FontWeight="ExtraBlack"
-                            Width="244"
-                            Height="60" 
+                            Width="137"
+                            Height="35" 
                             Command="{Binding Logout}"
                             VerticalAlignment="Bottom" 
                             />
@@ -116,7 +118,9 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
-                      ItemsSource="{Binding StudentInfo}" Background="White">
+                      ItemsSource="{Binding StudentInfo}" Background="White"
+                      BorderBrush="Black"
+                      BorderThickness="2px">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}"/>
@@ -127,13 +131,13 @@
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="StudentID">
+                        <GridViewColumn Width="100" Header="StudentID">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding StudentID}"/>
@@ -141,7 +145,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Student Name">
+                        <GridViewColumn Width="150" Header="Student Name">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding StudentName}"/>
@@ -149,7 +153,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Batch No.">
+                        <GridViewColumn Width="100" Header="Batch No.">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding BatchNo}"/>
@@ -157,7 +161,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Course">
+                        <GridViewColumn Width="100" Header="Course">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Course}"/>
@@ -165,7 +169,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Current Hours">
+                        <GridViewColumn Width="130" Header="Current Hours">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding CurrentHours}"/>
@@ -173,7 +177,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Lacking Hours">
+                        <GridViewColumn Width="150" Header="Lacking Hours">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding LackingHours}"/>
@@ -208,18 +212,6 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
                             Command="{Binding EncodeSCCommand}"
-                            />
-            <Button x:Name="encode_btn_Copy"
-                Content="Print Social Contract"
-                FontFamily="Arial"
-                Foreground="Black"
-                FontWeight="ExtraBlack"
-                Width="243"
-                Height="54" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" 
-                Command="{Binding PrintSCCommand}"
-                            Margin="-323,-352,480,409"
                             />
 
         </Grid>

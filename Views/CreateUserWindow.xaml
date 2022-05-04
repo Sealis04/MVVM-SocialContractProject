@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1440">
+             d:DesignHeight="600" d:DesignWidth="1000 ">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -29,12 +31,11 @@
                        Grid.Column="1"
                    Margin="0 0 0 10"
                        />
-        <Grid Grid.ColumnSpan="3" Grid.Row="1">
+        <Grid  Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -51,17 +52,18 @@
                          HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="24px"
-                       Grid.Column="1"
+                       FontSize="21px"
+                       Grid.Column="0"
                        Grid.Row="1"
-                       Margin="0 0 10 0"
+                   
                        />
             <TextBox
                        x:Name ="usernameTB"
-                       Grid.Column="2"
-                        Height="30px"
+                       Grid.Column="1"
+                        Height="35px"
                        VerticalAlignment="Bottom" 
                         Grid.Row="1"
+                  
                      Text="{Binding Username}"
                 />
             <!--Password-->
@@ -70,15 +72,15 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="24px"
-                       Grid.Column="1"
+                       FontSize="21px"
+                       Grid.Column="0"
                        Grid.Row="2"
-                         Margin="0 0 10 0"
+                      
                        />
             <PasswordBox
                 x:Name ="passTB"
-                       Grid.Column="2"
-                        Height="30px"
+                       Grid.Column="1"
+                        Height="35px"
                        VerticalAlignment="Bottom" 
                         Grid.Row="2"
                     PasswordBox.PasswordChanged="PassTB_PasswordChanged"
@@ -89,16 +91,16 @@
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                       FontSize="24px"
+                       FontSize="21px"
                        Grid.Column="0"
                        Grid.Row="3"
-                       Grid.ColumnSpan="2"
-                         Margin="0 0 10 0"
+                     
+                    
                        />
             <PasswordBox
                 x:Name ="confirmPassTB"
-                       Grid.Column="2"
-                        Height="30px"
+                       Grid.Column="1"
+                        Height="35px"
                        VerticalAlignment="Bottom" 
                         Grid.Row="3"
                      PasswordBox.PasswordChanged="ConfirmPassTB_PasswordChanged"
@@ -118,10 +120,10 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                              HorizontalAlignment="Right"
-                            Height="61" 
+                            Height="35" 
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom" 
-                        Command="{Binding SubmitCommand}" Width="262"
+                        Command="{Binding SubmitCommand}"
                             />
                 <Button x:Name="Cancel"
                            Grid.Column="3"
@@ -129,10 +131,11 @@
                             FontFamily="Arial"
                             Foreground="Black"
                             FontWeight="ExtraBlack"
-                             HorizontalAlignment="Right"
-                            Height="61" 
+                             HorizontalAlignment="Stretch"
+                            Height="35"
                              VerticalAlignment="Bottom"
-                        Command="{Binding CancelCommand}" Width="259" Grid.ColumnSpan="2"
+                        
+                        Command="{Binding CancelCommand}"
                             />
             </Grid>
 

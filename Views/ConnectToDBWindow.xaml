@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="1440"
+             d:DesignHeight="600" d:DesignWidth="1000"
              Background="White">
     <Grid>
 
@@ -17,8 +17,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -29,7 +29,9 @@
             </Grid.RowDefinitions>
 
 
-            <Border Grid.ColumnSpan="2" Grid.RowSpan="4" Background="Gray" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" RenderTransformOrigin="0.5,0.5" Margin="109,65,107,33" Grid.Column="1">
+            <Border Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="1" Background="Gray" 
+                    BorderThickness="1,1,1,1" CornerRadius="10,10,10,10" 
+                    RenderTransformOrigin="0.5,0.5"  Grid.Column="2">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -38,149 +40,189 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Border.RenderTransform>
+               
+            </Border>
+            <Grid Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+       
+
+                </Grid.RowDefinitions >
+
+
+                <TextBlock Text="Server :" 
+                     
+                       VerticalAlignment="Bottom" 
+                       HorizontalAlignment="Right"
+                       FontFamily="Arial"
+                       FontWeight="Bold"
+                       FontSize="21px"
+                       Grid.Column="1" Grid.Row="1" RenderTransformOrigin="0.5,0.5"
+                       >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.018" Y="-0.04"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBox
+                        x:Name="userTB"
+                       Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                        Height="30"
+                       VerticalAlignment="Bottom"  
+                        Text="{Binding Server, UpdateSourceTrigger=PropertyChanged}" 
+                        Grid.Row="1" RenderTransformOrigin="0.5,0.5"
+               >
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.02" Y="0.018"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <TextBlock Text="Database :" 
+                     
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right"
+                FontFamily="Arial"
+                FontWeight="Bold"
+                FontSize="21px"
+                Grid.Column="1"
+                Grid.Row="2" RenderTransformOrigin="0.5,0.5"
+                       >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.018" Y="-0.04"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+
+                <TextBox
+                x:Name="userTB_Copy"
+                Grid.Column="2"
+                Height="30"
+                  Grid.ColumnSpan="2"
+                VerticalAlignment="Bottom"  
+                Text="{Binding Database, UpdateSourceTrigger=PropertyChanged}" 
+                  Grid.Row="2" RenderTransformOrigin="0.5,0.5"
+               >
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.02" Y="0.018"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <TextBlock Text="Username :" 
+                     
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right"
+                FontFamily="Arial"
+                FontWeight="Bold"
+                FontSize="21px"
+                Grid.Column="1" Height="30"
+                           Grid.Row="3" RenderTransformOrigin="0.5,0.5"
+                       >
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.018" Y="-0.04"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBox
+                x:Name="userTB_Copy1"
+                Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                Height="30"
+                VerticalAlignment="Bottom"  
+                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="3" RenderTransformOrigin="0.5,0.5"
+               >
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.02" Y="0.018"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <TextBlock Text="Password :" 
+                     
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right"
+                FontFamily="Arial"
+                FontWeight="Bold"
+                FontSize="21px"
+                Grid.Column="1" 
+                 Grid.Row="4" RenderTransformOrigin="0.5,0.5"
+                       />
+                <TextBox
+                x:Name="userTB_Copy2"
+                Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                Height="30"
+                VerticalAlignment="Bottom"  
+                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                   Grid.Row="4" RenderTransformOrigin="0.5,0.5"
+               >
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.013"/>
+                            <TranslateTransform X="0.02" Y="0.018"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+
+
                 <Button 
             x:Name="button"
             Content="Connect to DB"
             FontFamily="Arial"
             Foreground="Black"
             FontWeight="ExtraBlack"
-            Width="300"
-            Height="45" 
+            Height="35" 
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch"
+                    Grid.Row="5"
             VerticalAlignment="Bottom" 
             Command="{Binding ConnectDB}"
-                            Margin="462,0,0,38"
+         
                             />
-            </Border>
+            </Grid>
 
 
-            <TextBlock Text="Server" 
-                     
-                       VerticalAlignment="Bottom" 
-                       HorizontalAlignment="Center"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="24px"
-                       Grid.Column="1" Height="30" Margin="377,0,0,75" Width="86" Grid.Row="1" RenderTransformOrigin="0.5,0.5"
-                       >
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.018" Y="-0.04"/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-            <TextBox
-                        x:Name="userTB"
-                       Grid.Column="2"
-                        Height="29"
-                       VerticalAlignment="Bottom"  
-                        Text="{Binding Server, UpdateSourceTrigger=PropertyChanged}" Margin="26,0,414,78" Grid.Row="1" RenderTransformOrigin="0.5,0.5"
-               >
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.02" Y="0.018"/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            <TextBox
-                x:Name="userTB_Copy"
-                Grid.Column="2"
-                Height="29"
-                VerticalAlignment="Bottom"  
-                Text="{Binding Database, UpdateSourceTrigger=PropertyChanged}" Margin="26,0,414,24" Grid.Row="1" RenderTransformOrigin="0.5,0.5"
-               >
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.02" Y="0.018"/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            <TextBlock Text="Username" 
-                     
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Center"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="24px"
-                Grid.Column="1" Height="30" Margin="345,0,0,82" Width="118" Grid.Row="2" RenderTransformOrigin="0.5,0.5"
-                       >
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.018" Y="-0.04"/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
-            <TextBox
-                x:Name="userTB_Copy1"
-                Grid.Column="2"
-                Height="29"
-                VerticalAlignment="Bottom"  
-                Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
- Margin="26,0,418,82" Grid.Row="2" RenderTransformOrigin="0.5,0.5"
-               >
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.02" Y="0.018"/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            <TextBlock Text="Password" 
-                     
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Center"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="24px"
-                Grid.Column="1" Height="30" Margin="343,0,2,33" Width="118" Grid.Row="2" RenderTransformOrigin="0.5,0.5"
-                       />
-            <TextBox
-                x:Name="userTB_Copy2"
-                Grid.Column="2"
-                Height="29"
-                VerticalAlignment="Bottom"  
-                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="28,0,419,29" Grid.Row="2" RenderTransformOrigin="0.5,0.5"
-               >
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.02" Y="0.018"/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            <TextBlock Text="Database" 
-                     
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Center"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="24px"
-                Grid.Column="1" Height="30" Margin="352,0,1,24" Width="110" Grid.Row="1" RenderTransformOrigin="0.5,0.5"
-                       >
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.013"/>
-                        <TranslateTransform X="0.018" Y="-0.04"/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>
