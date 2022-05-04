@@ -49,25 +49,26 @@ namespace MVVM_SocialContractProject.Models.Database
                 conn.Close();
             }
         }
-        public void LoadStudentInfo(List<StudentInfo> _studentInfo, string SearchQuery)
+        public void LoadStudentInfo(List<StudentInfo> _studentInfo, string SearchQuery, int page)
         {
             RunSystemCheck();
             string query = "SELECT stu.s_ID, stu.s_fn, stu.s_mn,stu.s_ln,stu.s_batchNo,stu.s_Course ";
             if(SearchQuery == null)
             {
-                query += "FROM tbl_studentinfo stu LIMIT 0,50;";
+                query += "FROM tbl_studentinfo stu LIMIT @page,5;";
             }
             else
             {
                 query += "FROM tbl_studentinfo stu " +
                     "" +
-                    "HERE stu.s_ID LIKE @SID LIMIT 0,50;";
+                    "WHERE stu.s_ID LIKE @SID LIMIT @page,5;";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if(SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
             }
+            cmdDb.Parameters.AddWithValue("@page", page);
             try
             {
                 //---open DB---
@@ -113,6 +114,37 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
+        public int GetStudentCount(string SearchQuery)
+        {
+            RunSystemCheck();
+            string query = "SELECT COUNT(*) FROM tbl_studentinfo";
+            if (SearchQuery != null)
+            { 
+                query += " WHERE s_ID LIKE @SID";
+            }
+            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+            if (SearchQuery != null)
+            {
+                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+            }
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = cmdDb.ExecuteReader();
+                while (reader.Read())
+                {
+                    return Convert.ToInt32(reader[0]);
+                }
+                conn.Close();
+                return 0;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                MessageBox.Show("Error Message" + e);
+                return 0;
+            }
+        }
         public void LoadSocialContractInfo(StudentInfo student , List<SocialContract> _socialContract)
         {
             RunSystemCheck();
@@ -322,9 +354,9 @@ namespace MVVM_SocialContractProject.Models.Database
             DateTime date = pdf.EventDate;
             string supervisor = pdf.EventSupervisor;
             //Image upload and save
-            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + System.IO.Path.GetExtension(pdf.EventPDFSource);
-            var imagepath = System.IO.Path.Combine("D:\\VSCODE\\WpfApp1\\Sample Uploads\\" + fileNameToSave);
-
+            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(pdf.EventPDFSource);
+            var imagepath = Path.Combine("D:\\VSCODE\\WpfApp1\\Sample Uploads\\" + fileNameToSave);
+                             
             //Save to DB part here (copy paste ez) 
             string query = "INSERT INTO " +
                 "`tbl_events`( `event_name`, `event_date`, `event_supervisor`, " +
@@ -354,6 +386,7 @@ namespace MVVM_SocialContractProject.Models.Database
 
         public void RemoveSocialContract(int recordID)
         {
+            RunSystemCheck();
             string query = "UPDATE tbl_recordtbl SET record_IsRemoved = 1 WHERE record_ID = @recordID";
             MySqlCommand cmDB = new MySqlCommand(query, conn);
             cmDB.Parameters.AddWithValue("@recordID", recordID);

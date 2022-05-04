@@ -9,6 +9,7 @@ using MVVM_SocialContractProject.Services;
 using System.Windows;
 using Prism.Commands;
 using System.Windows.Controls;
+using MVVM_SocialContractProject.Models.Database;
 
 namespace MVVM_SocialContractProject.ViewModels
 {
@@ -16,6 +17,7 @@ namespace MVVM_SocialContractProject.ViewModels
     {
         //Collection for the student info
         private int TotalHours;
+        private readonly DatabaseQueries _dbQueries;
         private readonly NavigationService _navigationService;
         private readonly ObservableCollection<StudentInfoViewModel> _studentInfo;
         public IEnumerable<StudentInfoViewModel> StudentInfo => _studentInfo;
@@ -48,11 +50,51 @@ namespace MVVM_SocialContractProject.ViewModels
         public ICommand CreatePDF { get; }
 
         public ICommand PrintSCCommand { get; }
-        public ICommand Logout  { get; } 
+        public ICommand Logout  { get; }
+
+        //Pagination
+        public ICommand PreviousCommand { get; private set; }
+        public ICommand NextCommand { get; private set; }
+        public ICommand FirstCommand { get; private set; }
+        public ICommand LastCommand { get; private set; }
+
+        private int itemPerPage = 5;
+        private int _currentPageIndex;
+        public int CurrentPageIndex
+        {
+            get { return _currentPageIndex; }
+            set
+            {
+                _currentPageIndex = value;
+                OnPropertyChanged(nameof(CurrentPageIndex));
+            }
+        }
+        public int CurrentPageChosen
+        {
+            get { return _currentPageIndex + 1; }
+        }
+
+        private int _totalPages;
+        public int TotalPages
+        {
+            get { return _totalPages; }
+            private set
+            {
+                _totalPages = value;
+                OnPropertyChanged(nameof(TotalPages));
+            }
+        }
+
+
         public SocialContractRecordsViewModel(SocialContractMonitoringSystem SCSystem, NavigationService encodeSCNavigationView,
             NavigationService encodeUserNavigationView, NavigationService viewUserNavigationView, NavigationService createPDFNavigationView
             ,NavigationService LogOutView)
         {
+            _dbQueries = new DatabaseQueries();
+            FirstCommand = new FirstPageCommand(this);
+            LastCommand = new LastPageCommand(this);
+            NextCommand = new NextPageComand(this);
+            PreviousCommand = new PreviousPageCommand(this);
             PrintSCCommand = new PrintSocialContract();
             _navigationService = viewUserNavigationView;
              _scSystem = SCSystem;
@@ -62,14 +104,15 @@ namespace MVVM_SocialContractProject.ViewModels
             Logout = new NavigateCommand(LogOutView);
             _studentInfo = new ObservableCollection<StudentInfoViewModel>();
             _socialContract = new ObservableCollection<SocialContractViewModel>();
-            UpdateReservations(null);
+            UpdateReservations(null, CurrentPageIndex);
         }
 
-        private void UpdateReservations(string searchQuery)
+        private void UpdateReservations(string searchQuery, int page)
         {
+            totalItems = _dbQueries.GetStudentCount(searchQuery);
             _studentInfo.Clear();
             _socialContract.Clear();
-            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery))
+            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery,page))
             {
                 TotalHours = 0;
                 foreach (SocialContract contract in _scSystem.GetSocialContractForUser(student))
@@ -84,8 +127,21 @@ namespace MVVM_SocialContractProject.ViewModels
                 };
                 _studentInfo.Add(studentInfoViewModel);
             }
+            CalculateTotalPages(totalItems);
         }
 
+        private int totalItems;
+        private void CalculateTotalPages(int totalItems)
+        {
+            if (totalItems % itemPerPage == 0)
+            {
+                TotalPages = (totalItems / itemPerPage);
+            }
+            else
+            {
+                TotalPages = (totalItems / itemPerPage) + 1;
+            }
+        }
         public string SearchText
         {
             get
@@ -97,11 +153,37 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdateReservations(null);
+                    UpdateReservations(null, CurrentPageIndex);
                 }
-                UpdateReservations(_searchText);
-                OnPropertyChanged(nameof(_searchText));
+                UpdateReservations(_searchText, CurrentPageIndex);
+                OnPropertyChanged(nameof(SearchText));
             }
         }
+
+        public void ShowNextPage()
+        {
+            CurrentPageIndex++;
+            UpdateReservations(_searchText, CurrentPageIndex);
+        }
+
+        public void ShowPreviousPage()
+        {
+            CurrentPageIndex--;
+            UpdateReservations(_searchText, CurrentPageIndex);
+        }
+
+        public void ShowFirstPage()
+        {
+            CurrentPageIndex = 0;
+            UpdateReservations(_searchText, CurrentPageIndex);
+        }
+
+        public void ShowLastPage()
+        {
+            CurrentPageIndex = TotalPages - 1;
+            UpdateReservations(_searchText, CurrentPageIndex);
+        }
+
+
     }
 }

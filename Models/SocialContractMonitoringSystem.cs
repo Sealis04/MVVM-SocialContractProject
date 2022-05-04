@@ -53,9 +53,9 @@ namespace MVVM_SocialContractProject.Models
             _userInfoRecord.AddUserInfo(user);
         }
 
-        public IEnumerable<StudentInfo> GetAllStudentInfo(string searchQuery)
+        public IEnumerable<StudentInfo> GetAllStudentInfo(string searchQuery, int page)
         {
-            return _studentRecords.GetAllStudentInfo(searchQuery);
+            return _studentRecords.GetAllStudentInfo(searchQuery, page);
         }
 
         public IEnumerable<StudentInfo> SearchForUser(string StudentID)
