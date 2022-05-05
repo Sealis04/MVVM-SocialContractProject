@@ -1,6 +1,7 @@
 ﻿using MVVM_SocialContractProject.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,14 @@ namespace MVVM_SocialContractProject.Commands
                 using (Process.Start(info))
                 {
                 }
-            }catch(Exception e)
+            } catch (Win32Exception e)
             {
-                MessageBox.Show("Error Message:" + e, "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error found \n Have you tried checking if your printer was connected/installed?", "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-              
+            catch (Exception e)
+            {
+                MessageBox.Show("Error Message" + e, "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
