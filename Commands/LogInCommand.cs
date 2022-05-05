@@ -35,11 +35,23 @@ namespace MVVM_SocialContractProject.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return
-               !string.IsNullOrEmpty(_loginVM.Username) &&
-               _loginVM.SecurePassword.Length > 0 &&
-               !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
-               base.CanExecute(parameter);
+            try
+            {
+                return
+                             !string.IsNullOrEmpty(_loginVM.Username) &&
+                             _loginVM.SecurePassword.Length > 0 &&
+                             !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
+                             base.CanExecute(parameter);
+            }
+          
+            catch (NullReferenceException e)
+            {
+                return
+                           !string.IsNullOrEmpty(_loginVM.Username) &&
+                           _loginVM.SecurePassword.Length > 0 &&
+                           !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
+                           base.CanExecute(parameter);
+            }
         }
         public override void Execute(object parameter)
         {
