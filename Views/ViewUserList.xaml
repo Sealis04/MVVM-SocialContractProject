@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="White">
+             mc:Ignorable="d"
+             Background="White" Height="886.638" Width="1437.118">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -63,21 +62,9 @@
                    />-->
 
             <!--Buttons-->
-            <Button         x:Name="pdf"
-                           Grid.Column="1"
-                            Grid.Row="2"
-                            Content="PDF"
-                            FontFamily="Arial"
-                            Foreground="Black"
-                            FontWeight="ExtraBlack"
-                            Width="242"
-                            Height="48" 
-                            VerticalAlignment="Center" 
-                            Command="{Binding CreatePDF}" Margin="0,1"
-                            />
             <Button x:Name="CreateUser"
                            Grid.Column="1"
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Content="Create User"
                             FontFamily="Arial"
                             Foreground="Black"
@@ -85,20 +72,19 @@
                             Width="242"
                             Height="48" 
                             VerticalAlignment="Center"
-                            Command="{Binding CreateUser}" Margin="0,4,0,3" Grid.RowSpan="2"
+                            Command="{Binding CreateUser}" Margin="0,0,0,2"
                             />
-            <Button x:Name="LogOut"
-                           Grid.Column="1"
-                            Grid.Row="6"
-                            Content="Log Out"
-                            FontFamily="Arial"
-                            Foreground="Black"
-                            
-                            FontWeight="ExtraBlack"
-                            Width="244"
-                            Height="60" 
-                            Command="{Binding Logout}"
-                            VerticalAlignment="Bottom" 
+            <Button x:Name="CreateUser_Copy"
+                Grid.Column="2"
+                Grid.Row="6"
+                Content="Return"
+                FontFamily="Arial"
+                Foreground="Black"
+                FontWeight="ExtraBlack"
+                Width="242"
+                Height="48" 
+                VerticalAlignment="Center"
+                Command="{Binding ReturnCommand}" Margin="834,207,-1026,-76"
                             />
 
         </Grid>
@@ -110,12 +96,7 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
-                      ItemsSource="{Binding StudentInfo}" Background="White" Margin="0,10,0,70">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                      ItemsSource="{Binding UserInfo}" Background="White" Margin="0,10,0,70">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
@@ -127,53 +108,48 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="StudentID">
+                        <GridViewColumn Header="Username">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding StudentID}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding UserName}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Student Name">
+                        <GridViewColumn Header="Username">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding StudentName}"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Type}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Batch No.">
+                        <GridViewColumn Width="100" Header="Edit">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding BatchNo}"/>
+                                    <Button
+                                        Content="Edit"
+                                        Command="{Binding ElementName=AllInventoryRec,
+                                        Path=DataContext.EditCommand}"
+                                        CommandParameter="{Binding}"
+                                        />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Course">
+                        <GridViewColumn Width="100" Header="Remove">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Course}"/>
+                                    <Button
+                                        Content="Remove"
+                                        Command="{Binding ElementName=AllInventoryRec,
+                                        Path=DataContext.RemoveCommand}"
+                                        CommandParameter="{Binding}"
+                                        />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Current Hours">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding CurrentHours}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                        <GridViewColumn Header="Lacking Hours">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding LackingHours}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -190,32 +166,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
-
-            <Button x:Name="encode_btn"
-                           Grid.Column="5"
-                            Grid.Row="3"
-                            Content="Encode"
-                            FontFamily="Arial"
-                            Foreground="Black"
-                            FontWeight="ExtraBlack"
-                            Width="150"
-                            Height="45" 
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" 
-                            Command="{Binding EncodeSCCommand}"
-                            />
-            <Button x:Name="encode_btn_Copy"
-                Content="Print Social Contract"
-                FontFamily="Arial"
-                Foreground="Black"
-                FontWeight="ExtraBlack"
-                Width="243"
-                Height="54" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" 
-                Command="{Binding PrintSCCommand}"
-                            Margin="-323,-352,480,409"
-                            />
 
         </Grid>
     </Grid>

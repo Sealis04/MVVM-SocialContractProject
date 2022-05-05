@@ -34,6 +34,7 @@ namespace MVVM_SocialContractProject.Commands
 
             this.signUpViewModel.PropertyChanged += OnViewPropertyChanged;
         }
+
         public override bool CanExecute(object parameter)
         {
             return base.CanExecute(parameter);
@@ -42,13 +43,12 @@ namespace MVVM_SocialContractProject.Commands
         {
             try
             {
-              
                 if(IsEqualTo(signUpViewModel.Password, signUpViewModel.ConfirmPassword))
                 {
                     byte[] saltvar = salt();
                     string password = Convert.ToBase64String(databaseQueries.DeriveKey(signUpViewModel.Password, saltvar));
                     string theString = new NetworkCredential("", signUpViewModel.Password).Password;
-                    _scSystem.CreateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar)));
+                    _scSystem.CreateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
                     navigationService.Navigate();
                 }
                 else
@@ -59,11 +59,29 @@ namespace MVVM_SocialContractProject.Commands
                 
             }catch (UserLoginConflictException)
             {
-                MessageBox.Show("User already exists", "Error",
-                 MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result =  MessageBox.Show("User already exists, overwrite?", "Error",
+                 MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if(result == MessageBoxResult.Yes)
+                {
+                    if (IsEqualTo(signUpViewModel.Password, signUpViewModel.ConfirmPassword))
+                    {
+                        byte[] saltvar = salt();
+                        string password = Convert.ToBase64String(databaseQueries.DeriveKey(signUpViewModel.Password, saltvar));
+                        string theString = new NetworkCredential("", signUpViewModel.Password).Password;
+                        _scSystem.UpdateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
+                        navigationService.Navigate();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Passwords do not match", "Error",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    return;
+                }
             }
-           
-            //throw new NotImplementedException();
         }
 
         public static bool IsEqualTo(SecureString ss1, SecureString ss2)

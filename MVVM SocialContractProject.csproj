@@ -90,6 +90,7 @@
     <Compile Include="Commands\PrintPDFCommand.cs" />
     <Compile Include="Commands\PrintSocialContract.cs" />
     <Compile Include="Commands\RemoveSocialContract.cs" />
+    <Compile Include="Commands\RemoveUserInfoCommand.cs" />
     <Compile Include="Commands\SubmitPDFEventCommand.cs" />
     <Compile Include="Commands\UploadPdfCommand.cs" />
     <Compile Include="Exceptions\SocialContractConflictExceptions.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewPDFEventsViewModel.cs" />
+    <Compile Include="ViewModels\ViewUsersListViewModel.cs" />
     <Compile Include="Views\ConnectToDBWindow.xaml.cs">
       <DependentUpon>ConnectToDBWindow.xaml</DependentUpon>
     </Compile>

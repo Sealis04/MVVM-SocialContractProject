@@ -69,7 +69,7 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
 
-        public int LackingHours => 160 - CurrentHours;
+        public int LackingHours => CurrentHours > 160 ? 0 : 160 - CurrentHours;
         public ICommand Return { get; }
         public ICommand Encode { get; }
 

@@ -15,6 +15,7 @@ namespace MVVM_SocialContractProject.Commands
 
         private readonly NavigationService _navigationService;
         private readonly StudentInfoViewModel _student;
+        private readonly bool _isEdit;
 
         public NavigateCommand(NavigationService navigationService)
         {
@@ -27,8 +28,19 @@ namespace MVVM_SocialContractProject.Commands
             _navigationService = navigationService;
         }
 
+        public NavigateCommand(NavigationService navigationService,bool IsEdit)
+        {
+            _navigationService = navigationService;
+            _isEdit = IsEdit;
+        }
+
         public override void Execute(object parameter)
         {
+            if (_isEdit)
+            {
+                UserInfoViewModel vm = parameter as UserInfoViewModel;
+                _navigationService.Navigate(vm);
+            }
             _navigationService.Navigate(_student);
         }
 

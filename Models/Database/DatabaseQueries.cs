@@ -226,11 +226,36 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
+        public void UpdateSocialContract(StudentInfo student, SocialContract contract)
+        {
+            RunSystemCheck();
+            string defaultQuery = "UPDATE tbl_recordtbl SET record_FirstSemester=@FS, " +
+                "record_SecondSemester=@SS, record_Summer=@S ,record_SocialContract= @SC  WHERE record_s_ID = @sID AND record_SchoolYear = @SY";
+            MySqlCommand defaultCM = new MySqlCommand(defaultQuery, conn);
+            defaultCM.Parameters.AddWithValue("@SY", contract.SchoolYear);
+            defaultCM.Parameters.AddWithValue("@FS", contract.FirstSemester);
+            defaultCM.Parameters.AddWithValue("@SS", contract.SecondSemester);
+            defaultCM.Parameters.AddWithValue("@S", contract.Summer);
+            defaultCM.Parameters.AddWithValue("@SC", contract.SocialContractID);
+            defaultCM.Parameters.AddWithValue("@sID", student.StudentID);
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = defaultCM.ExecuteReader();
+                conn.Close();
+            }
+            catch (Exception c)
+            {
+                conn.Close();
+                MessageBox.Show("Error Message" + c);
+            }
+        }
+
         public void GetUserInfo(List<UserInfo> UserInfo)
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT admin_user, admin_pass,admin_salt FROM tbl_adminacc";
+            string query = "SELECT admin_user, admin_pass,admin_salt,admin_type FROM tbl_adminacc";
             MySqlCommand commandDatabase = new MySqlCommand(query, conn);
 
             //---Open Connection--
@@ -244,7 +269,7 @@ namespace MVVM_SocialContractProject.Models.Database
                     string username = myReader["admin_user"].ToString();
                     string encodedsalt = myReader["admin_salt"].ToString();
                     string encodedpass = myReader["admin_pass"].ToString();
-                    UserInfo.Add(new UserInfo(username, encodedpass, encodedsalt));
+                    UserInfo.Add(new UserInfo(username, encodedpass, encodedsalt, Convert.ToInt32(myReader["admin_type"])));
                 }
                 conn.Close();
             }
@@ -261,7 +286,7 @@ namespace MVVM_SocialContractProject.Models.Database
             RunSystemCheck();
             string query = "INSERT INTO tbl_adminacc (admin_user,admin_pass,admin_salt) VALUES (@user,@pass,@salt)";
             MySqlCommand commandDatabase = new MySqlCommand(query, conn);
-            commandDatabase.Parameters.AddWithValue("@user", user.Username);
+            commandDatabase.Parameters.AddWithValue("@user", user.Username.ToLower());
             commandDatabase.Parameters.AddWithValue("@pass", user.Password);
             commandDatabase.Parameters.AddWithValue("@salt", user.Salt);
             try
@@ -412,11 +437,11 @@ namespace MVVM_SocialContractProject.Models.Database
             string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue ";
             if (SearchQuery == null)
             {
-                query += "FROM tbl_events LIMIT 0,50;";
+                query += "FROM tbl_events LIMIT 0,20;";
             }
             else
             {
-                query += "FROM tbl_events WHERE event_name LIKE @SID LIMIT 0,50;";
+                query += "FROM tbl_events WHERE event_name LIKE @SID LIMIT 0,20;";
             }
             MySqlCommand cmDB = new MySqlCommand(query, conn);
             if (SearchQuery != null)
@@ -435,6 +460,130 @@ namespace MVVM_SocialContractProject.Models.Database
                 }
                 conn.Close();
             }catch (Exception e)
+            {
+                conn.Close();
+                MessageBox.Show("DB related Error, please contact the administratior " +
+                  "\n Error Message:" + e);
+            }
+        }
+
+        public void GetAllUserInfo(List<UserInfo> userInfo, string SearchQuery, int page)
+        {
+            RunSystemCheck();
+            //---get stored password---
+            string query = "SELECT admin_user, admin_pass,admin_salt, admin_type";
+            if (SearchQuery == null)
+            {
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 LIMIT @page,5;";
+            }
+            else
+            {
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SID LIMIT @page,5;";
+            }
+            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+            if (SearchQuery != null)
+            {
+                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+            }
+            cmdDb.Parameters.AddWithValue("@page", page);
+            //---Open Connection--
+            try
+            {
+                conn.Open();
+                //---ExecuteQuery---
+                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                while (myReader.Read())
+                {
+                    string username = myReader["admin_user"].ToString();
+                    string encodedsalt = myReader["admin_salt"].ToString();
+                    string encodedpass = myReader["admin_pass"].ToString();
+                    userInfo.Add(new UserInfo(username, encodedpass, encodedsalt, Convert.ToInt32(myReader["admin_type"])));
+                }
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                MessageBox.Show("Error. Error message:" + ex);
+
+            }
+        }
+
+        public int GetAllUserCount(string SearchQuery)
+        {
+            RunSystemCheck();
+            //---get stored password---
+            string query = "SELECT COUNT(*) ";
+            if (SearchQuery == null)
+            {
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0";
+            }
+            else
+            {
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SID";
+            }
+            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+            if (SearchQuery != null)
+            {
+                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+            }
+            //---Open Connection--
+            try
+            {
+                conn.Open();
+                //---ExecuteQuery---
+                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                while (myReader.Read())
+                {
+                    return Convert.ToInt32(myReader[0]);
+                }
+                conn.Close();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                MessageBox.Show("Error. Error message:" + ex);
+                return 0;
+
+            }
+        }
+
+        public void RemoveUser(string username)
+        {
+            RunSystemCheck();
+            string query = "UPDATE tbl_adminacc SET admin_IsRemoved = 1 WHERE admin_user = @recordID";
+            MySqlCommand cmDB = new MySqlCommand(query, conn);
+            cmDB.Parameters.AddWithValue("@recordID", username.ToLower());
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = cmDB.ExecuteReader();
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                MessageBox.Show("DB related Error, please contact the administratior " +
+                  "\n Error Message:" + e);
+            }
+        }
+
+        public void UpdateUser(UserInfo user)
+        {
+            RunSystemCheck();
+            string query = "UPDATE tbl_adminacc SET admin_pass = @pass,  admin_salt = @salt WHERE admin_user = @user";
+            MySqlCommand cmDB = new MySqlCommand(query, conn);
+            cmDB.Parameters.AddWithValue("@pass", user.Password);
+            cmDB.Parameters.AddWithValue("@salt", user.Salt);
+            cmDB.Parameters.AddWithValue("@user", user.Username.ToLower());
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = cmDB.ExecuteReader();
+                conn.Close();
+            }
+            catch (Exception e)
             {
                 conn.Close();
                 MessageBox.Show("DB related Error, please contact the administratior " +

@@ -31,5 +31,17 @@ namespace MVVM_SocialContractProject.Services
             _navigationStore.CurrentStudent = Student;
             _navigationStore.CurrentViewModel = _createViewModel();
         }
+
+        public void Navigate(UserInfoViewModel Student)
+        {
+            _navigationStore.CurrentUser = Student;
+            _navigationStore.CurrentViewModel = _createViewModel();
+        }
+
+        public void Navigate(bool login)
+        {
+            _navigationStore.IsAdmin = login;
+            _navigationStore.CurrentViewModel = _createViewModel();
+        }
     }
 }

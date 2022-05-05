@@ -34,7 +34,6 @@ namespace MVVM_SocialContractProject.Models
             {
                 if (existingSocialContract.Conflicts(socialContract))
                 {
-                    return false;
                     throw new SocialContractConflictExceptions(existingSocialContract, socialContract);
                     ///Update reservation on DB code to be updated
                 }
@@ -43,5 +42,18 @@ namespace MVVM_SocialContractProject.Models
             _socialContract.Add(socialContract);
             return true;
         }
+        public void UpdateSocialContract(StudentInfo student,SocialContract socialContract)
+        {
+           
+            foreach (SocialContract existingSocialContract in _socialContract)
+            {
+                if (existingSocialContract.Conflicts(socialContract))
+                {
+                    _dbQueries.UpdateSocialContract(student, socialContract);
+                }
+            }
+            _socialContract.Clear();
+        }
+
     }
 }

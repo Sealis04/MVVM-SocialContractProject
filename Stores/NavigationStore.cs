@@ -21,16 +21,11 @@ namespace MVVM_SocialContractProject.Stores
             }
         }
 
-        private StudentInfoViewModel _currentStudent;
+        public StudentInfoViewModel CurrentStudent { get; set; }
 
-        public StudentInfoViewModel CurrentStudent
-        {
-            get => _currentStudent;
-            set
-            {
-                _currentStudent = value;
-            }
-        }
+        public UserInfoViewModel CurrentUser { get; set; }
+
+        public bool IsAdmin { get; set; }
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();

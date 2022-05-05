@@ -19,7 +19,7 @@ namespace MVVM_SocialContractProject.ViewModels
         public string Course => _studentInfo.Course.ToString();
         public int CurrentHours { get; set; }
 
-        public int LackingHours => 160 - CurrentHours;
+        public int LackingHours => CurrentHours > 160 ? 0 : 160 - CurrentHours;
 
         public StudentInfoViewModel(StudentInfo studentRecord)
         {

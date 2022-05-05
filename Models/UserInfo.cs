@@ -9,15 +9,18 @@ namespace MVVM_SocialContractProject.Models
 {
     public class UserInfo
     {
-        public UserInfo(string username, string password, string Salt)
+        public UserInfo(string username, string password, string Salt, int Type)
         {
             Username = username;
             Password = password;
             this.Salt = Salt;
+            type = Type;
         }
 
         public string Username { get; }
         public string Password { get; }
+
+        public int type { get; }
 
         public string Salt { get; }
 
