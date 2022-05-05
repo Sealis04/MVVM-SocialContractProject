@@ -10,6 +10,7 @@ using System.Windows;
 using Prism.Commands;
 using System.Windows.Controls;
 using MVVM_SocialContractProject.Models.Database;
+using MVVM_SocialContractProject.Stores;
 
 namespace MVVM_SocialContractProject.ViewModels
 {
@@ -72,6 +73,11 @@ namespace MVVM_SocialContractProject.ViewModels
         public int CurrentPageChosen
         {
             get { return _currentPageIndex + 1; }
+            set
+            {
+                _currentPageIndex = value;
+                OnPropertyChanged(nameof(CurrentPageChosen));
+            }
         }
 
         private int _totalPages;
@@ -85,11 +91,31 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
 
+        private bool _isEnabled;
 
-        public SocialContractRecordsViewModel(SocialContractMonitoringSystem SCSystem, NavigationService encodeSCNavigationView,
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set
+            {
+                _isEnabled = value;
+                OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        public SocialContractRecordsViewModel(SocialContractMonitoringSystem SCSystem, NavigationStore navstore, NavigationService encodeSCNavigationView,
             NavigationService encodeUserNavigationView, NavigationService viewUserNavigationView, NavigationService createPDFNavigationView
             ,NavigationService LogOutView)
         {
+            IsEnabled = true;
+            if(!navstore.IsAdmin)
+            {
+                IsEnabled = false;
+            }
+
+
+
+            Start = 0;
             _dbQueries = new DatabaseQueries();
             FirstCommand = new FirstPageCommand(this);
             LastCommand = new LastPageCommand(this);
@@ -104,7 +130,7 @@ namespace MVVM_SocialContractProject.ViewModels
             Logout = new NavigateCommand(LogOutView);
             _studentInfo = new ObservableCollection<StudentInfoViewModel>();
             _socialContract = new ObservableCollection<SocialContractViewModel>();
-            UpdateReservations(null, CurrentPageIndex);
+            UpdateReservations(null, Start);
         }
 
         private void UpdateReservations(string searchQuery, int page)
@@ -112,6 +138,7 @@ namespace MVVM_SocialContractProject.ViewModels
             totalItems = _dbQueries.GetStudentCount(searchQuery);
             _studentInfo.Clear();
             _socialContract.Clear();
+            CurrentPageChosen = _currentPageIndex;
             foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery,page))
             {
                 TotalHours = 0;
@@ -153,35 +180,41 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdateReservations(null, CurrentPageIndex);
+                    UpdateReservations(null, Start);
                 }
-                UpdateReservations(_searchText, CurrentPageIndex);
+                UpdateReservations(_searchText, Start);
                 OnPropertyChanged(nameof(SearchText));
             }
         }
 
+        public int Start { get; set; }
+
         public void ShowNextPage()
         {
             CurrentPageIndex++;
-            UpdateReservations(_searchText, CurrentPageIndex);
+            Start += itemPerPage;
+            UpdateReservations(_searchText, Start);
         }
 
         public void ShowPreviousPage()
         {
             CurrentPageIndex--;
-            UpdateReservations(_searchText, CurrentPageIndex);
+            Start -= itemPerPage;
+            UpdateReservations(_searchText, Start);
         }
 
         public void ShowFirstPage()
         {
             CurrentPageIndex = 0;
-            UpdateReservations(_searchText, CurrentPageIndex);
+            Start = 0;
+            UpdateReservations(_searchText, Start);
         }
 
         public void ShowLastPage()
         {
             CurrentPageIndex = TotalPages - 1;
-            UpdateReservations(_searchText, CurrentPageIndex);
+            Start = (TotalPages * itemPerPage) - itemPerPage;
+            UpdateReservations(_searchText, Start);
         }
 
 

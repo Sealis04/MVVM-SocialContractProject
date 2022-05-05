@@ -64,8 +64,9 @@ namespace MVVM_SocialContractProject
         private SocialContractRecordsViewModel ViewStudentRecords()
         {
             return new SocialContractRecordsViewModel(_SCSystem, 
+                _navigationStore,
                 new NavigationService(_navigationStore, EncodeSocialContractViewModel),
-                new NavigationService(_navigationStore, SignUpVM), 
+                new NavigationService(_navigationStore, ViewUserListVM), 
                 new NavigationService(_navigationStore, SCViewModel),
                 new NavigationService(_navigationStore, PDFViewModel),
                 new NavigationService(_navigationStore, LogInViewModel));
@@ -79,7 +80,7 @@ namespace MVVM_SocialContractProject
 
         private SignUpViewModel SignUpVM()
         {
-            return new SignUpViewModel(_SCSystem, new NavigationService(_navigationStore, ViewStudentRecords));
+            return new SignUpViewModel(_SCSystem, _navigationStore,  new NavigationService(_navigationStore, ViewUserListVM));
         }
 
         private SocialContractPerUserViewModel SCViewModel()
@@ -98,6 +99,13 @@ namespace MVVM_SocialContractProject
         {
             return new ViewPDFEventsViewModel(_SCSystem, new NavigationService(_navigationStore, CreatePDFViewModel), 
                                             new NavigationService(_navigationStore, ViewStudentRecords));
+        }
+
+        private ViewUsersListViewModel ViewUserListVM()
+        {
+            return new ViewUsersListViewModel(_SCSystem, new NavigationService(_navigationStore, ViewStudentRecords)
+                , new NavigationService(_navigationStore, SignUpVM)
+                , new NavigationService(_navigationStore, ViewUserListVM));
         }
     }
 }

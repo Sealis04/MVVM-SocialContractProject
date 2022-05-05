@@ -1,6 +1,7 @@
 ﻿using MVVM_SocialContractProject.Commands;
 using MVVM_SocialContractProject.Models;
 using MVVM_SocialContractProject.Services;
+using MVVM_SocialContractProject.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,8 +60,12 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
 
-        public SignUpViewModel(SocialContractMonitoringSystem scSystem, NavigationService navigationService)
+        public SignUpViewModel(SocialContractMonitoringSystem scSystem, NavigationStore nav, NavigationService navigationService)
         {
+            if(nav != null)
+            {
+                _userName = nav.CurrentUser.UserName;
+            }
             SubmitCommand = new EncodeUserInfoCommand(this, scSystem, navigationService);
             CancelCommand = new NavigateCommand(navigationService);
         }

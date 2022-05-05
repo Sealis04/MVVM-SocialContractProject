@@ -62,8 +62,20 @@ namespace MVVM_SocialContractProject.Commands
             }
             catch (SocialContractConflictExceptions)
             {
-                MessageBox.Show("Records for the said year has already been inputted, Please proceed to the Edit Function instead", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult result = MessageBox.Show("Records for the said year has already been inputted, Confirm Override?", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _scSystem.UpdateSocialContract(student, socialContract);
+                    MessageBox.Show("Successfuly Updated", "Success",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    navigationService.Navigate();
+                }
+                else
+                {
+                    return;
+                }
             }
         }
         private void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -28,6 +28,13 @@ namespace MVVM_SocialContractProject.Models
             return _userInfo.Where(r=> r.Username== Username);
         }
 
+        public IEnumerable<UserInfo> GetAllUserInfo(string SearchQuery, int page)
+        {
+            _userInfo.Clear();
+            _dbQueries.GetAllUserInfo(_userInfo, SearchQuery, page);
+            return _userInfo;
+        }
+
         public void AddUserInfo(UserInfo user)
         {
             foreach(UserInfo existingUser in _userInfo)
@@ -36,9 +43,12 @@ namespace MVVM_SocialContractProject.Models
                 {
                     throw new UserLoginConflictException();
                 }
-                
             }
             _dbQueries.CreateUserInfo(user);
+        }
+        public void UpdateUserInfo(UserInfo user)
+        {
+            _dbQueries.UpdateUser(user);
         }
     }
 }

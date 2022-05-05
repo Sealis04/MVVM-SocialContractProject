@@ -19,7 +19,7 @@ namespace MVVM_SocialContractProject.ViewModels
 
         public string UserName => _userInfo.Username;
         public string Password => _userInfo.Password;
-
+        public string Type => _userInfo.type == 1 ? "Is Admin" : "Is user";
         public string Salt => _userInfo.Salt;
     }
 }

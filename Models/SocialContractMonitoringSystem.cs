@@ -16,12 +16,15 @@ namespace MVVM_SocialContractProject.Models
 
         private readonly PDFInfoRecords _pdfInfo;
 
+        private readonly UserInfoRecords _userInfo;
+
         public SocialContractMonitoringSystem()
         {
             _socialContractRecord = new SocialContractRecords();
             _userInfoRecord = new UserInfoRecords();
             _studentRecords = new StudentRecords();
             _pdfInfo = new PDFInfoRecords();
+            _userInfo = new UserInfoRecords();
         }
 
         public IEnumerable<SocialContract> GetSocialContractForUser(StudentInfo StudentID)
@@ -31,6 +34,10 @@ namespace MVVM_SocialContractProject.Models
         public bool CreateSocialContract(SocialContract socialcontract)
         {
            return _socialContractRecord.AddSocialContract(socialcontract);
+        }
+        public void UpdateSocialContract(StudentInfo studentID, SocialContract socialContract)
+        {
+           _socialContractRecord.UpdateSocialContract(studentID, socialContract);
         }
 
         public IEnumerable<StudentInfo> GetStudentInfo(string StudentID)
@@ -53,6 +60,11 @@ namespace MVVM_SocialContractProject.Models
             _userInfoRecord.AddUserInfo(user);
         }
 
+        public void UpdateUserInfo(UserInfo user)
+        {
+            _userInfoRecord.UpdateUserInfo(user);
+        }
+
         public IEnumerable<StudentInfo> GetAllStudentInfo(string searchQuery, int page)
         {
             return _studentRecords.GetAllStudentInfo(searchQuery, page);
@@ -71,6 +83,11 @@ namespace MVVM_SocialContractProject.Models
         public IEnumerable<PDFInfo> GetAllPDF(string SearchQuery)
         {
             return _pdfInfo.GetAllEvents(SearchQuery);
+        }
+
+        public IEnumerable<UserInfo> GetAllUsers(string searchQuery, int page)
+        {
+            return _userInfo.GetAllUserInfo(searchQuery, page);
         }
 
 

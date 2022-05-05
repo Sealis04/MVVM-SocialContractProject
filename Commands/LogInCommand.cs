@@ -43,6 +43,7 @@ namespace MVVM_SocialContractProject.Commands
         }
         public override void Execute(object parameter)
         {
+            bool isAdmin = false;
             try
             {
                 foreach (UserInfo user in scSystem.GetUserInfo(_loginVM.Username))
@@ -64,10 +65,11 @@ namespace MVVM_SocialContractProject.Commands
                             }
                         }
                     }
+                    isAdmin = user.type == 0 ? false : true;
                 }
                 MessageBox.Show("Login Successful", "Success",
                    MessageBoxButton.OK, MessageBoxImage.Information);
-                navigationService.Navigate();
+                navigationService.Navigate(isAdmin);
             }
             catch (UserLoginInvalidException)
             {
