@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
@@ -23,6 +23,11 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
 
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0"/>-->
@@ -47,8 +52,9 @@
                 Grid.Column="2"
                 Grid.Row="3"
                 Grid.RowSpan="1" 
-                Background="Gray" 
-                BorderThickness="1,1,1,1" 
+                Background="White" 
+                BorderThickness="3" 
+                    BorderBrush="Black"
                 CornerRadius="10,10,10,10"/>
 
             <!--First Box-->
@@ -56,7 +62,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1.50*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -71,17 +77,17 @@
                 <TextBlock Text="Name:" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
-                       FontSize="13px"   Margin="30 0 0 0" Grid.Row="1"
+                       FontSize="13px" 
+                           Grid.Row="1"
                           Grid.Column="1"
                        />
 
                 <!--Department-->
                 <TextBlock Text="Department:" 
                        HorizontalAlignment="Right"
-                           Margin="20 0 0 0"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
                          Grid.Row="2" Grid.RowSpan="1"
@@ -92,12 +98,13 @@
                 <TextBlock Text="Year and Section:" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
-                    FontSize="12px"
-                             Grid.Column="1"
-                           
-                                 Grid.Row="3" Grid.RowSpan="2"
+                       FontSize="13px"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       Grid.RowSpan="3"
+                           Margin="0 0 0 10"
                        />
                 <TextBlock 
                     x:Name="stu_name"
@@ -143,8 +150,9 @@
             <Border Grid.ColumnSpan="1"
                 Grid.Row="5"
                 Grid.RowSpan="1" 
-                Background="Gray" 
-                BorderThickness="1,1,1,1" 
+                Background="White" 
+                BorderBrush="Black"
+                BorderThickness="3" 
                 CornerRadius="10,10,10,10"/>
 
             <!--2nd Box-->
@@ -159,33 +167,35 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!--Total Hours-->
                 <TextBlock Text="Total Hours:" 
-                       VerticalAlignment="Center" 
+                       VerticalAlignment="Bottom" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
                            Grid.Column="1"
-                       FontSize="13px" Grid.RowSpan="1"
+                           Grid.Row="1"
+                       FontSize="13px" Grid.RowSpan="1 " Margin="0,0,0.333,4"
                        />
 
                 <!--Department-->
                 <TextBlock Text="Remaining Hours:" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
                            Grid.Column="1"
-                         Grid.Row="1" Grid.RowSpan="1"
+                         Grid.Row="2" Grid.RowSpan="1"
                        />
                 <TextBlock 
                     x:Name="stu_TotalHours"
                      HorizontalAlignment="Center"
                     Grid.Column="2"
-                    Grid.Row="0"
+                    Grid.Row="1"
                     FontFamily="Arial"
                     FontWeight="Bold"
                    FontSize="13px"
@@ -197,7 +207,7 @@
                     x:Name="stu_RemainingHours"
                     HorizontalAlignment="Center"
                     Grid.Column="2"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     FontFamily="Arial"
                     FontWeight="Bold"
                  FontSize="13px"
@@ -264,7 +274,7 @@
                                     <Image
                                         HorizontalAlignment="Center"
                                         Source="{Binding ImageSource, Converter={StaticResource ImageConverter}}"
-                                     />           
+                                     />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -304,9 +314,9 @@
                            Grid.Column="1"
                             Grid.Row="3"
                             Content="Encode"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold" 
                             Width="200"
                             Height="35" 
                             HorizontalAlignment="Center"
@@ -327,11 +337,12 @@
                            Grid.Column="3"
                             Grid.Row="3"
                             Content="Print"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
+                            Background="#d3d3d3"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                             Width="150"
-                            Height="45" 
+                            Height="35" 
                             HorizontalAlignment="Center"
                             Command="{Binding ElementName=AllInventoryRec, 
                             Path=DataContext.PrintCommand}"
@@ -341,11 +352,11 @@
                            Grid.Column="5"
                             Grid.Row="3"
                             Content="Back"
-                            FontFamily="Arial"
+                            FontFamily="helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                             Width="150"
-                            Height="45" 
+                            Height="35" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
                             Command="{Binding Return}"

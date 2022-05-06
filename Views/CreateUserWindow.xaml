@@ -18,9 +18,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
+
         <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" 
-                Grid.RowSpan="1" Background="Gray" 
-                BorderThickness="1,1,1,1" CornerRadius="20,20,20,20"/>
+                Grid.RowSpan="1" Background="White" BorderBrush="#121212"
+                BorderThickness="3" CornerRadius="20,20,20,20"/>
 
         <TextBlock Text="Create User" 
                        VerticalAlignment="Bottom" 
@@ -29,13 +33,15 @@
                        FontWeight="Bold"
                        FontSize="24px"
                        Grid.Column="1"
-                   Margin="0 0 0 10"
+                       Margin="0 0 0 10"
                        />
         <Grid  Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="1.4*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -48,66 +54,70 @@
             </Grid.RowDefinitions>
             <!--Username-->
             <TextBlock Text="Username:" 
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center"
                          HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
+                       FontFamily="Helvetica"
+                       FontWeight="Regular"
                        FontSize="21px"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Grid.Row="1"
-                   
                        />
             <TextBox
                        x:Name ="usernameTB"
-                       Grid.Column="1"
+                       Grid.Column="2"
                         Height="35px"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                         Grid.Row="1"
-                  
+                  BorderBrush="#121212"
+                BorderThickness="2"
                      Text="{Binding Username}"
+                Margin="20"
                 />
             <!--Password-->
             <TextBlock Text="Password:" 
-                       VerticalAlignment="Bottom" 
-                       HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                       FontFamily="Helvetica"
+                       FontWeight="Regular"
                        FontSize="21px"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Grid.Row="2"
-                      
                        />
             <PasswordBox
                 x:Name ="passTB"
-                       Grid.Column="1"
+                       Grid.Column="2"
                         Height="35px"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                         Grid.Row="2"
+                BorderBrush="#121212"
+                BorderThickness="2"
                     PasswordBox.PasswordChanged="PassTB_PasswordChanged"
+                Margin="20"
                 />
             <!--Confirm Password-->
             <TextBlock Text="Confirm Password:" 
-                       VerticalAlignment="Bottom" 
-                       HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                       FontFamily="Helvetica"
+                       FontWeight="Regular"
                        FontSize="21px"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Grid.Row="3"
-                     
-                    
                        />
             <PasswordBox
                 x:Name ="confirmPassTB"
-                       Grid.Column="1"
+                       Grid.Column="2"
                         Height="35px"
                        VerticalAlignment="Bottom" 
                         Grid.Row="3"
+                BorderBrush="#121212"
+                BorderThickness="2"
                      PasswordBox.PasswordChanged="ConfirmPassTB_PasswordChanged"
+                Margin="20"
                 />
-            <Grid Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="30 0 30 20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="15"/>
                     <ColumnDefinition Width="*"/>
@@ -117,24 +127,25 @@
                 <Button x:Name="Submit"
                            Grid.Column="1"
                             Content="Submit"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                             Height="35" 
+                        Width="110"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom" 
+                            VerticalAlignment="Top" 
                         Command="{Binding SubmitCommand}"
                             />
                 <Button x:Name="Cancel"
                            Grid.Column="3"
                             Content="Cancel"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                              HorizontalAlignment="Stretch"
                             Height="35"
-                             VerticalAlignment="Bottom"
-                        
+                        Width="110"
+                             VerticalAlignment="Top"
                         Command="{Binding CancelCommand}"
                             />
             </Grid>

@@ -9,41 +9,47 @@
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
+        
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1"/>-->
 
         <Border Grid.ColumnSpan="1"
                 Grid.Column="2"
                 Grid.Row="2"
-                Grid.RowSpan="2" 
-                Background="Gray"  
-                BorderThickness="1,1,1,1" 
+                Grid.RowSpan="3" 
+                Background="White"  
+                BorderThickness="3" 
+                BorderBrush="#121212"
                 CornerRadius="20,20,20,20"/>
         <!--Content-->
-        <Grid Grid.Column="2" Grid.Row="2">
+        <Grid Grid.Column="2" Grid.Row="2" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -60,60 +66,60 @@
             <!--Activity-->
             <TextBlock
                         Text="Activity Name:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvaetica"
                        FontWeight="Bold"
                         FontSize="16px"
-                       Grid.Column="1"
-                Grid.Row="1"
+                       Grid.Column="2"
+                Grid.Row="2"
                        />
             <TextBox
-                     Grid.Column="3"
-                Grid.Row="1"
+                     Grid.Column="4"
+                Grid.Row="2"
                         Height="30px"
-                       VerticalAlignment="Bottom"  
+                       VerticalAlignment="Center"  
                     x:Name="actNameTb"
                 Text="{Binding EventName}"
                 />
             <!--Firstname-->
             <TextBlock
                         Text="Venue:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="16px"
-                       Grid.Column="1"
-                        Grid.Row="2"
+                       Grid.Column="2"
+                        Grid.Row="3"
                        />
             <TextBox
                 x:Name="venueTb"
-                     Grid.Column="3"
-                    Grid.Row="2"
+                     Grid.Column="4"
+                    Grid.Row="3"
                         Height="30px"
-                       VerticalAlignment="Bottom"
+                       VerticalAlignment="Center"
                 Text="{Binding EventVenue}"
                 
                 />
             <!--Date-->
             <TextBlock
                         Text="Date:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
+                       FontFamily="helvetica"
                        FontWeight="Bold"
                            FontSize="16px"
-                       Grid.Column="1"
-                        Grid.Row="3"
+                       Grid.Column="2"
+                        Grid.Row="4"
                        />
             <DatePicker
                 x:Name="dateTb"
-                Grid.Column="3"
-                Grid.Row="3"
+                Grid.Column="4"
+                Grid.Row="4"
                 Height="30px"
-                VerticalAlignment="Bottom"
-                Width="230"
+                VerticalAlignment="Center"
+                Width="250"
                 Text="{Binding EventDate}"
                 SelectedDate="{x:Static sys:DateTime.Now}" Grid.ColumnSpan="2"
                 />
@@ -121,20 +127,20 @@
             <!--BN-->
             <TextBlock
                         Text="Supervisor:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center"  
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
                            FontSize="16px"
-                       Grid.Column="1"
-                        Grid.Row="4"
+                       Grid.Column="2"
+                        Grid.Row="5"
                        />
             <TextBox
                 x:Name="supervisorTb"
-                     Grid.Column="3"
-                    Grid.Row="4"
+                     Grid.Column="4 "
+                    Grid.Row="5"
                         Height="30px"
-                       VerticalAlignment="Bottom"
+                       VerticalAlignment="Center"
                 Text="{Binding EventSupervisor}"
                 
                 />
@@ -175,7 +181,7 @@
                             Content="Submit"
                             FontFamily="Arial"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                                     Width="100"
                     HorizontalAlignment="Stretch"
                             Height="35" 
@@ -187,7 +193,7 @@
                             Content="Cancel"
                             FontFamily="Arial"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                         Width="100"
                             Height="35" 
                             VerticalAlignment="Center"
