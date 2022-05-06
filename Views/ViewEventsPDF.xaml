@@ -22,6 +22,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
 
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0"/>-->
@@ -64,11 +67,11 @@
             <!--Buttons-->
             <Button x:Name="AddPDF"
                             Content="Add PDF"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="bold"
                             Width="243"
-                            Height="44" 
+                            Height="35" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
                             Command="{Binding AddPDFCommand}" Margin="1,5,0,1" RenderTransformOrigin="0.427,1.067" Grid.Row="2" Grid.Column="1"
@@ -157,11 +160,12 @@
 
             <Button x:Name="Return"
                 Content="Return"
-                FontFamily="Arial"
+                FontFamily="Helvetica"
                 Foreground="Black"
-                FontWeight="ExtraBlack"
+                Background="#d3d3d3"
+                FontWeight="Bold"
                 Width="150"
-                Height="44" 
+                Height="35" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" 
                 Command="{Binding ReturnCommand}" Margin="65,6,4,5" RenderTransformOrigin="0.427,1.067"

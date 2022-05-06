@@ -22,26 +22,28 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="0" Grid.Column="1"/>-->
         <Border Grid.ColumnSpan="1"
                 Grid.Column="2"
                 Grid.Row="1"
                 Grid.RowSpan="2" 
-                Background="Gray" 
+                Background="White" 
                 BorderThickness="1,1,1,1" 
                 CornerRadius="10,10,10,10"/>
         <!--Content-->
         <Grid Grid.Column="2" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="135*"/>
                 <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="181*"/>
+                <ColumnDefinition Width="135*"/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="105*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -51,74 +53,79 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!--Surname-->
             <TextBlock
                  
                         Text="Last Name:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                        FontSize="20px"
-                       Grid.Column="1" Margin="0,0,10,0" Grid.Row="3" RenderTransformOrigin="-4.29,2.087"
+                       FontFamily="Helvetica"
+                       FontWeight="Regular"
+                        FontSize="18px"
+                       Grid.Column="1"
+                Grid.Row="4" 
+                RenderTransformOrigin="-4.29,2.087" Grid.ColumnSpan="2" Margin="0,12.667,14,11.333"
                        />
 
             <!--Firstname-->
             <TextBlock
                         Text="First Name:"
-                       VerticalAlignment="Center" 
+                       VerticalAlignment="center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="20px"
+                       FontFamily="helvetica"
+                       FontWeight="Regular"
+                       FontSize="18px"
                        Grid.Column="1"
-                        Grid.Row="1" 
+                        Grid.Row="2" Grid.ColumnSpan="2" Margin="0,12.667,14,11.333" 
                        />
 
             <!--Middle-->
             <TextBlock
                         Text="Middle Name:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="20px"
+                       FontFamily="helvetica"
+                       FontWeight="Regular"
+                       FontSize="18px"
                        Grid.Column="1"
-                        Grid.Row="2" Margin="0,0,9,0"
+                        Grid.Row="3" Margin="0,12.667,0.333,11.333" 
+                
                        />
 
             <!--BN-->
             <TextBlock
                         Text="Batch Number:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
+                       FontFamily="helvatica"
+                       FontWeight="Regular"
                        FontSize="18px"
                        Grid.Column="1"
-                        Grid.Row="4" Margin="0,0,9,10"
+                        Grid.Row="5" Grid.ColumnSpan="2" Margin="0,11.667,14,11.667" 
                        />
 
             <!--Student#-->
             <TextBlock
                         Text="Student Number:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="16px"
+                       FontFamily="helvetica"
+                       FontWeight="regular"
+                       FontSize="18px"
                        Grid.Column="1"
+                Grid.Row="1" Grid.ColumnSpan="2" Margin="0,12.667,14,11.333"
                        />
             <ui:AutoSuggestBox  x:Name="sID_tb"
                         Height="30px" 
                         Grid.Column="3"
-                                VerticalAlignment="Bottom"
+                                Grid.Row="1"
+                                VerticalAlignment="Center"
                         IsTextSearchEnabled="True"
                         Text="{Binding StudentID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        ItemsSource="{Binding Path= studentIDCollection}"
+                        ItemsSource="{Binding Path= studentIDCollection}" Grid.ColumnSpan="2" Margin="0,7.667,135,8.333"
                                >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="QuerySubmitted" >
@@ -133,81 +140,82 @@
                      Grid.Column="3"
                         Height="30px"
          
-                       VerticalAlignment="Bottom" Grid.Row="1"  
+                       VerticalAlignment="Center" Grid.Row="2"  
                 Text="{Binding Firstname,UpdateSourceTrigger=PropertyChanged}"
-                IsEnabled="{Binding FNEnabled}"
+                IsEnabled="{Binding FNEnabled}" Grid.ColumnSpan="2" Margin="0,6.667,135,7.333"
                 />
             <TextBox
                  x:Name="mn_Tb"
                      Grid.Column="3"
-                    Grid.Row="2"
+                    Grid.Row="3"
                         Height="30px"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="center" 
               
                 Text="{Binding Middlename,UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding MNEnabled}"
+                 IsEnabled="{Binding MNEnabled}" Grid.ColumnSpan="2" Margin="0,6.667,135,7.333"
                 />
             <TextBox
                 x:Name="ln_Tb"
                      Grid.Column="3"
-                    Grid.Row="3"
+                    Grid.Row="4"
                         Height="30px"
-                       VerticalAlignment="Bottom"
+                       VerticalAlignment="center"
                 Text="{Binding Lastname,UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding LNEnabled}"
+                 IsEnabled="{Binding LNEnabled}" Grid.ColumnSpan="2" Margin="0,6.667,135,7.333"
                 />
             <TextBox
                 x:Name="bn_Tb"
                      Grid.Column="3"
-                    Grid.Row="4"
+                    Grid.Row="5"
                         Height="30px"
-                 VerticalAlignment="Bottom"
+                 VerticalAlignment="center"
                 Text="{Binding BatchNo,UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding BNEnabled}"
+                 IsEnabled="{Binding BNEnabled}" Grid.ColumnSpan="2" Margin="0,6.667,135,6.667"
                 />
             <TextBox
                 x:Name="course_Tb"
                 Grid.Column="3"
-                Grid.Row="5"
+                Grid.Row="6"
                 Height="30px"
-                VerticalAlignment="Bottom" 
+                VerticalAlignment="Center" 
                    Text="{Binding Course,UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding CEnabled}"
+                 IsEnabled="{Binding CEnabled}" Grid.ColumnSpan="2" Margin="0,7.333,135,6.667"
                 />
             <TextBox
                 x:Name="sy_Tb"
                 Grid.Column="6"
+                Grid.Row="1"
                 Height="30px"
-                VerticalAlignment="Bottom"
-               Text="{Binding SchoolYear,UpdateSourceTrigger=PropertyChanged}"        
+                VerticalAlignment="Center"
+               Text="{Binding SchoolYear,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" Margin="0,6.667,9.666,7.333"        
                 
                 />
 
             <TextBox
                 x:Name="firstSem_Tb"
                      Grid.Column="6"
-                    Grid.Row="1"
+                    Grid.Row="2"
                         Height="30px"
-                       VerticalAlignment="Bottom" 
-                    Text="{Binding FirstSem,UpdateSourceTrigger=PropertyChanged}"    
+                       VerticalAlignment="Center" 
+                    Text="{Binding FirstSem,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" Margin="0,6.667,9.666,7.333"    
                 
                 />
             <TextBox
                 x:Name="SecondSem_Tb"
                      Grid.Column="6"
-                    Grid.Row="2"
+                    Grid.Row="3"
                         Height="30px"
-                       VerticalAlignment="Bottom"
-                         Text="{Binding SecondSem,UpdateSourceTrigger=PropertyChanged}"     
+                       VerticalAlignment="Center" 
+                         Text="{Binding SecondSem,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" Margin="0,6.667,9.666,7.333"     
                 
                 />
             <TextBox
                 x:Name="summer_Tb"
                 Grid.Column="6"
-                Grid.Row="3"
+                Grid.Row="4"
                 Height="30px"
-                VerticalAlignment="Bottom"
-                  Text="{Binding Summer,UpdateSourceTrigger=PropertyChanged}"    
+                VerticalAlignment="Center"
+                  Text="{Binding Summer,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" Margin="0,6.667,9.666,7.333"    
                 />
             <!--<controls:AutoCompleteBox  
                      x:Name="sID_tb"
@@ -232,99 +240,100 @@
             <!--1st Sem-->
             <TextBlock
                         Text="1st Semester:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="16px"
+                       FontFamily="helvetica"
+                       FontWeight="Regular"
+                       FontSize="18px"
                        Grid.Column="4"
-                        Grid.Row="1" Margin="0,0,1,4"
+                        Grid.Row="2" Margin="0,10.667,1,13.333"
                        />
 
             <!--2nd Sem-->
             <TextBlock
                         Text="2nd Semester:"
-                       VerticalAlignment="Bottom" 
+                       VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
-                       FontFamily="Arial"
-                       FontWeight="Bold"
-                       FontSize="16px"
+                       FontFamily="helvetica"
+                       FontWeight="Regular"
+                       FontSize="18px"
                        Grid.Column="4"
-                        Grid.Row="2" 
+                        Grid.Row="3" Margin="0,12.667,0,11.333" 
                        />
 
             <TextBlock
                 Text="Summer:"
-                VerticalAlignment="Bottom" 
+                VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="16px"
+                FontFamily="helvetica"
+                FontWeight="Regular"
+                FontSize="18px"
                 Grid.Column="4"
-                Grid.Row="3" 
+                Grid.Row="4" Grid.ColumnSpan="2" Margin="0,12.667,9,11.333" 
                        />
 
             <TextBlock
                 Text="Course:"
-                VerticalAlignment="Bottom" 
+                VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
-                FontFamily="Arial"
-                FontWeight="Bold"
+                FontFamily="helvetica"
+                FontWeight="Regular"
                 FontSize="18px"
                 Grid.Column="1"
-                Grid.Row="5" 
+                Grid.Row="6" Grid.ColumnSpan="2" Margin="0,12.333,14,11.667" 
                        />
 
             <TextBlock
                 Text="School Year:"
-                VerticalAlignment="Bottom" 
+                VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="16px"
-                Grid.Column="4" Margin="0,0,3,0"
+                FontFamily="helvetica"
+                FontWeight="Regular"
+                FontSize="18px"
+                Grid.Column="4" Margin="0,12.667,3,11.333"
+                Grid.Row="1"
                        />
             <Button x:Name="uploadBtn"
-                Grid.Column="6"
+                Grid.Column="5"
                 Content="Upload Social Contract"
-                FontFamily="Arial"
+                FontFamily="helvetica"
                 Foreground="Black"
-                FontWeight="ExtraBlack" 
+                FontWeight="Bold" 
                 Height="35" 
                     FontSize="13px"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-               Grid.Row="4" Width="200"
-                Command="{Binding UploadImage}" 
+               Grid.Row="5" Width="150"
+                Command="{Binding UploadImage}" Grid.ColumnSpan="4"  
                             />
 
             <Button x:Name="Submit"
                            Grid.Column="4"
-                            Grid.Row="6"
+                            Grid.Row="7"
                             Content="Submit"
-                            FontFamily="Arial"
+                            FontFamily="helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                             Command="{Binding SubmitCommand}"
                             Height="35" 
                             VerticalAlignment="Bottom" 
-                    HorizontalAlignment="Stretch"
+                    HorizontalAlignment="Stretch" Margin="0.333,0,0,-0.333"
                             />
             <Button x:Name="cancel_btn"
                            Grid.Column="6"
-                            Grid.Row="6"
+                            Grid.Row="7"
                             Content="Cancel"
-                            FontFamily="Arial"
+                            FontFamily="helvetica"
                             Foreground="Black"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                              Command="{Binding CancelCommand}"
                             Height="35" 
                     Width="150"
                                VerticalAlignment="Bottom" 
-                    HorizontalAlignment="Stretch"
+                    HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="15,0,15.666,-0.333"
                             />
 
         </Grid>
-        
+
     </Grid>
 </UserControl>
