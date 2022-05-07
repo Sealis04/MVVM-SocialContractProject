@@ -32,8 +32,9 @@
                        FontFamily="Arial"
                        FontWeight="Bold"
                        FontSize="24px"
+                   Foreground="Black"
                        Grid.Column="1"
-                       Margin="0 0 0 10"
+                       Margin="0 0 0 0"
                        />
         <Grid  Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -128,10 +129,10 @@
                            Grid.Column="1"
                             Content="Submit"
                             FontFamily="Helvetica"
-                            Foreground="Black"
+                            Foreground="White"
+                         Background="#051094"
                             FontWeight="Bold"
-                            Height="35" 
-                        Width="110"
+                            Height="35"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top" 
                         Command="{Binding SubmitCommand}"
@@ -140,13 +141,13 @@
                            Grid.Column="3"
                             Content="Cancel"
                             FontFamily="Helvetica"
-                            Foreground="Black"
+                            Foreground="White"
                             FontWeight="Bold"
+                         Background="#051094"
                              HorizontalAlignment="Stretch"
                             Height="35"
-                        Width="110"
                              VerticalAlignment="Top"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CancelCommand}" Margin="0,0,1,0"
                             />
             </Grid>
 

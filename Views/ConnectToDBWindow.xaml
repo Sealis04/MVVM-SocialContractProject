@@ -225,7 +225,7 @@
             x:Name="button"
             Content="Connect to DB"
             FontFamily="Helvetica"
-            Foreground="Black"
+            Foreground="White"
             FontWeight="Bold"
             Height="35" 
                     Width="150"
@@ -233,6 +233,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Stretch"
                     Grid.Row="5"
+                      Background="#051094"
             VerticalAlignment="Bottom" 
             Command="{Binding ConnectDB}"
          
