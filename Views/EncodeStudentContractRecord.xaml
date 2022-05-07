@@ -119,13 +119,13 @@
                 Grid.Row="1" Grid.ColumnSpan="2" Margin="0,12.667,14,11.333"
                        />
             <ui:AutoSuggestBox  x:Name="sID_tb"
-                        Height="30px" 
+                        Height="32px" 
                         Grid.Column="3"
                                 Grid.Row="1"
                                 VerticalAlignment="Center"
                         IsTextSearchEnabled="True"
                         Text="{Binding StudentID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        ItemsSource="{Binding Path= studentIDCollection}" Grid.ColumnSpan="2" Margin="0,7.667,135,8.333"
+                        ItemsSource="{Binding Path= studentIDCollection}" Grid.ColumnSpan="1" Margin="0,7,5,7" 
                                >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="QuerySubmitted" >
@@ -297,10 +297,11 @@
                 Grid.Column="5"
                 Content="Upload Social Contract"
                 FontFamily="helvetica"
-                Foreground="Black"
+                Foreground="White"
+                    Background="#051094"
                 FontWeight="Bold" 
                 Height="35" 
-                    FontSize="13px"
+                    FontSize="12px"
                 VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                Grid.Row="5" Width="150"
@@ -312,7 +313,8 @@
                             Grid.Row="7"
                             Content="Submit"
                             FontFamily="helvetica"
-                            Foreground="Black"
+                            Foreground="White"
+                     Background="#051094"
                             FontWeight="Bold"
                             Command="{Binding SubmitCommand}"
                             Height="35" 
@@ -324,13 +326,13 @@
                             Grid.Row="7"
                             Content="Cancel"
                             FontFamily="helvetica"
-                            Foreground="Black"
+                            Foreground="White"
+                     Background="#051094"
                             FontWeight="Bold"
                              Command="{Binding CancelCommand}"
-                            Height="35" 
-                    Width="150"
+                            Height="35"
                                VerticalAlignment="Bottom" 
-                    HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="15,0,15.666,-0.333"
+                    HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="15,0,16,0"
                             />
 
         </Grid>
