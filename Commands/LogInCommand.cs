@@ -55,11 +55,13 @@ namespace MVVM_SocialContractProject.Commands
         }
         public override void Execute(object parameter)
         {
+            int count = 0;
             bool isAdmin = false;
             try
             {
                 foreach (UserInfo user in scSystem.GetUserInfo(_loginVM.Username))
                 {
+                    count++;
                     byte[] salt = Convert.FromBase64String(user.Salt);
                     byte[] pass = Convert.FromBase64String(user.Password);
                     var input = databaseQueries.DeriveKey(_loginVM.SecurePassword, salt);
@@ -79,6 +81,7 @@ namespace MVVM_SocialContractProject.Commands
                     }
                     isAdmin = user.type == 0 ? false : true;
                 }
+                if(count == 0) throw new UserLoginInvalidException();
                 MessageBox.Show("Login Successful", "Success",
                    MessageBoxButton.OK, MessageBoxImage.Information);
                 navigationService.Navigate(isAdmin);

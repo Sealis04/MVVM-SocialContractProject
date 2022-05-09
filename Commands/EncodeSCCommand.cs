@@ -54,10 +54,8 @@ namespace MVVM_SocialContractProject.Commands
             try
             {
                 _scSystem.CreateStudentInfo(student, socialContract, _scSystem);
-
                 MessageBox.Show("Successfuly Encoded", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-
                 navigationService.Navigate();
             }
             catch (SocialContractConflictExceptions)

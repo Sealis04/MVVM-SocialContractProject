@@ -270,5 +270,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\BackgroundPLV.jpg" />
+    <Resource Include="Assets\logo.png" />
+    <Resource Include="Assets\plv.png" />
+    <Resource Include="Assets\search.png" />
+    <Resource Include="Assets\usericon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

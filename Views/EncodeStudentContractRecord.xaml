@@ -293,8 +293,14 @@
                 Grid.Column="4" Margin="0,12.667,3,11.333"
                 Grid.Row="1"
                        />
+            <Image
+                Grid.Row="5"
+                Grid.Column="6" 
+                Grid.ColumnSpan="2" 
+                Source="{Binding ImageSource}" Margin="15,6,16,10"
+                />
             <Button x:Name="uploadBtn"
-                Grid.Column="5"
+                Grid.Column="6"
                 Content="Upload Social Contract"
                 FontFamily="helvetica"
                 Foreground="White"
@@ -304,8 +310,8 @@
                     FontSize="12px"
                 VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-               Grid.Row="5" Width="150"
-                Command="{Binding UploadImage}" Grid.ColumnSpan="4"  
+               Grid.Row="6" Width="150"
+                Command="{Binding UploadImage}" Grid.ColumnSpan="2" Margin="10,7,14,4"  
                             />
 
             <Button x:Name="Submit"

@@ -213,11 +213,14 @@ namespace MVVM_SocialContractProject.Models.Database
             defaultCM.Parameters.AddWithValue("@rSs", contract.SecondSemester);
             defaultCM.Parameters.AddWithValue("@rS", contract.Summer);
             defaultCM.Parameters.AddWithValue("@rSC", contract.SocialContractimage);
+            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(contract.SocialContractimage);
+            var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
             try
             {
                 conn.Open();
                 MySqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
+                File.Copy(contract.SocialContractimage, imagepath);
             }
             catch (Exception c)
             {
@@ -380,7 +383,7 @@ namespace MVVM_SocialContractProject.Models.Database
             string supervisor = pdf.EventSupervisor;
             //Image upload and save
             var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(pdf.EventPDFSource);
-            var imagepath = Path.Combine("D:\\VSCODE\\WpfApp1\\Sample Uploads\\" + fileNameToSave);
+            var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\PDFFolder\\" + fileNameToSave);
                              
             //Save to DB part here (copy paste ez) 
             string query = "INSERT INTO " +

@@ -116,21 +116,6 @@
                             VerticalAlignment="Bottom" 
                             />
 
-            <Button x:Name="ConnectDB"
-                           Grid.Column="1"
-                            Grid.Row="6"
-                            Content="Connect DB"
-                            FontFamily="Helvetica"
-                            Foreground="White"
-                      Background="#051094"
-                            HorizontalAlignment="Stretch"
-                            FontWeight="Bold"
-                            Width="134"
-                            Height="35" 
-                          
-                            VerticalAlignment="Top" 
-                            />
-
         </Grid>
         <!--LIST VIEW-->
         <Grid Grid.Column="3" Grid.Row="2" Opacity="0.99">

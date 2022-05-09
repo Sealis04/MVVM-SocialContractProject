@@ -51,7 +51,6 @@ namespace MVVM_SocialContractProject.Commands
                     {
                         encodeVM.ImageSource = filePath;
                     }
-                   
                 }
             }
         }
