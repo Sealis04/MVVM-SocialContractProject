@@ -22,7 +22,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>
+        
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0"/>-->
 
@@ -66,10 +69,10 @@
                            Grid.Column="1"
                             Grid.Row="2"
                             Content="Create User"
-                            FontFamily="Arial"
+                            FontFamily="Helvetica"
                             Foreground="White"
                       Background="#051094"
-                            FontWeight="ExtraBlack"
+                            FontWeight="Bold"
                             Width="242"
                             Height="48" 
                             VerticalAlignment="Center"
@@ -79,10 +82,10 @@
                 Grid.Column="2"
                 Grid.Row="6"
                 Content="Return"
-                FontFamily="Arial"
+                FontFamily="Helvetica"
                 Foreground="White"
                       Background="#051094"
-                FontWeight="ExtraBlack"
+                FontWeight="Bold"
                 Width="242"
                 Height="48" 
                 VerticalAlignment="Center"
