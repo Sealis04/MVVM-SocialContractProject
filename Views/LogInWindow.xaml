@@ -121,6 +121,19 @@
             </Grid.RowDefinitions>
 
         </Grid>
-
+    <Button x:Name="ConnectDB"
+            Grid.Row="2"
+            Content="Connect DB"
+            FontFamily="Helvetica"
+            Foreground="White"
+            Background="#051094"
+            HorizontalAlignment="Stretch"
+            FontWeight="Bold"
+            Width="134"
+            Height="35" 
+            Command="{Binding connectToDB}" 
+            VerticalAlignment="Top" 
+                            Margin="341,90,25,0" Grid.Column="1" 
+                            />
     </Grid>
 </UserControl>
