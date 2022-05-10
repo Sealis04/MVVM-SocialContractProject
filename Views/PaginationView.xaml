@@ -16,12 +16,12 @@
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-        <Button Content="First" Command="{Binding FirstCommand}"   Background="#051094" Foreground="White"/>
-        <Button Content="Previous" Command="{Binding PreviousCommand}" Background="#051094" Foreground="White"/>
-        <TextBlock Width="auto" Text="{Binding CurrentPageChosen}" Background="#051094" Foreground="White"/>
+        <Button Content="First" Command="{Binding FirstCommand}"   Background="#051094" Foreground="White" Width="65"/>
+        <Button Content="Previous" Command="{Binding PreviousCommand}" Background="#051094" Foreground="White" Width="65"/>
+        <TextBlock Width="auto" Text="{Binding CurrentPageChosen}" Background="#051094" Foreground="White" />
         <TextBlock Text="of"/>
         <TextBlock Width="auto" Text="{Binding TotalPages}" Background="#051094" Foreground="White"/>
-        <Button Content="Next" Command="{Binding NextCommand}" Background="#051094" Foreground="White"/>
-        <Button Content="Last" Command="{Binding LastCommand}" Background="#051094" Foreground="White"/>
+        <Button Content="Next" Command="{Binding NextCommand}" Background="#051094" Foreground="White" Width="65"/>
+        <Button Content="Last" Command="{Binding LastCommand}" Background="#051094" Foreground="White" Width="65"/>
     </StackPanel>
 </UserControl>

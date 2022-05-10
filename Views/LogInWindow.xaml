@@ -105,7 +105,7 @@
                 Background="#051094"
                 Command="{Binding LoginCommand}"
                             />
-
+         
         </Grid>
         <Grid Grid.RowSpan="3">
 
@@ -121,7 +121,7 @@
             </Grid.RowDefinitions>
 
         </Grid>
-        <Button x:Name="ConnectDB"
+    <Button x:Name="ConnectDB"
             Grid.Row="2"
             Content="Connect DB"
             FontFamily="Helvetica"
@@ -135,6 +135,5 @@
             VerticalAlignment="Top" 
                             Margin="341,90,25,0" Grid.Column="1" 
                             />
-
     </Grid>
 </UserControl>
