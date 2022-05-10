@@ -62,7 +62,7 @@ namespace MVVM_SocialContractProject.ViewModels
 
         public SignUpViewModel(SocialContractMonitoringSystem scSystem, NavigationStore nav, NavigationService navigationService)
         {
-            if(nav != null)
+            if(nav.CurrentUser != null)
             {
                 _userName = nav.CurrentUser.UserName;
             }
