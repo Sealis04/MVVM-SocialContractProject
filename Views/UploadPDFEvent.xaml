@@ -44,12 +44,12 @@
         <Grid Grid.Column="2" Grid.Row="2" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width=".5"/>
+                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -116,12 +116,14 @@
             <DatePicker
                 x:Name="dateTb"
                 Grid.Column="4"
+                   Grid.ColumnSpan="1"
+                HorizontalAlignment="Stretch"
                 Grid.Row="4"
                 Height="35px"
                 VerticalAlignment="Center"
-                Width="250"
+                
                 Text="{Binding EventDate}"
-                SelectedDate="{x:Static sys:DateTime.Now}" Grid.ColumnSpan="2"
+                SelectedDate="{x:Static sys:DateTime.Now}" 
                 />
 
             <!--BN-->
@@ -150,11 +152,15 @@
                             Grid.Row="5"
                             Content="PDF"
                             FontFamily="Arial"
-                            Foreground="Black"
+                           
                             FontWeight="ExtraBlack"
-                            Height="36" 
+                            Height="30px"
+                        Margin="20 0 0 0"
+                            Width="100"
+                       Foreground="White"
+                      Background="#051094"
                             VerticalAlignment="Center"
-                            Margin="4,3,0,72" Width="222"
+                             HorizontalAlignment="Stretch"
                     Command="{Binding UploadPDF}"
                             />
             <Image
@@ -162,6 +168,7 @@
                 Grid.Column="6" 
                 Grid.ColumnSpan="3" 
                 Grid.RowSpan="4" 
+                Margin="10 10 10 10"
                 Source="{Binding ImageSource}"
                 />
 

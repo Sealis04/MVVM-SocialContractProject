@@ -116,6 +116,21 @@
                             VerticalAlignment="Bottom" 
                             />
 
+            <Button x:Name="ConnectDB"
+                           Grid.Column="1"
+                            Grid.Row="6"
+                            Content="Connect DB"
+                            FontFamily="Helvetica"
+                            Foreground="White"
+                      Background="#051094"
+                            HorizontalAlignment="Stretch"
+                            FontWeight="Bold"
+                            Width="134"
+                            Height="35" 
+                          
+                            VerticalAlignment="Top" 
+                            />
+
         </Grid>
         <!--LIST VIEW-->
         <Grid Grid.Column="3" Grid.Row="2" Opacity="0.99">
@@ -125,9 +140,10 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
-                      ItemsSource="{Binding StudentInfo}" Background="White"
-                      BorderBrush="Black"
-                      BorderThickness="2px">
+                      ItemsSource="{Binding StudentInfo}" 
+                       Background="White"
+                      BorderThickness="2px"
+                      BorderBrush="Black">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}"/>
@@ -218,7 +234,7 @@
                             FontWeight="Bold"
                             Width="150"
                             Height="35" 
-                            HorizontalAlignment="Center"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center" 
                             Command="{Binding EncodeSCCommand}"
                             />
