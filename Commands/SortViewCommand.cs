@@ -14,9 +14,12 @@ namespace MVVM_SocialContractProject.Commands
     {
         GridViewColumnHeader previousSortHeader = null;
         ListSortDirection previousSortDirection = ListSortDirection.Ascending;
+
+        public object ItemSource { get; private set; }
+
         private void SortResults(string sortBy, ListSortDirection direction)
         {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(this.SearchResults);    // where SearchResults is the data to which the ListView is bound
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(ItemSource);    // where SearchResults is the data to which the ListView is bound
             dataView.SortDescriptions.Clear();
 
             SortDescription sortDescription = new SortDescription(sortBy, direction);
