@@ -24,9 +24,41 @@ namespace MVVM_SocialContractProject.ViewModels
         public ICommand ReturnCommand { get; }
 
         public ICommand PrintCommand { get; }
+        private int itemPerPage = 20;
+        private int _currentPageIndex;
+        public int CurrentPageIndex
+        {
+            get { return _currentPageIndex; }
+            set
+            {
+                _currentPageIndex = value;
+                OnPropertyChanged(nameof(CurrentPageIndex));
+            }
+        }
+        public int CurrentPageChosen
+        {
+            get { return _currentPageIndex + 1; }
+            set
+            {
+                _currentPageIndex = value;
+                OnPropertyChanged(nameof(CurrentPageChosen));
+            }
+        }
+
+        private int totalItems;
+        private int _totalPages;
+        public int TotalPages
+        {
+            get { return _totalPages; }
+            private set
+            {
+                _totalPages = value;
+                OnPropertyChanged(nameof(TotalPages));
+            }
+        }
         public ViewPDFEventsViewModel(SocialContractMonitoringSystem ScSystem, NavigationService AddPDFNav, NavigationService ViewStudentService)
         {
-          
+            Start = 0;
             this.ScSystem = ScSystem;
             addPDFNav = AddPDFNav;
             PrintCommand = new PrintPDFCommand();
@@ -34,16 +66,28 @@ namespace MVVM_SocialContractProject.ViewModels
             _pdfInfo = new ObservableCollection<EventsPDFViewModel>();
             AddPDFCommand = new NavigateCommand(addPDFNav);
             ReturnCommand = new NavigateCommand(viewStudentService);
-            UpdatePDFTable(null);
+            UpdatePDFTable(null, Start);
         }
-
-        public void UpdatePDFTable(string searchText)
+        public int Start { get; set; }
+        public void UpdatePDFTable(string searchText, int page)
         {
             _pdfInfo.Clear();
-           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText))
+           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, page))
             {
                 EventsPDFViewModel pdfvm = new EventsPDFViewModel(pdf);
                 _pdfInfo.Add(pdfvm);
+            }
+        }
+
+        private void CalculateTotalPages(int totalItems)
+        {
+            if (totalItems % itemPerPage == 0)
+            {
+                TotalPages = (totalItems / itemPerPage);
+            }
+            else
+            {
+                TotalPages = (totalItems / itemPerPage) + 1;
             }
         }
 
@@ -60,11 +104,40 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdatePDFTable(null);
+                    UpdatePDFTable(null, Start);
                 }
-                UpdatePDFTable(_searchText);
+                Start = 0;
+                UpdatePDFTable(_searchText, Start);
                 OnPropertyChanged(nameof(_searchText));
             }
+        }
+
+        public void ShowNextPage()
+        {
+            CurrentPageIndex++;
+            Start += itemPerPage;
+            UpdatePDFTable(_searchText, Start);
+        }
+
+        public void ShowPreviousPage()
+        {
+            CurrentPageIndex--;
+            Start -= itemPerPage;
+            UpdatePDFTable(_searchText, Start);
+        }
+
+        public void ShowFirstPage()
+        {
+            CurrentPageIndex = 0;
+            Start = 0;
+            UpdatePDFTable(_searchText, Start);
+        }
+
+        public void ShowLastPage()
+        {
+            CurrentPageIndex = TotalPages - 1;
+            Start = (TotalPages * itemPerPage) - itemPerPage;
+            UpdatePDFTable(_searchText, Start);
         }
     }
 }

@@ -6,6 +6,40 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style x:Key="buttonStyle" TargetType="Button">
+
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="MediumAquamarine" />
+            <Setter Property="Foreground" Value="MediumBlue" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="MyContentPresenter" 
+                                      Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="Black"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#051094"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -91,20 +125,21 @@
                 />
 
             <Button 
-                    x:Name="button"
+                    x:Name="LoginBTN"
                            Grid.Column="2"
                             Grid.Row="4"
                             Content="LOGIN"
                             FontFamily="Helvetica"
                             Foreground="White"
                             FontWeight="Bold"
-                             Width="100"
+                            Width="100"
                             Height="30" 
                             VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right"
-                Background="#051094"
                 Command="{Binding LoginCommand}"
+                Style="{StaticResource buttonStyle}"
                             />
+           
          
         </Grid>
         <Grid Grid.RowSpan="3">

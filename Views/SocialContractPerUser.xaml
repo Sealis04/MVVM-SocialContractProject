@@ -224,7 +224,7 @@
                       ItemsSource="{Binding SocialContract}"
                       Background="White"
                       BorderThickness="2px"
-                      BorderBrush="Black">
+                      BorderBrush="Black" Margin="0,0,0,36">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
@@ -307,6 +307,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <local:PaginatioNView Margin="103,332,114,0" RenderTransformOrigin="0.5,0.5"/>
         </Grid>
 
         <!--Buttons-->

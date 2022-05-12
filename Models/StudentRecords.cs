@@ -47,8 +47,8 @@ namespace MVVM_SocialContractProject.Models
             {
                 if (existingStudentInfo.Conflicts(StudentID))
                 {
-                    bool result = scSystem.CreateSocialContract(socialContract);
-                    Result = result;
+                    scSystem.CreateSocialContract(socialContract);
+                    Result = true;
                     //throw new StudentInfoConflictException(existingStudentInfo, StudentID);
                 }
             }

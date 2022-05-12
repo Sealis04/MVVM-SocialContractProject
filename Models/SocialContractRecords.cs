@@ -28,19 +28,19 @@ namespace MVVM_SocialContractProject.Models
             return _socialContract.Where(r => r.StudentID == StudentID);
         }
 
-        public bool AddSocialContract (SocialContract socialContract)
+        public void AddSocialContract (SocialContract socialContract)
         {
             foreach (SocialContract existingSocialContract in _socialContract)
             {
                 if (existingSocialContract.Conflicts(socialContract))
                 {
+                    _socialContract.Clear();
                     throw new SocialContractConflictExceptions(existingSocialContract, socialContract);
                     ///Update reservation on DB code to be updated
                 }
             }
             _dbQueries.InsertSocialContract(socialContract);
-            _socialContract.Add(socialContract);
-            return true;
+            
         }
         public void UpdateSocialContract(StudentInfo student,SocialContract socialContract)
         {

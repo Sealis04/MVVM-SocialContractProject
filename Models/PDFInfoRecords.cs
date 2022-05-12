@@ -29,10 +29,10 @@ namespace MVVM_SocialContractProject.Models
         }
 
         //Get all Event list
-        public IEnumerable<PDFInfo> GetAllEvents(string SearchQuery)
+        public IEnumerable<PDFInfo> GetAllEvents(string SearchQuery, int page)
         {
             _pdfInfo.Clear();
-            _dbQueries.GetAllPDF(_pdfInfo, SearchQuery);
+            _dbQueries.GetAllPDF(_pdfInfo, SearchQuery, page);
             return _pdfInfo;
         }
     }

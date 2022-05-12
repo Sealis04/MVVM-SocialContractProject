@@ -23,17 +23,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        
-        
+
+
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" />
         </Grid.Background>
-
-
-        <local:PaginatioNView Grid.Column="3" Grid.Row="3"
-                              Height="40"
-                            
-                              HorizontalAlignment="Center"/>
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0"/>-->
 
@@ -97,22 +91,19 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
-                      ItemsSource="{Binding UserInfo}"
-                        Background="White"
-                      BorderThickness="2px"
-                      BorderBrush="Black">>
+                      ItemsSource="{Binding UserInfo}" Background="White" Margin="0,10,0,49">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
-                        <Setter Property="Foreground" Value="Black"/>
-                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Background" Value="Black"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Username" Width="150">
+                        <GridViewColumn Header="Username">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding UserName}"/>
@@ -120,7 +111,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="isAdmin" Width="100">
+                        <GridViewColumn Header="Username">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Type}"/>
@@ -157,7 +148,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-           
+            <local:PaginatioNView Margin="164,349,195,6" RenderTransformOrigin="0.5,0.5"/>
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="4">
