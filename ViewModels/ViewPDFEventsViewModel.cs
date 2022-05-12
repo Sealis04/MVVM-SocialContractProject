@@ -107,6 +107,7 @@ namespace MVVM_SocialContractProject.ViewModels
                     UpdatePDFTable(null, Start);
                 }
                 Start = 0;
+                CurrentPageIndex = 0;
                 UpdatePDFTable(_searchText, Start);
                 OnPropertyChanged(nameof(_searchText));
             }

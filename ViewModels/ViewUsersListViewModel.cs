@@ -116,6 +116,7 @@ namespace MVVM_SocialContractProject.ViewModels
                     UpdateUserList(_searchText, Start);
                 }
                 Start = 0;
+                CurrentPageIndex = 0;
                 UpdateUserList(_searchText, Start);
                 OnPropertyChanged(nameof(SearchText));
             }

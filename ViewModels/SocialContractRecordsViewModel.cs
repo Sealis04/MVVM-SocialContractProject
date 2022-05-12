@@ -71,7 +71,7 @@ namespace MVVM_SocialContractProject.ViewModels
         public ICommand FirstCommand { get; private set; }
         public ICommand LastCommand { get; private set; }
 
-        private int itemPerPage = 5;
+        private int itemPerPage = 20;
         private int _currentPageIndex;
         public int CurrentPageIndex
         {
@@ -195,6 +195,7 @@ namespace MVVM_SocialContractProject.ViewModels
                     UpdateReservations(null, Start);
                 }
                 Start = 0;
+                CurrentPageIndex = 0;
                 UpdateReservations(_searchText, Start);
                 OnPropertyChanged(nameof(SearchText));
             }
