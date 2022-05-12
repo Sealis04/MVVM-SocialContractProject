@@ -47,6 +47,18 @@ namespace MVVM_SocialContractProject.ViewModels
                 return _doubleClick;
             }
         }
+        public ICommand _headerClick;
+        public ICommand HeaderClick
+        {
+            get
+            {
+                if (_headerClick == null)
+                {
+                    MessageBox.Show("ASDASDSAd");
+                }
+                return _headerClick;
+            }
+        }
 
         public ICommand CreatePDF { get; }
 
@@ -182,6 +194,7 @@ namespace MVVM_SocialContractProject.ViewModels
                 {
                     UpdateReservations(null, Start);
                 }
+                Start = 0;
                 UpdateReservations(_searchText, Start);
                 OnPropertyChanged(nameof(SearchText));
             }
@@ -216,6 +229,9 @@ namespace MVVM_SocialContractProject.ViewModels
             Start = (TotalPages * itemPerPage) - itemPerPage;
             UpdateReservations(_searchText, Start);
         }
+
+
+        //Sorting
 
 
     }

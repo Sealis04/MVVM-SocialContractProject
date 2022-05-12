@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"	
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              Background= "White">
@@ -127,7 +128,8 @@
                       ItemsSource="{Binding StudentInfo}" 
                        Background="White"
                       BorderThickness="2px"
-                      BorderBrush="Black">
+                      BorderBrush="Black" Margin="0,0,0,49"
+                     >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}"/>
@@ -194,7 +196,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <local:PaginatioNView Margin="406,603,407,0"/>
+            <local:PaginatioNView Margin="170,393,189,10" RenderTransformOrigin="0.5,0.5"/>
         </Grid>
 
         <Grid Grid.Column="3" Grid.Row="3">

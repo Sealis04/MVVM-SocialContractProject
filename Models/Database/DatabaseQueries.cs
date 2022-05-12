@@ -55,13 +55,13 @@ namespace MVVM_SocialContractProject.Models.Database
             string query = "SELECT stu.s_ID, stu.s_fn, stu.s_mn,stu.s_ln,stu.s_batchNo,stu.s_Course ";
             if(SearchQuery == null)
             {
-                query += "FROM tbl_studentinfo stu LIMIT @page,5;";
+                query += "FROM tbl_studentinfo stu LIMIT @page,20;";
             }
             else
             {
                 query += "FROM tbl_studentinfo stu " +
                     "" +
-                    "WHERE stu.s_ID LIKE @SID LIMIT @page,5;";
+                    "WHERE stu.s_ID LIKE @SID LIMIT @page,20;";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if(SearchQuery != null)
@@ -434,23 +434,24 @@ namespace MVVM_SocialContractProject.Models.Database
 
         }
 
-        public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery)
+        public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery, int page)
         {
             RunSystemCheck();
             string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue ";
             if (SearchQuery == null)
             {
-                query += "FROM tbl_events LIMIT 0,20;";
+                query += "FROM tbl_events LIMIT @page,20;";
             }
             else
             {
-                query += "FROM tbl_events WHERE event_name LIKE @SID LIMIT 0,20;";
+                query += "FROM tbl_events WHERE event_name LIKE @SearchQuery LIMIT @page,20;";
             }
             MySqlCommand cmDB = new MySqlCommand(query, conn);
             if (SearchQuery != null)
             {
-                cmDB.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+                cmDB.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
+            cmDB.Parameters.AddWithValue("@page", page);
             try
             {
                 conn.Open();
@@ -477,16 +478,16 @@ namespace MVVM_SocialContractProject.Models.Database
             string query = "SELECT admin_user, admin_pass,admin_salt, admin_type";
             if (SearchQuery == null)
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 LIMIT @page,5;";
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 LIMIT @page,20;";
             }
             else
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SID LIMIT @page,5;";
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery LIMIT @page,20;";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if (SearchQuery != null)
             {
-                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+                cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
             cmdDb.Parameters.AddWithValue("@page", page);
             //---Open Connection--
@@ -523,12 +524,12 @@ namespace MVVM_SocialContractProject.Models.Database
             }
             else
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SID";
+                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if (SearchQuery != null)
             {
-                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+                cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
             //---Open Connection--
             try

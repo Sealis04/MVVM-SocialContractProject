@@ -31,9 +31,9 @@ namespace MVVM_SocialContractProject.Models
         {
             return _socialContractRecord.GetSocialRecords(StudentID);
         }
-        public bool CreateSocialContract(SocialContract socialcontract)
+        public void CreateSocialContract(SocialContract socialcontract)
         {
-           return _socialContractRecord.AddSocialContract(socialcontract);
+           _socialContractRecord.AddSocialContract(socialcontract);
         }
         public void UpdateSocialContract(StudentInfo studentID, SocialContract socialContract)
         {
@@ -80,9 +80,9 @@ namespace MVVM_SocialContractProject.Models
             _pdfInfo.AddPDFEvent(pdf);
         }
 
-        public IEnumerable<PDFInfo> GetAllPDF(string SearchQuery)
+        public IEnumerable<PDFInfo> GetAllPDF(string SearchQuery, int page)
         {
-            return _pdfInfo.GetAllEvents(SearchQuery);
+            return _pdfInfo.GetAllEvents(SearchQuery,page);
         }
 
         public IEnumerable<UserInfo> GetAllUsers(string searchQuery, int page)

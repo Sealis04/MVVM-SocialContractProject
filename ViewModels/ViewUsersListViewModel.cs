@@ -30,7 +30,7 @@ namespace MVVM_SocialContractProject.ViewModels
 
         private string _searchText;
 
-        private int itemPerPage = 5;
+        private int itemPerPage = 20;
         private int _currentPageIndex;
         public int CurrentPageIndex
         {
@@ -115,6 +115,7 @@ namespace MVVM_SocialContractProject.ViewModels
                 {
                     UpdateUserList(_searchText, Start);
                 }
+                Start = 0;
                 UpdateUserList(_searchText, Start);
                 OnPropertyChanged(nameof(SearchText));
             }
