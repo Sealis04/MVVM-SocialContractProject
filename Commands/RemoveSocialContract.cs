@@ -16,14 +16,16 @@ namespace MVVM_SocialContractProject.Commands
         private readonly DatabaseQueries _dbQueries;
         private readonly NavigationService thisModel;
 
-        public RemoveSocialContract(NavigationService thisModel, StudentInfoViewModel student)
+        public RemoveSocialContract(NavigationService thisModel, StudentInfoViewModel student, SocialContractPerUserViewModel sc)
         {
             _dbQueries = new DatabaseQueries();
             this.thisModel = thisModel;
             Student = student;
+            Sc = sc;
         }
 
         public StudentInfoViewModel Student { get; }
+        public SocialContractPerUserViewModel Sc { get; }
 
         public override void Execute(object parameter)
         {
@@ -33,8 +35,9 @@ namespace MVVM_SocialContractProject.Commands
             {
                 //Db query
                 _dbQueries.RemoveSocialContract(scVM.SocialContractID);
+                Student.CurrentHours -= (scVM.FirstSem + scVM.SecondSem + scVM.Summer);
                var x =  new NavigateCommand(thisModel, Student);
-                x.Execute(null);
+                x.Execute(parameter);
             }
             else if(result == MessageBoxResult.Cancel)
             {
