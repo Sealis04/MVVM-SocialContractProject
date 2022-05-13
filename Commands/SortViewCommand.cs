@@ -22,6 +22,10 @@ namespace MVVM_SocialContractProject.Commands
         private readonly SocialContractRecordsViewModel _scVM;
 
         private readonly SocialContractPerUserViewModel _scPerUser;
+
+        private readonly ViewUsersListViewModel _UserVM;
+
+        private readonly ViewPDFEventsViewModel _pdfVM;
         public SortViewCommand(SocialContractMonitoringSystem scSystem, SocialContractRecordsViewModel scVM)
         {
             _scSystem = scSystem;
@@ -32,6 +36,18 @@ namespace MVVM_SocialContractProject.Commands
         {
             _scSystem = scSystem;
             _scPerUser = scVM;
+        }
+
+        public SortViewCommand(SocialContractMonitoringSystem scSystem, ViewUsersListViewModel scVM)
+        {
+            _scSystem = scSystem;
+            _UserVM = scVM;
+        }
+
+        public SortViewCommand(SocialContractMonitoringSystem scSystem, ViewPDFEventsViewModel scVM)
+        {
+            _scSystem = scSystem;
+            _pdfVM = scVM;
         }
         public object ItemSource { get; private set; }
 
@@ -112,8 +128,21 @@ namespace MVVM_SocialContractProject.Commands
                 _scPerUser.StudentQuery = result;
                 _scPerUser.Direction = IsAscending;
                 _scPerUser.LoadSocialContractInfo(_scPerUser.Student, result, IsAscending);
+            }else if (_UserVM != null)
+            {
+                int result = sortForUserAccounts(sortBy);
+                _UserVM.StudentQuery = result;
+                _UserVM.Direction = IsAscending;
+                _UserVM.UpdateUserList(_UserVM.SearchText, _UserVM.Start, result, IsAscending);
             }
-        
+            else if (_pdfVM != null)
+            {
+                int result = sortForPDFEvents(sortBy);
+                _pdfVM.StudentQuery = result;
+                _pdfVM.Direction = IsAscending;
+                _pdfVM.UpdatePDFTable(_pdfVM.SearchText, _pdfVM.Start, result, IsAscending);
+            }
+
         }
         private int sortForPerUser(string sortSearch)
         {
@@ -134,7 +163,7 @@ namespace MVVM_SocialContractProject.Commands
                 case "Remove":
                     return 0;
             }
-            return 1;
+            return 0;
         }
 
         private int sortForStudentRecords(string sortSearch)
@@ -154,7 +183,38 @@ namespace MVVM_SocialContractProject.Commands
                 case "Lacking Hours":
                     return 6;
             }
-            return 1;
+            return 0;
+        }
+        private int sortForUserAccounts(string sortSearch)
+        {
+            switch (sortSearch)
+            {
+                case "Username":
+                    return 1;
+                case "IsAdmin":
+                    return 2;
+                case "Edit":
+                    return 0;
+                case "Remove":
+                    return 0;
+            }
+            return 0;
+        }
+
+        private int sortForPDFEvents(string sortSearch)
+        {
+            switch (sortSearch)
+            {
+                case "EventName":
+                    return 1;
+                case "Event Date":
+                    return 2;
+                case "Event Venue":
+                    return 4;
+                case "Event Supervisor":
+                    return 3;
+            }
+            return 0;
         }
     }
 }

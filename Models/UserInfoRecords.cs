@@ -28,10 +28,10 @@ namespace MVVM_SocialContractProject.Models
             return _userInfo.Where(r=> r.Username== Username);
         }
 
-        public IEnumerable<UserInfo> GetAllUserInfo(string SearchQuery, int page)
+        public IEnumerable<UserInfo> GetAllUserInfo(string SearchQuery, int page, int studentQuery, bool direction)
         {
             _userInfo.Clear();
-            _dbQueries.GetAllUserInfo(_userInfo, SearchQuery, page);
+            _dbQueries.GetAllUserInfo(_userInfo, SearchQuery, page, studentQuery,direction);
             return _userInfo;
         }
 

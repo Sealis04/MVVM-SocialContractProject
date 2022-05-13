@@ -80,14 +80,14 @@ namespace MVVM_SocialContractProject.Models
             _pdfInfo.AddPDFEvent(pdf);
         }
 
-        public IEnumerable<PDFInfo> GetAllPDF(string SearchQuery, int page)
+        public IEnumerable<PDFInfo> GetAllPDF(string SearchQuery, int page, int intQuery, bool direction)
         {
-            return _pdfInfo.GetAllEvents(SearchQuery,page);
+            return _pdfInfo.GetAllEvents(SearchQuery,page, intQuery, direction);
         }
 
-        public IEnumerable<UserInfo> GetAllUsers(string searchQuery, int page)
+        public IEnumerable<UserInfo> GetAllUsers(string searchQuery, int page, int studentQuery, bool direction)
         {
-            return _userInfo.GetAllUserInfo(searchQuery, page);
+            return _userInfo.GetAllUserInfo(searchQuery, page, studentQuery, direction);
         }
 
 

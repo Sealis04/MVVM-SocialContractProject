@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
              mc:Ignorable="d"
              Background="White" Height="600" Width="995">
     <Grid>
@@ -99,7 +100,8 @@
                       FontFamily="Arial"
                       FontStretch="Normal"
                       Background="White"
-                      Foreground="Black">
+                      Foreground="Black"
+                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
                 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -116,14 +118,6 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding UserName}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                        <GridViewColumn Header="isAdmin" Width="100">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Type}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
