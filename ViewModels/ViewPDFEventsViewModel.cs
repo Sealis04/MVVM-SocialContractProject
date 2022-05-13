@@ -28,6 +28,18 @@ namespace MVVM_SocialContractProject.ViewModels
         public ICommand FirstCommand { get; private set; }
         public ICommand LastCommand { get; private set; }
         public ICommand PrintCommand { get; }
+        public ICommand _headerClick;
+        public ICommand HeaderClick
+        {
+            get
+            {
+                if (_headerClick == null)
+                {
+                    _headerClick = new SortViewCommand(ScSystem, this);
+                }
+                return _headerClick;
+            }
+        }
         private int itemPerPage = 20;
         private int _currentPageIndex;
         public int CurrentPageIndex
@@ -76,14 +88,16 @@ namespace MVVM_SocialContractProject.ViewModels
             _pdfInfo = new ObservableCollection<EventsPDFViewModel>();
             AddPDFCommand = new NavigateCommand(addPDFNav);
             ReturnCommand = new NavigateCommand(viewStudentService);
-            UpdatePDFTable(null, Start);
+            UpdatePDFTable(null, Start, StudentQuery,Direction);
         }
         public int Start { get; set; }
-        public void UpdatePDFTable(string searchText, int page)
+        public int StudentQuery { get; set; }
+        public bool Direction { get; set; }
+        public void UpdatePDFTable(string searchText, int page, int intQuery, bool direction)
         {
             totalItems = dbQueries.GetAllPDFCount(searchText);
             _pdfInfo.Clear();
-           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, page))
+           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, page,intQuery,direction))
             {
                 EventsPDFViewModel pdfvm = new EventsPDFViewModel(pdf);
                 _pdfInfo.Add(pdfvm);
@@ -116,11 +130,11 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdatePDFTable(null, Start);
+                    UpdatePDFTable(null, Start, StudentQuery, Direction);
                 }
                 Start = 0;
                 CurrentPageIndex = 0;
-                UpdatePDFTable(_searchText, Start);
+                UpdatePDFTable(_searchText, Start, StudentQuery, Direction);
                 OnPropertyChanged(nameof(_searchText));
             }
         }
@@ -129,28 +143,28 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             CurrentPageIndex++;
             Start += itemPerPage;
-            UpdatePDFTable(_searchText, Start);
+            UpdatePDFTable(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowPreviousPage()
         {
             CurrentPageIndex--;
             Start -= itemPerPage;
-            UpdatePDFTable(_searchText, Start);
+            UpdatePDFTable(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowFirstPage()
         {
             CurrentPageIndex = 0;
             Start = 0;
-            UpdatePDFTable(_searchText, Start);
+            UpdatePDFTable(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowLastPage()
         {
             CurrentPageIndex = TotalPages - 1;
             Start = (TotalPages * itemPerPage) - itemPerPage;
-            UpdatePDFTable(_searchText, Start);
+            UpdatePDFTable(_searchText, Start, StudentQuery, Direction);
         }
     }
 }

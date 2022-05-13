@@ -518,23 +518,56 @@ namespace MVVM_SocialContractProject.Models.Database
 
         }
 
-        public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery, int page)
+        public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery, int page, int intQuery, bool direction)
         {
             RunSystemCheck();
-            string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue ";
-            if (SearchQuery == null)
+            string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue FROM tbl_events ";
+            if (SearchQuery != null)
             {
-                query += "FROM tbl_events LIMIT @page,20;";
+                query += "WHERE event_name LIKE @SearchQuery ";
             }
-            else
+            if (intQuery != 0)
             {
-                query += "FROM tbl_events WHERE event_name LIKE @SearchQuery LIMIT @page,20;";
+                if (direction)
+                {
+                    query += "ORDER BY " +
+                            "CASE @sort " +
+                            "WHEN 1 THEN event_name " +
+                            "END ASC, " +
+                            "CASE @sort " +
+                            "WHEN 2 THEN event_date " +
+                            "END ASC, " +
+                             "CASE @sort " +
+                            "WHEN 3 THEN event_supervisor " +
+                            "END ASC, " +
+                            "CASE @sort " +
+                            "WHEN 4 THEN event_venue " +
+                            "END ASC ";
+                }
+                else
+                {
+                    query += "ORDER BY " +
+                           "CASE @sort " +
+                           "WHEN 1 THEN event_name " +
+                           "END DESC, " +
+                            "CASE @sort " +
+                           "WHEN 2 THEN event_date " +
+                           "END DESC, " +
+                            "CASE @sort " +
+                           "WHEN 3 THEN event_supervisor " +
+                           "END DESC, " +
+                            "CASE @sort " +
+                           "WHEN 4 THEN event_venue " +
+                           "END DESC ";
+                }
             }
+            query += "LIMIT @page,20;";
             MySqlCommand cmDB = new MySqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmDB.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
+            cmDB.Parameters.AddWithValue("@sort", intQuery);
             cmDB.Parameters.AddWithValue("@page", page);
             try
             {
@@ -595,24 +628,39 @@ namespace MVVM_SocialContractProject.Models.Database
 
             }
         }
-        public void GetAllUserInfo(List<UserInfo> userInfo, string SearchQuery, int page)
+        public void GetAllUserInfo(List<UserInfo> userInfo, string SearchQuery, int page, int intQuery, bool direction)
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT admin_user, admin_pass,admin_salt, admin_type";
-            if (SearchQuery == null)
+            string query = "SELECT admin_user, admin_pass,admin_salt, admin_type FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_type = 0 ";
+            if (SearchQuery != null)
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 LIMIT @page,20;";
+                query += "AND admin_user LIKE @SearchQuery ";
             }
-            else
+            if (intQuery != 0)
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery LIMIT @page,20;";
+                if (direction)
+                {
+                    query +="ORDER BY " +
+                            "CASE @sort " +
+                            "WHEN 1 THEN admin_user " +
+                            "END ASC ";
+                }
+                else
+                {
+                    query += "ORDER BY " +
+                            "CASE @sort " +
+                            "WHEN 1 THEN admin_user " +
+                            "END DESC ";
+                }
             }
+            query += "LIMIT @page,20;";
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
+            cmdDb.Parameters.AddWithValue("@sort", intQuery);
             cmdDb.Parameters.AddWithValue("@page", page);
             //---Open Connection--
             try

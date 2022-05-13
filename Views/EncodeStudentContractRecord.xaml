@@ -100,7 +100,7 @@
 
             <!--BN-->
             <TextBlock
-                        Text="Batch Number:"
+                        Text="Batch Year (Number):"
                        VerticalAlignment="center" 
                        HorizontalAlignment="Right"
                        FontFamily="helvatica"
@@ -127,6 +127,7 @@
                                 Grid.Row="1"
                                 VerticalAlignment="Center"
                         IsTextSearchEnabled="True"
+                        TextChanged="SID_tb_TextChanged"
                         Text="{Binding StudentID, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         ItemsSource="{Binding Path= studentIDCollection}" 
                                >
@@ -143,7 +144,8 @@
                      Grid.Column="3"
                         Height="30px"
          
-                       VerticalAlignment="Center" Grid.Row="2"  
+                       VerticalAlignment="Center" Grid.Row="2" 
+                TextChanged="Fn_Tb_TextChanged"
                 Text="{Binding Firstname,UpdateSourceTrigger=PropertyChanged}"
                 IsEnabled="{Binding FNEnabled}"
                 />
@@ -163,6 +165,7 @@
                     Grid.Row="4"
                         Height="30px"
                        VerticalAlignment="center"
+                TextChanged="Ln_Tb_TextChanged"
                 Text="{Binding Lastname,UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding LNEnabled}"
                 />
@@ -183,6 +186,7 @@
                 Grid.Row="6"
                 Height="30px"
                 VerticalAlignment="Center" 
+                TextChanged="Course_Tb_TextChanged"
                    Text="{Binding Course,UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding CEnabled}" 
                 />
@@ -354,6 +358,83 @@
                                VerticalAlignment="Bottom" 
                     HorizontalAlignment="Stretch" 
                             />
+            <TextBlock
+                x:Name="s_IDWarning"
+                Text="*Required "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="3"
+                Grid.Row="1" Margin="0,44,196,0" Height="12" Width="49"
+                       />
+            <TextBlock
+                x:Name="fNameWarning"
+                Text="*Required "
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="3"
+                Grid.Row="2" Margin="0,44,196,0" Height="12" Width="49"
+                       />
+            <TextBlock
+                x:Name="BatchWarning"
+                Text="*Required (Can't be 0) "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="3"
+                Grid.Row="5" Margin="0,44,143,1" Height="12" Width="102"
+                       />
+            <TextBlock
+                x:Name="lNameWarning"
+                Text="*Required "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="3"
+                Grid.Row="4" Margin="0,44,196,0" Height="12" Width="49"
+                       />
+            <TextBlock
+                x:Name="CourseWarning"
+                Text="*Required "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="3"
+                Grid.Row="6" Margin="0,44,196,0" Height="12" Width="49"
+                       />
+            <TextBlock
+                x:Name="SYWarning"
+                Text="*Required (Can't be 0) "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="6"
+                Grid.Row="1" Margin="0,44,36,0" Height="12" Width="106"
+                       />
+            <TextBlock
+                x:Name="RecordsWarning"
+                Text="*Requires at least one of the three to be more than 0 "
+                VerticalAlignment="center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="6"
+                Grid.Row="4" Margin="0,44,0,0" Height="12" Width="244" Grid.ColumnSpan="2"
+                       />
 
         </Grid>
 

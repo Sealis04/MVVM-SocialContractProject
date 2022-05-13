@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
+             xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              Background="White">
@@ -92,7 +93,8 @@
                       BorderBrush="Black" 
                       FontFamily="Arial"
                       FontStretch="Normal"
-                      Background="White" >
+                      Background="White" 
+                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>

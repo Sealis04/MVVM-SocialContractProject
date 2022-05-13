@@ -27,6 +27,18 @@ namespace MVVM_SocialContractProject.ViewModels
 
         public ICommand EditCommand { get; }
         public ICommand RemoveCommand { get; }
+        public ICommand _headerClick;
+        public ICommand HeaderClick
+        {
+            get
+            {
+                if (_headerClick == null)
+                {
+                    _headerClick = new SortViewCommand(ScSystem, this);
+                }
+                return _headerClick;
+            }
+        }
 
         private string _searchText;
 
@@ -77,14 +89,17 @@ namespace MVVM_SocialContractProject.ViewModels
             LastCommand = new LastPageCommand(this);
             NextCommand = new NextPageComand(this);
             PreviousCommand = new PreviousPageCommand(this);
-            UpdateUserList(null, Start);
+            UpdateUserList(null, Start, StudentQuery, Direction);
         }
 
-        private void UpdateUserList(string SearchQuery, int page)
+        public int StudentQuery { get; set; }
+        public bool Direction { get; set; }
+
+        public void UpdateUserList(string SearchQuery, int page, int studentQuery, bool direction)
         {
             totalItems = dbQueries.GetAllUserCount(SearchQuery);
             _userInfo.Clear();
-            foreach (UserInfo user in ScSystem.GetAllUsers(SearchQuery,page))
+            foreach (UserInfo user in ScSystem.GetAllUsers(SearchQuery,page, studentQuery,direction))
             {
                 _userInfo.Add(new UserInfoViewModel(new UserInfo(user.Username, user.Password, user.Salt, user.type)));
             }
@@ -113,11 +128,11 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdateUserList(_searchText, Start);
+                    UpdateUserList(_searchText, Start, StudentQuery, Direction);
                 }
                 Start = 0;
                 CurrentPageIndex = 0;
-                UpdateUserList(_searchText, Start);
+                UpdateUserList(_searchText, Start, StudentQuery, Direction);
                 OnPropertyChanged(nameof(SearchText));
             }
         }
@@ -129,28 +144,28 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             CurrentPageIndex++;
             Start += itemPerPage;
-            UpdateUserList(_searchText, Start);
+            UpdateUserList(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowPreviousPage()
         {
             CurrentPageIndex--;
             Start -= itemPerPage;
-            UpdateUserList(_searchText, Start);
+            UpdateUserList(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowFirstPage()
         {
             CurrentPageIndex = 0;
             Start = 0;
-            UpdateUserList(_searchText, Start);
+            UpdateUserList(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowLastPage()
         {
             CurrentPageIndex = TotalPages - 1;
             Start = (TotalPages * itemPerPage) - itemPerPage;
-            UpdateUserList(_searchText, Start);
+            UpdateUserList(_searchText, Start, StudentQuery, Direction);
         }
 
     }
