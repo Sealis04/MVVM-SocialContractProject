@@ -40,10 +40,9 @@ namespace MVVM_SocialContractProject.Commands
                    !string.IsNullOrEmpty(_encodeSCViewModel.ImageSource) &&
                    _encodeSCViewModel.BatchNo > 0 && 
                     _encodeSCViewModel.SchoolYear > 0 &&
-                   _encodeSCViewModel.FirstSem >= 0 &&
-                   _encodeSCViewModel.SecondSem >=0 &&
-                   _encodeSCViewModel.Summer >= 0 &&
-                
+                   (_encodeSCViewModel.FirstSem > 0 || 
+                   _encodeSCViewModel.SecondSem > 0 ||
+                   _encodeSCViewModel.Summer > 0) &&
                    base.CanExecute(parameter);
         }
         public override void Execute(object parameter)

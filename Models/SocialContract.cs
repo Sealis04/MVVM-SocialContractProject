@@ -30,7 +30,10 @@ namespace MVVM_SocialContractProject.Models
         //public UserAccount UserID { get; }
         public int TotalHours => FirstSemester + SecondSemester + Summer;
    
-
+        public bool IDConflict(StudentInfo student)
+        {
+            return student.StudentID == StudentID.StudentID;
+        }
         public bool Conflicts(SocialContract socialContract)
         {
             return socialContract.SchoolYear == SchoolYear;

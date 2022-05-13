@@ -49,38 +49,81 @@ namespace MVVM_SocialContractProject.Models.Database
                 conn.Close();
             }
         }
-        public void LoadStudentInfo(List<StudentInfo> _studentInfo, string SearchQuery, int page)
+
+        public void LoadStudentInfo(List<StudentInfo> _studentInfo, string SearchQuery, int page, int studentQuery, bool direction)
         {
             RunSystemCheck();
-            string query = "SELECT stu.s_ID, stu.s_fn, stu.s_mn,stu.s_ln,stu.s_batchNo,stu.s_Course ";
-            if(SearchQuery == null)
+            string query = "SELECT s_ID, s_fn, s_mn,s_ln,s_batchNo,s_Course " +
+                "FROM tbl_studentinfo INNER JOIN tbl_recordtbl ON tbl_studentinfo.s_ID = tbl_recordtbl.record_s_ID  ";
+            if (SearchQuery != null)
             {
-                query += "FROM tbl_studentinfo stu LIMIT @page,20;";
+                query += " WHERE s_ID LIKE @SID ";
             }
-            else
+            query += "GROUP BY s_ID ";
+            if (studentQuery != 0)
             {
-                query += "FROM tbl_studentinfo stu " +
-                    "" +
-                    "WHERE stu.s_ID LIKE @SID LIMIT @page,20;";
+                if (direction)
+                {
+                    query += "ORDER BY " +
+                        "CASE @sort " +
+                        "WHEN 1 THEN s_ID " +
+                        "END ASC, " +
+                        "CASE @sort " +
+                        "WHEN 2 THEN s_fn " +
+                        "END ASC, " +
+                        "CASE @sort " +
+                        "WHEN 3 THEN s_batchNo " +
+                        "END ASC, " +
+                        "CASE @sort " +
+                        "WHEN 4 THEN s_Course " +
+                        "END ASC, " +
+                        "CASE @sort " +
+                        "WHEN 5 THEN SUM(tbl_recordtbl.record_FirstSemester +tbl_recordtbl.record_SecondSemester + tbl_recordtbl.record_Summer) " +
+                        "END ASC, " +
+                        "CASE @sort " +
+                        "WHEN 6 THEN 160 - SUM(tbl_recordtbl.record_FirstSemester + tbl_recordtbl.record_SecondSemester + tbl_recordtbl.record_Summer) " +
+                        "END ASC ";
+                }
+                else
+                {
+                    query += "ORDER BY " +
+                     "CASE @sort " +
+                     "WHEN 1 THEN s_ID " +
+                     "END DESC, " +
+                     "CASE @sort " +
+                     "WHEN 2 THEN s_fn " +
+                     "END DESC, " +
+                     "CASE @sort " +
+                     "WHEN 3 THEN s_batchNo " +
+                     "END DESC, " +
+                     "CASE @sort " +
+                     "WHEN 4 THEN s_Course " +
+                     "END DESC, " +
+                     "CASE @sort " +
+                     "WHEN 5 THEN SUM(tbl_recordtbl.record_FirstSemester +tbl_recordtbl.record_SecondSemester + tbl_recordtbl.record_Summer) " +
+                     "END DESC, " +
+                     "CASE @sort " +
+                     "WHEN 6 THEN 160 - SUM(tbl_recordtbl.record_FirstSemester + tbl_recordtbl.record_SecondSemester + tbl_recordtbl.record_Summer) " +
+                     "END DESC ";
+                }
             }
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
-            if(SearchQuery != null)
-            {
-                cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
-            }
-            cmdDb.Parameters.AddWithValue("@page", page);
+            query += " LIMIT @page,20;";
+            MySqlCommand CommandDB = new MySqlCommand(query, conn);
+            CommandDB.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
+            CommandDB.Parameters.AddWithValue("@sort", studentQuery);
+            CommandDB.Parameters.AddWithValue("@page", page);
             try
             {
                 //---open DB---
                 conn.Open();
-                MySqlDataReader reader = cmdDb.ExecuteReader();
+                MySqlDataReader reader = CommandDB.ExecuteReader();
                 while (reader.Read())
                 {
                     string sID = reader[0].ToString();
                     string fName = reader[1].ToString() + " " + reader[2].ToString() + " " + reader[3].ToString();
                     int b_no = Convert.ToInt32(reader[4]);
                     string Course = reader[5].ToString();
-                    _studentInfo.Add(new StudentInfo(sID, reader[1].ToString(), reader[2].ToString(), reader[3].ToString() , b_no, Course));
+                    _studentInfo.Add(new StudentInfo(sID, reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), b_no, Course));
                 }
                 conn.Close();
             }
@@ -119,7 +162,7 @@ namespace MVVM_SocialContractProject.Models.Database
             RunSystemCheck();
             string query = "SELECT COUNT(*) FROM tbl_studentinfo";
             if (SearchQuery != null)
-            { 
+            {
                 query += " WHERE s_ID LIKE @SID";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
@@ -145,13 +188,54 @@ namespace MVVM_SocialContractProject.Models.Database
                 return 0;
             }
         }
-        public void LoadSocialContractInfo(StudentInfo student , List<SocialContract> _socialContract)
+        public void LoadSocialContractInfo(StudentInfo student, List<SocialContract> _socialContract, int intQuery, bool direction)
         {
             RunSystemCheck();
             string query = "SELECT record_FirstSemester, record_SecondSemester , record_Summer ,  record_SchoolYear, record_SocialContract, record_ID FROM  tbl_recordtbl  " +
-                "WHERE  record_s_ID  = @studentID AND record_IsRemoved = 0 ORDER BY record_SchoolYear ";
+                "WHERE  record_s_ID  = @studentID AND record_IsRemoved = 0 ";
+            if(intQuery != 0)
+            {
+                if (direction)
+                {
+                    query += "ORDER BY " +
+                            "CASE @sort " +
+                            "WHEN 1 THEN record_FirstSemester " +
+                            "END ASC, " +
+                            "CASE @sort " +
+                            "WHEN 2 THEN record_SecondSemester " +
+                            "END ASC, " +
+                            "CASE @sort " +
+                            "WHEN 3 THEN record_SchoolYear " +
+                            "END ASC, " + 
+                            "CASE @sort " +
+                            "WHEN 4 THEN record_Summer " +
+                            "END ASC ";
+                }
+                else
+                {
+                    query += "ORDER BY " +
+                            "CASE @sort " +
+                            "WHEN 1 THEN record_FirstSemester " +
+                            "END DESC, " +
+                            "CASE @sort " +
+                            "WHEN 2 THEN record_SecondSemester " +
+                            "END DESC, " +
+                            "CASE @sort " +
+                            "WHEN 3 THEN record_SchoolYear " +
+                            "END DESC, " +
+                            "CASE @sort " +
+                            "WHEN 4 THEN record_Summer " +
+                            "END DESC ";
+                }
+            }
+            else
+            {
+                query += "ORDER BY record_SchoolYear";
+            }
+            
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             cmdDb.Parameters.AddWithValue("@studentID", student.StudentID.ToString());
+            cmdDb.Parameters.AddWithValue("@sort", intQuery);
             try
             {
                 //---open DB---
@@ -178,27 +262,27 @@ namespace MVVM_SocialContractProject.Models.Database
 
         public void InsertStudentRecords(StudentInfo student)
         {
-                RunSystemCheck();
-                string addOnQuery = "INSERT INTO tbl_studentinfo ( `s_ID`, `s_fn`, `s_mn`, `s_ln`, `s_batchNo`, `s_Course`)";
-                addOnQuery += "VALUES (@sID, @sfn, @smn,@sln,@sbNo,@sc)";
-                MySqlCommand customCM = new MySqlCommand(addOnQuery, conn);
-                customCM.Parameters.AddWithValue("@sID", student.StudentID);
-                customCM.Parameters.AddWithValue("@sfn", student.FirstName);
-                customCM.Parameters.AddWithValue("@smn", student.MiddleName);
-                customCM.Parameters.AddWithValue("@sln", student.LastName);
-                customCM.Parameters.AddWithValue("@sbNo", student.BatchNo);
-                customCM.Parameters.AddWithValue("@sc", student.Course);
-                try
-                {
-                    conn.Open();
-                    MySqlDataReader reader = customCM.ExecuteReader();
-                    conn.Close();
-                }
-                catch (Exception a)
-                {
+            RunSystemCheck();
+            string addOnQuery = "INSERT INTO tbl_studentinfo ( `s_ID`, `s_fn`, `s_mn`, `s_ln`, `s_batchNo`, `s_Course`)";
+            addOnQuery += "VALUES (@sID, @sfn, @smn,@sln,@sbNo,@sc)";
+            MySqlCommand customCM = new MySqlCommand(addOnQuery, conn);
+            customCM.Parameters.AddWithValue("@sID", student.StudentID);
+            customCM.Parameters.AddWithValue("@sfn", student.FirstName);
+            customCM.Parameters.AddWithValue("@smn", student.MiddleName);
+            customCM.Parameters.AddWithValue("@sln", student.LastName);
+            customCM.Parameters.AddWithValue("@sbNo", student.BatchNo);
+            customCM.Parameters.AddWithValue("@sc", student.Course);
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = customCM.ExecuteReader();
+                conn.Close();
+            }
+            catch (Exception a)
+            {
                 conn.Close();
                 MessageBox.Show("Error Message" + a);
-                }
+            }
         }
 
         public void InsertSocialContract(SocialContract contract)
@@ -355,10 +439,10 @@ namespace MVVM_SocialContractProject.Models.Database
                 {
                     while (reader.Read())
                     {
-                        if(count < 5)
+                        if (count < 5)
                         {
                             count++;
-                            studentInfo.Add(new StudentInfo(reader[0].ToString(),reader[1].ToString(),reader[2].ToString(),reader[3].ToString(),Convert.ToInt32(reader[4]), reader[5].ToString()));
+                            studentInfo.Add(new StudentInfo(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), Convert.ToInt32(reader[4]), reader[5].ToString()));
                         }
                     }
                 }
@@ -384,7 +468,7 @@ namespace MVVM_SocialContractProject.Models.Database
             //Image upload and save
             var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(pdf.EventPDFSource);
             var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\PDFFolder\\" + fileNameToSave);
-                             
+
             //Save to DB part here (copy paste ez) 
             string query = "INSERT INTO " +
                 "`tbl_events`( `event_name`, `event_date`, `event_supervisor`, " +
@@ -463,7 +547,8 @@ namespace MVVM_SocialContractProject.Models.Database
                         reader[3].ToString(), reader[4].ToString(), date));
                 }
                 conn.Close();
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 conn.Close();
                 MessageBox.Show("DB related Error, please contact the administratior " +

@@ -32,43 +32,43 @@ namespace MVVM_SocialContractProject.Views
             Regex regex = new Regex("^[0-9]+$");
             if (!regex.IsMatch(bn_Tb.Text))
             {
-                bn_Tb.Text = "";
+                bn_Tb.Text = "0";
             }
         }
 
         private void Sy_Tb_TextChanged(object sender, TextChangedEventArgs e)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if (!regex.IsMatch(bn_Tb.Text))
+            if (!regex.IsMatch(sy_Tb.Text))
             {
-                bn_Tb.Text = "";
+                sy_Tb.Text = "0";
             }
         }
 
         private void FirstSem_Tb_TextChanged(object sender, TextChangedEventArgs e)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if (!regex.IsMatch(bn_Tb.Text))
+            if (!regex.IsMatch(firstSem_Tb.Text))
             {
-                bn_Tb.Text = "";
+                firstSem_Tb.Text = "0";
             }
         }
 
         private void SecondSem_Tb_TextChanged(object sender, TextChangedEventArgs e)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if (!regex.IsMatch(bn_Tb.Text))
+            if (!regex.IsMatch(SecondSem_Tb.Text))
             {
-                bn_Tb.Text = "";
+                SecondSem_Tb.Text = "0";
             }
         }
 
         private void Summer_Tb_TextChanged(object sender, TextChangedEventArgs e)
         {
             Regex regex = new Regex("^[0-9]+$");
-            if (!regex.IsMatch(bn_Tb.Text))
+            if (!regex.IsMatch(summer_Tb.Text))
             {
-                bn_Tb.Text = "";
+                summer_Tb.Text = "0";
             }
         }
     }

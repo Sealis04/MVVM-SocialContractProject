@@ -54,7 +54,7 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 if (_headerClick == null)
                 {
-                    MessageBox.Show("ASDASDSAd");
+                    _headerClick = new SortViewCommand(_scSystem, this);
                 }
                 return _headerClick;
             }
@@ -124,9 +124,6 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 IsEnabled = false;
             }
-
-
-
             Start = 0;
             _dbQueries = new DatabaseQueries();
             FirstCommand = new FirstPageCommand(this);
@@ -142,19 +139,20 @@ namespace MVVM_SocialContractProject.ViewModels
             Logout = new NavigateCommand(LogOutView);
             _studentInfo = new ObservableCollection<StudentInfoViewModel>();
             _socialContract = new ObservableCollection<SocialContractViewModel>();
-            UpdateReservations(null, Start);
+            UpdateReservations(null, Start, StudentQuery, Direction);
         }
-
-        private void UpdateReservations(string searchQuery, int page)
+        public int StudentQuery { get; set; }
+        public bool Direction { get; set; }
+        public void UpdateReservations(string searchQuery, int page, int studentQuery,bool direction)
         {
             totalItems = _dbQueries.GetStudentCount(searchQuery);
             _studentInfo.Clear();
             _socialContract.Clear();
             CurrentPageChosen = _currentPageIndex;
-            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery,page))
+            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery,page, studentQuery, direction))
             {
                 TotalHours = 0;
-                foreach (SocialContract contract in _scSystem.GetSocialContractForUser(student))
+                foreach (SocialContract contract in _scSystem.GetSocialContractForUser(student, 0, false))
                 {
                     SocialContractViewModel scModel = new SocialContractViewModel(contract);
                     TotalHours += scModel.TotalHours;
@@ -192,11 +190,11 @@ namespace MVVM_SocialContractProject.ViewModels
                 _searchText = value;
                 if (_searchText == "")
                 {
-                    UpdateReservations(null, Start);
+                    UpdateReservations(null, Start, StudentQuery, Direction);
                 }
                 Start = 0;
                 CurrentPageIndex = 0;
-                UpdateReservations(_searchText, Start);
+                UpdateReservations(_searchText, Start, StudentQuery, Direction);
                 OnPropertyChanged(nameof(SearchText));
             }
         }
@@ -207,28 +205,28 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             CurrentPageIndex++;
             Start += itemPerPage;
-            UpdateReservations(_searchText, Start);
+            UpdateReservations(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowPreviousPage()
         {
             CurrentPageIndex--;
             Start -= itemPerPage;
-            UpdateReservations(_searchText, Start);
+            UpdateReservations(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowFirstPage()
         {
             CurrentPageIndex = 0;
             Start = 0;
-            UpdateReservations(_searchText, Start);
+            UpdateReservations(_searchText, Start, StudentQuery, Direction);
         }
 
         public void ShowLastPage()
         {
             CurrentPageIndex = TotalPages - 1;
             Start = (TotalPages * itemPerPage) - itemPerPage;
-            UpdateReservations(_searchText, Start);
+            UpdateReservations(_searchText, Start, StudentQuery, Direction);
         }
 
 

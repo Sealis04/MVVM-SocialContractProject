@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MVVM_SocialContractProject">
+
+    <BitmapImage x:Key="HeaderTemplateArrowUp" UriSource="/MVVM SocialContractProject;component/Assets/logo.jpg" />
+    <BitmapImage x:Key="HeaderTemplateArrowDown" UriSource="/MVVM SocialContractProject;component/Assets/search.jpg" />
+</ResourceDictionary>
+
+    
+        
