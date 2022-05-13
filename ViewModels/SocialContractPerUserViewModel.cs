@@ -24,7 +24,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             get
             {
-                return _student.FirstName;
+                return Student.FirstName;
             }
         }
 
@@ -32,7 +32,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             get
             {
-                return _student.MiddleName;
+                return Student.MiddleName;
             }
         }
 
@@ -40,7 +40,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             get
             {
-                return _student.LastName;
+                return Student.LastName;
             }
         }
 
@@ -49,14 +49,14 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             get
             {
-                return _student.BatchNo;
+                return Student.BatchNo;
             }
         }
         public string Course
         {
             get
             {
-                return _student.Course;
+                return Student.Course;
             }
         }
 
@@ -65,7 +65,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             get
             {
-                return _student.CurrentHours;
+                return Student.CurrentHours;
             }
         }
 
@@ -75,6 +75,18 @@ namespace MVVM_SocialContractProject.ViewModels
 
         public ICommand PrintCommand { get; }
 
+        public ICommand _headerClick;
+        public ICommand HeaderClick
+        {
+            get
+            {
+                if (_headerClick == null)
+                {
+                    _headerClick = new SortViewCommand(_SCSystem, this);
+                }
+                return _headerClick;
+            }
+        }
         public ICommand RemoveCommand { get; }
         public IEnumerable<SocialContractViewModel> SocialContract => _socialContract;
         public SocialContractPerUserViewModel(SocialContractMonitoringSystem sCSystem, 
@@ -89,17 +101,21 @@ namespace MVVM_SocialContractProject.ViewModels
             _student = navigation.CurrentStudent;
             PrintCommand = new PrintCommandForContract(_student);
             RemoveCommand = new RemoveSocialContract(thisModel, _student);
-            LoadSocialContractInfo(_student);
+            LoadSocialContractInfo(_student,StudentQuery,Direction);
             Return = new NavigateCommand(navigationService);
             Encode = new NavigateCommand(encodeSCModel, _student);
         }
+        public int StudentQuery { get; set; }
+        public bool Direction { get; set; }
 
-        private void LoadSocialContractInfo(StudentInfoViewModel _student)
+        public StudentInfoViewModel Student => _student;
+
+        public void LoadSocialContractInfo(StudentInfoViewModel _student, int query, bool direction)
         {
             try
             {
                 _socialContract.Clear();
-                foreach (SocialContract SC in _SCSystem.GetSocialContractForUser(new StudentInfo(_student.StudentID, _student.FirstName, _student.MiddleName, _student.LastName, _student.BatchNo, _student.Course)))
+                foreach (SocialContract SC in _SCSystem.GetSocialContractForUser(new StudentInfo(_student.StudentID, _student.FirstName, _student.MiddleName, _student.LastName, _student.BatchNo, _student.Course), query, direction))
                 {
                     SocialContractViewModel contractInfo = new SocialContractViewModel(SC);
 

@@ -28,10 +28,10 @@ namespace MVVM_SocialContractProject.Models
             return _studentInfo.Where(r => r.StudentID == StudentID);
         }
 
-        public IEnumerable<StudentInfo> GetAllStudentInfo(string SearchQuery, int page)
+        public IEnumerable<StudentInfo> GetAllStudentInfo(string SearchQuery, int page, int studentQuery, bool direction)
         {
             _studentInfo.Clear();
-            _dbQueries.LoadStudentInfo(_studentInfo, SearchQuery, page);
+            _dbQueries.LoadStudentInfo(_studentInfo, SearchQuery, page, studentQuery,direction);
             return _studentInfo;
         }
         public IEnumerable<StudentInfo> SearchForStudentInfo(string StudentID)
@@ -47,7 +47,7 @@ namespace MVVM_SocialContractProject.Models
             {
                 if (existingStudentInfo.Conflicts(StudentID))
                 {
-                    scSystem.CreateSocialContract(socialContract);
+                    scSystem.CreateSocialContract(socialContract, StudentID);
                     Result = true;
                     //throw new StudentInfoConflictException(existingStudentInfo, StudentID);
                 }
@@ -55,7 +55,7 @@ namespace MVVM_SocialContractProject.Models
             if (!Result)
             {
                 _dbQueries.InsertStudentRecords(StudentID);
-                scSystem.CreateSocialContract(socialContract);
+                scSystem.CreateSocialContract(socialContract, StudentID);
                 _studentInfo.Add(StudentID);
             }
           

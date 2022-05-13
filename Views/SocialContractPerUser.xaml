@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
               xmlns:commands="clr-namespace:MVVM_SocialContractProject.Commands"
+              xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
              mc:Ignorable="d" Height="500" Width="900">
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
@@ -224,7 +225,8 @@
                       ItemsSource="{Binding SocialContract}"
                       Background="White"
                       BorderThickness="2px"
-                      BorderBrush="Black" Margin="0,0,0,36">
+                      BorderBrush="Black" Margin="0,0,0,36"
+                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>

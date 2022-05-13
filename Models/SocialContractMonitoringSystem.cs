@@ -27,13 +27,13 @@ namespace MVVM_SocialContractProject.Models
             _userInfo = new UserInfoRecords();
         }
 
-        public IEnumerable<SocialContract> GetSocialContractForUser(StudentInfo StudentID)
+        public IEnumerable<SocialContract> GetSocialContractForUser(StudentInfo StudentID, int query, bool direction)
         {
-            return _socialContractRecord.GetSocialRecords(StudentID);
+            return _socialContractRecord.GetSocialRecords(StudentID, query, direction);
         }
-        public void CreateSocialContract(SocialContract socialcontract)
+        public void CreateSocialContract(SocialContract socialcontract, StudentInfo StudentID)
         {
-           _socialContractRecord.AddSocialContract(socialcontract);
+           _socialContractRecord.AddSocialContract(socialcontract, StudentID);
         }
         public void UpdateSocialContract(StudentInfo studentID, SocialContract socialContract)
         {
@@ -65,9 +65,9 @@ namespace MVVM_SocialContractProject.Models
             _userInfoRecord.UpdateUserInfo(user);
         }
 
-        public IEnumerable<StudentInfo> GetAllStudentInfo(string searchQuery, int page)
+        public IEnumerable<StudentInfo> GetAllStudentInfo(string searchQuery, int page, int studentQuery,bool direction)
         {
-            return _studentRecords.GetAllStudentInfo(searchQuery, page);
+            return _studentRecords.GetAllStudentInfo(searchQuery, page,studentQuery,direction);
         }
 
         public IEnumerable<StudentInfo> SearchForUser(string StudentID)
