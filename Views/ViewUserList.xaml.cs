@@ -24,5 +24,15 @@ namespace MVVM_SocialContractProject.Views
         {
             InitializeComponent();
         }
+
+        private void CreateUser_MouseEnter(object sender, MouseEventArgs e)
+        {
+            CreateUser.Opacity = 0.9;
+        }
+
+        private void CreateUser_MouseLeave(object sender, MouseEventArgs e)
+        {
+            CreateUser.Opacity = 0.9;
+        }
     }
 }

@@ -8,20 +8,23 @@
              d:DesignHeight="100" d:DesignWidth="350">
         <UserControl.Resources>
         <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Margin" Value="5" />
+          
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-        <Button Content="First" Command="{Binding FirstCommand}"   Background="#051094" Foreground="White" Width="65"/>
-        <Button Content="Previous" Command="{Binding PreviousCommand}" Background="#051094" Foreground="White" Width="65"/>
-        <TextBlock Width="auto" Text="{Binding CurrentPageChosen}" Background="#051094" Foreground="White" />
+        <Button Content="First" Command="{Binding FirstCommand}"   Background="#051094" Width="65"/>
+        <Button Content="Previous" Command="{Binding PreviousCommand}" Background="#051094"  Width="65"/>
+        <TextBlock Width="auto" Text="{Binding CurrentPageChosen}"  Foreground="Black" />
         <TextBlock Text="of"/>
-        <TextBlock Width="auto" Text="{Binding TotalPages}" Background="#051094" Foreground="White"/>
-        <Button Content="Next" Command="{Binding NextCommand}" Background="#051094" Foreground="White" Width="65"/>
-        <Button Content="Last" Command="{Binding LastCommand}" Background="#051094" Foreground="White" Width="65"/>
+        <TextBlock Width="auto" Text="{Binding TotalPages}"  Foreground="Black"/>
+        <Button Content="Next" Command="{Binding NextCommand}" Background="#051094"  Width="65"/>
+        <Button Content="Last" Command="{Binding LastCommand}" Background="#051094"  Width="65"/>
     </StackPanel>
 </UserControl>

@@ -73,37 +73,46 @@
                             Content="Create User"
                             FontFamily="Helvetica"
                             Foreground="White"
+                       
                       Background="#051094"
                             FontWeight="Bold"
                             HorizontalAlignment="Stretch"
                             Height="35" 
+                         
                             VerticalAlignment="Center"
-                            Command="{Binding CreateUser}" Margin="0,0,0,2"
+                            Command="{Binding CreateUser}" Margin="0,0,0,2" MouseEnter="CreateUser_MouseEnter" MouseLeave="CreateUser_MouseLeave"
                             />
           
 
         </Grid>
         <!--LIST VIEW-->
-        <Grid Grid.Column="3" Grid.Row="2" Opacity="0.99">
+        <Grid Grid.Column="3" Grid.Row="2" Opacity="0.99" Background="White">
 
             <!--<DataGrid x:Name="dataGrid" Background="Black" HorizontalAlignment="Left" Height="448" VerticalAlignment="Top" Width="837" IsReadOnly="True" 
                       ItemsSource="{Binding SocialContract}">
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
-                      ItemsSource="{Binding UserInfo}" Background="White" Margin="0,10,0,49">
+                      ItemsSource="{Binding UserInfo}"
+                       BorderThickness="2px"
+                      BorderBrush="Black" 
+                      FontFamily="Arial"
+                      FontStretch="Normal"
+                      Background="White"
+                      Foreground="Black">
+                
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Username">
+                        <GridViewColumn Header="Username" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding UserName}"/>
@@ -111,7 +120,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Username">
+                        <GridViewColumn Header="isAdmin" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding Type}"/>
@@ -127,6 +136,8 @@
                                         Command="{Binding ElementName=AllInventoryRec,
                                         Path=DataContext.EditCommand}"
                                         CommandParameter="{Binding}"
+                                        Foreground="White"
+                             Background="#051094"
                                         />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -140,6 +151,8 @@
                                         Command="{Binding ElementName=AllInventoryRec,
                                         Path=DataContext.RemoveCommand}"
                                         CommandParameter="{Binding}"
+                                        Foreground="White"
+                             Background="#051094"
                                         />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -148,9 +161,19 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <local:PaginatioNView Margin="164,349,195,6" RenderTransformOrigin="0.5,0.5"/>
+           
         </Grid>
 
+
+
+        <local:PaginatioNView  
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="3"
+                RenderTransformOrigin="0.5,0.5"/>
+
+        
         <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -161,6 +184,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
+            
             <Button x:Name="CreateUser_Copy"
                 Grid.Column="5"
                 Grid.Row="6"
