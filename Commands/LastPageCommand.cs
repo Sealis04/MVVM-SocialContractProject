@@ -13,6 +13,7 @@ namespace MVVM_SocialContractProject.Commands
         private SocialContractRecordsViewModel viewModel;
 
         private ViewUsersListViewModel viewModel2;
+        private ViewPDFEventsViewModel viewModel3;
         public LastPageCommand(SocialContractRecordsViewModel viewModel)
         {
             this.viewModel = viewModel;
@@ -22,29 +23,45 @@ namespace MVVM_SocialContractProject.Commands
         public LastPageCommand(ViewUsersListViewModel viewModel)
         {
             viewModel2 = viewModel;
-            viewModel2.PropertyChanged += OnViewPropertyChanged;
+            viewModel2.PropertyChanged += OnViewPropertyChanged2;
+        }
+        public LastPageCommand(ViewPDFEventsViewModel viewModel)
+        {
+            viewModel3 = viewModel;
+            viewModel3.PropertyChanged += OnViewPropertyChanged3;
         }
 
         public override bool CanExecute(object parameter)
         {
-            if(viewModel == null)
+            if (viewModel != null)
+            {
+                return viewModel.CurrentPageIndex != viewModel.TotalPages - 1;
+
+            }
+            else if (viewModel2 != null)
             {
                 return viewModel2.CurrentPageIndex != viewModel2.TotalPages - 1;
             }
-            return viewModel.CurrentPageIndex != viewModel.TotalPages - 1;
+            else
+            {
+                return viewModel3.CurrentPageIndex != viewModel3.TotalPages - 1;
+            }
         }
 
         public override void Execute(object parameter)
         {
-            if (viewModel == null)
+            if (viewModel != null)
+            {
+                viewModel.ShowLastPage();
+            }
+            else if (viewModel2 != null)
             {
                 viewModel2.ShowLastPage();
             }
             else
             {
-                viewModel.ShowLastPage();
+                viewModel3.ShowLastPage();
             }
-            
         }
         private void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -57,6 +74,14 @@ namespace MVVM_SocialContractProject.Commands
         private void OnViewPropertyChanged2(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ViewUsersListViewModel.CurrentPageIndex))
+            {
+                OnCanExecuteChanged();
+            }
+        }
+
+        private void OnViewPropertyChanged3(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewPDFEventsViewModel.CurrentPageIndex))
             {
                 OnCanExecuteChanged();
             }

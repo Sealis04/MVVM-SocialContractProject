@@ -60,16 +60,32 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
 
-
+        public int _currentHours;
         public int CurrentHours
         {
             get
             {
                 return Student.CurrentHours;
             }
+            set
+            {
+                _currentHours = value;
+                OnPropertyChanged(nameof(CurrentHours));
+            }
         }
-
-        public int LackingHours => CurrentHours > 160 ? 0 : 160 - CurrentHours;
+        public int _lackingHours;
+        public int LackingHours
+        {
+            get
+            {
+                if (CurrentHours > 160) { return 0; } else { return 160 - CurrentHours; }
+            }
+            set
+            {
+                _lackingHours = value;
+                OnPropertyChanged(nameof(CurrentHours));
+            }
+        }
         public ICommand Return { get; }
         public ICommand Encode { get; }
 
@@ -100,7 +116,7 @@ namespace MVVM_SocialContractProject.ViewModels
             _socialContract = new ObservableCollection<SocialContractViewModel>();
             _student = navigation.CurrentStudent;
             PrintCommand = new PrintCommandForContract(_student);
-            RemoveCommand = new RemoveSocialContract(thisModel, _student);
+            RemoveCommand = new RemoveSocialContract(thisModel, _student, this);
             LoadSocialContractInfo(_student,StudentQuery,Direction);
             Return = new NavigateCommand(navigationService);
             Encode = new NavigateCommand(encodeSCModel, _student);
@@ -125,8 +141,6 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 
             }
-            
         }
-
     }
 }

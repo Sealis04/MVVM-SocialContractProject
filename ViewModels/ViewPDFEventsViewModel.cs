@@ -1,5 +1,6 @@
 ﻿using MVVM_SocialContractProject.Commands;
 using MVVM_SocialContractProject.Models;
+using MVVM_SocialContractProject.Models.Database;
 using MVVM_SocialContractProject.Services;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,15 @@ namespace MVVM_SocialContractProject.ViewModels
         private readonly SocialContractMonitoringSystem ScSystem;
         private readonly NavigationService addPDFNav;
         private readonly NavigationService viewStudentService;
-
+        private readonly DatabaseQueries dbQueries;
         public IEnumerable<EventsPDFViewModel> EventsPDF => _pdfInfo;
 
         public ICommand AddPDFCommand { get; }
         public ICommand ReturnCommand { get; }
-
+        public ICommand PreviousCommand { get; private set; }
+        public ICommand NextCommand { get; private set; }
+        public ICommand FirstCommand { get; private set; }
+        public ICommand LastCommand { get; private set; }
         public ICommand PrintCommand { get; }
         private int itemPerPage = 20;
         private int _currentPageIndex;
@@ -59,8 +63,14 @@ namespace MVVM_SocialContractProject.ViewModels
         public ViewPDFEventsViewModel(SocialContractMonitoringSystem ScSystem, NavigationService AddPDFNav, NavigationService ViewStudentService)
         {
             Start = 0;
+            CurrentPageChosen = _currentPageIndex;
             this.ScSystem = ScSystem;
             addPDFNav = AddPDFNav;
+            FirstCommand = new FirstPageCommand(this);
+            LastCommand = new LastPageCommand(this);
+            NextCommand = new NextPageComand(this);
+            PreviousCommand = new PreviousPageCommand(this);
+            dbQueries = new DatabaseQueries();
             PrintCommand = new PrintPDFCommand();
             viewStudentService = ViewStudentService;
             _pdfInfo = new ObservableCollection<EventsPDFViewModel>();
@@ -71,12 +81,14 @@ namespace MVVM_SocialContractProject.ViewModels
         public int Start { get; set; }
         public void UpdatePDFTable(string searchText, int page)
         {
+            totalItems = dbQueries.GetAllPDFCount(searchText);
             _pdfInfo.Clear();
            foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, page))
             {
                 EventsPDFViewModel pdfvm = new EventsPDFViewModel(pdf);
                 _pdfInfo.Add(pdfvm);
             }
+            CalculateTotalPages(totalItems);
         }
 
         private void CalculateTotalPages(int totalItems)

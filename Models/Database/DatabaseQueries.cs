@@ -556,6 +556,45 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
+        public int GetAllPDFCount(string SearchQuery)
+        {
+            RunSystemCheck();
+            //---get stored password---
+            string query = "SELECT COUNT(*) ";
+            if (SearchQuery == null)
+            {
+                query += " FROM tbl_events";
+            }
+            else
+            {
+                query += " FROM tbl_events WHERE event_name LIKE @SearchQuery";
+            }
+            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+            if (SearchQuery != null)
+            {
+                cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
+            }
+            //---Open Connection--
+            try
+            {
+                conn.Open();
+                //---ExecuteQuery---
+                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                while (myReader.Read())
+                {
+                    return Convert.ToInt32(myReader[0]);
+                }
+                conn.Close();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                MessageBox.Show("Error. Error message:" + ex);
+                return 0;
+
+            }
+        }
         public void GetAllUserInfo(List<UserInfo> userInfo, string SearchQuery, int page)
         {
             RunSystemCheck();
