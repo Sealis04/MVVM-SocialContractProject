@@ -28,6 +28,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.Background>
@@ -127,13 +128,15 @@
             <ListView x:Name="AllInventoryRec"  
                       ItemsSource="{Binding StudentInfo}" 
                        Background="White"
-                      BorderThickness="2px"
-                      BorderBrush="Black" Margin="0,0,0,49"
+                        BorderThickness="2px"
+                      BorderBrush="Black" 
+                      FontFamily="Arial"
+                      FontStretch="Normal"
                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}"
                      >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}"/>
+                        <i:InvokeCommandAction Command="{Binding DoubleClick}" CommandParameter="{Binding ElementName=AllInventoryRec, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListView.ItemContainerStyle>
@@ -197,10 +200,18 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <local:PaginatioNView Margin="170,393,189,10" RenderTransformOrigin="0.5,0.5"/>
+          
         </Grid>
 
-        <Grid Grid.Column="3" Grid.Row="3">
+
+        <local:PaginatioNView  
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="3"
+                RenderTransformOrigin="0.5,0.5"/>
+        
+        <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="*"/>

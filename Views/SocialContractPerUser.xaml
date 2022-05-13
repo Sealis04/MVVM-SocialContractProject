@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
               xmlns:commands="clr-namespace:MVVM_SocialContractProject.Commands"
               xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
-             mc:Ignorable="d" Height="500" Width="900">
+             mc:Ignorable="d" Height="600" Width="995">
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
     </UserControl.Resources>
@@ -22,6 +22,7 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -63,7 +64,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.50*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -77,7 +78,7 @@
                 <!--Name-->
                 <TextBlock Text="Name:" 
                        VerticalAlignment="Center" 
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px" 
@@ -87,7 +88,7 @@
 
                 <!--Department-->
                 <TextBlock Text="Department:" 
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
@@ -98,7 +99,7 @@
                 <!--Year and section-->
                 <TextBlock Text="Year and Section:" 
                        VerticalAlignment="Center" 
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
@@ -109,7 +110,7 @@
                        />
                 <TextBlock 
                     x:Name="stu_name"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Grid.Column="2"
                     Grid.Row="1"
                     FontFamily="Arial"
@@ -122,7 +123,7 @@
                        />
                 <TextBlock 
                      x:Name="stu_course"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Grid.Column="2"
                     Grid.Row="2"
                     FontFamily="Arial"
@@ -134,7 +135,8 @@
                        />
                 <TextBlock 
                      x:Name="stu_BY"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
+         
                     Grid.Column="2"
                     Grid.Row="3"
                     FontFamily="Arial"
@@ -161,7 +163,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -174,7 +176,7 @@
                 <!--Total Hours-->
                 <TextBlock Text="Total Hours:" 
                        VerticalAlignment="Bottom" 
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                            Grid.Column="1"
@@ -185,7 +187,7 @@
                 <!--Department-->
                 <TextBlock Text="Remaining Hours:" 
                        VerticalAlignment="Center" 
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Left"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
@@ -194,7 +196,7 @@
                        />
                 <TextBlock 
                     x:Name="stu_TotalHours"
-                     HorizontalAlignment="Center"
+                     HorizontalAlignment="Left"
                     Grid.Column="2"
                     Grid.Row="1"
                     FontFamily="Arial"
@@ -206,7 +208,7 @@
                        />
                 <TextBlock 
                     x:Name="stu_RemainingHours"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Grid.Column="2"
                     Grid.Row="2"
                     FontFamily="Arial"
@@ -225,7 +227,7 @@
                       ItemsSource="{Binding SocialContract}"
                       Background="White"
                       BorderThickness="2px"
-                      BorderBrush="Black" Margin="0,0,0,36"
+                      BorderBrush="Black" 
                        behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -289,6 +291,8 @@
                                         Command="{Binding ElementName=AllInventoryRec,
                                         Path=DataContext.PrintCommand}"
                                         CommandParameter="{Binding}"
+                                           Background="#051094"
+                            Foreground="White"
                                         />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -302,6 +306,8 @@
                                         Command="{Binding ElementName=AllInventoryRec,
                                         Path=DataContext.RemoveCommand}"
                                         CommandParameter="{Binding}"
+                                           Background="#051094"
+                            Foreground="White"
                                         />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -309,25 +315,34 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <local:PaginatioNView Margin="103,332,114,0" RenderTransformOrigin="0.5,0.5"/>
+           
         </Grid>
 
+
+
+        <local:PaginatioNView  
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="3"
+                RenderTransformOrigin="0.5,0.5"/>
+        
         <!--Buttons-->
         <Button x:Name="Encode"
                            Grid.Column="1"
-                            Grid.Row="3"
+                            Grid.Row="4"
                             Content="Encode"
                             FontFamily="Helvetica"
                             Foreground="White"
                   Background="#051094"
                             FontWeight="Bold" 
-                            Width="200"
+                            Width="150"
                             Height="35" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Command="{Binding Encode}"
                             />
-        <Grid Grid.Column="3" Grid.Row="3">
+        <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>

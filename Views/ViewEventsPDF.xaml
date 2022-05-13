@@ -20,6 +20,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.Background>
@@ -86,9 +87,12 @@
                 
             </DataGrid>-->
             <ListView x:Name="AllInventoryRec" 
-                      ItemsSource="{Binding EventsPDF}" Background="White"
-                      BorderBrush="Black"
-                      BorderThickness="2px" Margin="0,0,0,47">
+                      ItemsSource="{Binding EventsPDF}" 
+                        BorderThickness="2px"
+                      BorderBrush="Black" 
+                      FontFamily="Arial"
+                      FontStretch="Normal"
+                      Background="White" >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Height" Value="50"/>
@@ -146,10 +150,19 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <local:PaginatioNView Margin="164,400,195,6" RenderTransformOrigin="0.5,0.5"/>
+            
         </Grid>
 
-        <Grid Grid.Column="3" Grid.Row="3">
+
+
+        <local:PaginatioNView  
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="3"
+                RenderTransformOrigin="0.5,0.5"/>
+
+        <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
