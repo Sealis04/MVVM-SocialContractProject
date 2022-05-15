@@ -80,8 +80,23 @@
                         Height="30px"
                        VerticalAlignment="Center"  
                     x:Name="actNameTb"
-                Text="{Binding EventName}"
+                Text="{Binding EventName}" TextChanged="ActNameTb_TextChanged"
                 />
+
+            <TextBlock
+                x:Name="activityWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="4"
+                Grid.Row="2" Height="12" Width="244"
+                
+                       />
+
             <!--Firstname-->
             <TextBlock
                         Text="Venue:"
@@ -99,9 +114,23 @@
                     Grid.Row="3"
                         Height="30px"
                        VerticalAlignment="Center"
-                Text="{Binding EventVenue}"
+                Text="{Binding EventVenue}" TextChanged="VenueTb_TextChanged"
                 
                 />
+
+            <TextBlock
+                x:Name="venueWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="4"
+                Grid.Row="3" Height="12" Width="244"
+                
+                       />
             <!--Date-->
             <TextBlock
                         Text="Date:"
@@ -126,6 +155,20 @@
                 SelectedDate="{x:Static sys:DateTime.Now}" 
                 />
 
+            <TextBlock
+                x:Name="x3"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="4"
+                Grid.Row="4" Height="12" Width="244"
+                
+                       />
+
             <!--BN-->
             <TextBlock
                         Text="Supervisor:"
@@ -143,9 +186,23 @@
                     Grid.Row="5"
                         Height="30px"
                        VerticalAlignment="Center"
-                Text="{Binding EventSupervisor}"
+                Text="{Binding EventSupervisor}" TextChanged="SupervisorTb_TextChanged"
                 
                 />
+
+            <TextBlock
+                x:Name="sViserWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="4"
+                Grid.Row="5" Height="12" Width="244"
+                
+                       />
             <!--PDF-->
             <Button x:Name="pdf"
                            Grid.Column="6"
