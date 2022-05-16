@@ -67,12 +67,9 @@ namespace MVVM_SocialContractProject.Views
             if (!regex.IsMatch(firstSem_Tb.Text))
             {
                 firstSem_Tb.Text = "0";
-                CheckOpacity();
+            
             }
-            if (Convert.ToInt32(firstSem_Tb.Text) > 0)
-            {
-                CheckOpacity();
-            }
+            CheckOpacity();
         }
 
         private void SecondSem_Tb_TextChanged(object sender, TextChangedEventArgs e)
@@ -81,12 +78,8 @@ namespace MVVM_SocialContractProject.Views
             if (!regex.IsMatch(SecondSem_Tb.Text))
             {
                 SecondSem_Tb.Text = "0";
-                CheckOpacity();
             }
-            if (Convert.ToInt32(SecondSem_Tb.Text) > 0)
-            {
-                CheckOpacity();
-            }
+            CheckOpacity();
         }
 
         private void Summer_Tb_TextChanged(object sender, TextChangedEventArgs e)
@@ -95,25 +88,32 @@ namespace MVVM_SocialContractProject.Views
             if (!regex.IsMatch(summer_Tb.Text))
             {
                 summer_Tb.Text = "0";
-                CheckOpacity();
             }
-            if (Convert.ToInt32(summer_Tb.Text) > 0)
-            {
-                CheckOpacity();
-            }
+            CheckOpacity();
         }
 
         private void CheckOpacity()
         {
-            if (Convert.ToInt32(firstSem_Tb.Text) > 0 || Convert.ToInt32(SecondSem_Tb.Text) > 0
-               || Convert.ToInt32(summer_Tb.Text) > 0)
+            try
             {
-                RecordsWarning.Opacity = 0;
-            }
-            else
+                if (firstSem_Tb.Text != null && SecondSem_Tb.Text != null && summer_Tb.Text != null)
+                {
+                    if (Convert.ToInt32(firstSem_Tb.Text) > 0 || Convert.ToInt32(SecondSem_Tb.Text) > 0
+                    || Convert.ToInt32(summer_Tb.Text) > 0)
+                    {
+                        RecordsWarning.Opacity = 0;
+                    }
+                    else
+                    {
+                        RecordsWarning.Opacity = 100;
+                    }
+                }
+            }catch(FormatException e)
             {
-                RecordsWarning.Opacity = 100 ;
+               
             }
+          
+           
         }
 
         private void SID_tb_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)

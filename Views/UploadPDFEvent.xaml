@@ -150,24 +150,10 @@
                 Grid.Row="4"
                 Height="35px"
                 VerticalAlignment="Center"
-                
                 Text="{Binding EventDate}"
                 SelectedDate="{x:Static sys:DateTime.Now}" 
                 />
 
-            <TextBlock
-                x:Name="x3"
-                Text="*Required"
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Left"
-                Foreground="Red"
-                FontFamily="helvetica"
-                FontWeight="regular"
-                FontSize="10px"
-                Grid.Column="4"
-                Grid.Row="4" Height="12" Width="244"
-                
-                       />
 
             <!--BN-->
             <TextBlock
