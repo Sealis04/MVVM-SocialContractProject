@@ -72,8 +72,22 @@
                   BorderBrush="#121212"
                 BorderThickness="2"
                      Text="{Binding Username}"
-                Margin="20"
+                Margin="20" TextChanged="UsernameTB_TextChanged"
                 />
+
+            <TextBlock
+                x:Name="uNameWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="2"
+                Grid.Row="1" Height="12" Width="244"
+                Margin="20 0 0 0 "
+                       />
             <!--Password-->
             <TextBlock Text="Password:" 
                        VerticalAlignment="Center"
@@ -95,6 +109,20 @@
                     PasswordBox.PasswordChanged="PassTB_PasswordChanged"
                 Margin="20"
                 />
+
+            <TextBlock
+                x:Name="passwordWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="2"
+                Grid.Row="2" Height="12" Width="244"
+                Margin="20 0 0 0 "
+                       />
             <!--Confirm Password-->
             <TextBlock Text="Confirm Password:" 
                        VerticalAlignment="Center"
@@ -116,6 +144,20 @@
                      PasswordBox.PasswordChanged="ConfirmPassTB_PasswordChanged"
                 Margin="20"
                 />
+
+            <TextBlock
+                x:Name="confirmWarning"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="2"
+                Grid.Row="3" Height="12" Width="244"
+                Margin="20 0 0 0 "
+                       />
             <Grid Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="30 0 30 20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>

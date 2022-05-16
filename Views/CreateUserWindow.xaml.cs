@@ -31,6 +31,15 @@ namespace MVVM_SocialContractProject.Views
             {
                 ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
             }
+
+            if (confirmPassTB.Password.Length > 0)
+            {
+                confirmWarning.Opacity = 0;
+            }
+            else
+            {
+                confirmWarning.Opacity = 100;
+            }
         }
 
         private void PassTB_PasswordChanged(object sender, RoutedEventArgs e)
@@ -38,6 +47,27 @@ namespace MVVM_SocialContractProject.Views
             if (this.DataContext != null)
             {
                 ((dynamic)this.DataContext).ConfirmPassword = ((PasswordBox)sender).SecurePassword;
+            }
+            if (passTB.Password.Length > 0)
+            {
+                passwordWarning.Opacity = 0;
+            }
+            else
+            {
+                passwordWarning.Opacity = 100;
+            }
+
+        }
+
+        private void UsernameTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (usernameTB.Text.Length > 0)
+            {
+                uNameWarning.Opacity = 0;
+            }
+            else
+            {
+                uNameWarning.Opacity = 100;
             }
         }
     }

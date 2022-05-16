@@ -24,5 +24,41 @@ namespace MVVM_SocialContractProject.Views
         {
             InitializeComponent();
         }
+
+        private void ActNameTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (actNameTb.Text.Length > 0)
+            {
+                activityWarning.Opacity = 0;
+            }
+            else
+            {
+                activityWarning.Opacity = 100;
+            }
+        }
+
+        private void VenueTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (venueTb.Text.Length > 0)
+            {
+                venueWarning.Opacity = 0;
+            }
+            else
+            {
+                venueWarning.Opacity = 100;
+            }
+        }
+
+        private void SupervisorTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (supervisorTb.Text.Length > 0)
+            {
+                sViserWarning.Opacity = 0;
+            }
+            else
+            {
+                sViserWarning.Opacity = 100;
+            }
+        }
     }
 }
