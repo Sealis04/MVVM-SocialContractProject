@@ -9,13 +9,50 @@
              mc:Ignorable="d" Height="600" Width="995">
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
+
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.75*"/>
             <ColumnDefinition Width="15"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -76,7 +113,8 @@
                 </Grid.RowDefinitions>
 
                 <!--Name-->
-                <TextBlock Text="Name:" 
+             
+                    <TextBlock Text="Name:" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Left"
                        FontFamily="helvetica"
@@ -85,7 +123,7 @@
                            Grid.Row="1"
                           Grid.Column="1"
                        />
-
+            
                 <!--Department-->
                 <TextBlock Text="Department:" 
                        HorizontalAlignment="Left"
@@ -108,44 +146,52 @@
                        Grid.RowSpan="3"
                            Margin="0 0 0 10"
                        />
-                <TextBlock 
-                    x:Name="stu_name"
-                    HorizontalAlignment="Left"
+
+                <Viewbox   Grid.Row="1"    HorizontalAlignment="Left"  Grid.Column="2" Height="15"  Stretch="Uniform">
+
+                    <TextBlock 
+                            x:Name="stu_name"
+                         
                     Grid.Column="2"
                     Grid.Row="1"
                     FontFamily="Arial"
-                    FontWeight="Bold"
-                   FontSize="13px"
+                   FontSize="10px"
                     VerticalAlignment="Center"
-                    Width="150"
-                    Text="{Binding StudentName}"
+                     Text="{Binding StudentName}"
+              
                   
                        />
-                <TextBlock 
+                </Viewbox>
+
+                <Viewbox   Grid.Row="2"  HorizontalAlignment="Left"   Grid.Column="2" Height="15" Width="190"  Stretch="Uniform">
+                    <TextBlock 
                      x:Name="stu_course"
-                    HorizontalAlignment="Left"
                     Grid.Column="2"
                     Grid.Row="2"
                     FontFamily="Arial"
-                    FontWeight="Bold"
-                  FontSize="13px"
+                  FontSize="10px"
                     VerticalAlignment="Center"
-                    Width="120"
-                     Text="{Binding Course}" IsEnabled="False"
+                     
+                     Text="{Binding Course}" 
+                        IsEnabled="False"
                        />
-                <TextBlock 
+                </Viewbox>
+
+                <Viewbox   Grid.Row="3"  HorizontalAlignment="Left"  Grid.Column="2" Width="190" Height="15"  Stretch="Uniform">
+                    <TextBlock 
+                      
                      x:Name="stu_BY"
-                    HorizontalAlignment="Left"
-         
+                 
+                
                     Grid.Column="2"
                     Grid.Row="3"
                     FontFamily="Arial"
-                    FontWeight="Bold"
-                   FontSize="13px"
+                   FontSize="10px"
                     VerticalAlignment="Center"
-                    Width="120"
-                     Text="{Binding BatchNo}"
+                        Text="{Binding BatchNo}"
+                        
                        />
+                </Viewbox>
             </Grid>
 
 
@@ -231,6 +277,7 @@
                        behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
+                        <Setter Property="OverridesDefaultStyle" Value="True" />
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
@@ -256,7 +303,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="90" Header="Second Semester">
+                        <GridViewColumn Width="120" Header="Second Semester">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding SecondSem}"/>
@@ -341,6 +388,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Command="{Binding Encode}"
+                 Style="{StaticResource Hover}"
                             />
         <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -366,6 +414,7 @@
                             Command="{Binding ElementName=AllInventoryRec, 
                             Path=DataContext.PrintCommand}"
                             CommandParameter="{Binding}"
+                     Style="{StaticResource Hover}"
                             />
             <Button x:Name="Back"
                            Grid.Column="5"
@@ -380,6 +429,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
                             Command="{Binding Return}"
+                     Style="{StaticResource Hover}"
                             />
         </Grid>
 

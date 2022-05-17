@@ -29,8 +29,8 @@
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="1"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="Gray"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="True">
                     <Setter Property="Opacity" Value="1"/>
@@ -39,6 +39,27 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -137,7 +158,8 @@
                             VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right"
                 Command="{Binding LoginCommand}"
-                Style="{StaticResource buttonStyle}"
+                Style="{StaticResource buttonStyle }"
+                    
                             />
            
          
@@ -167,6 +189,7 @@
             Width="134"
             Height="35" 
             Command="{Binding connectToDB}" 
+                 Style="{StaticResource Hover}"
             VerticalAlignment="Top" 
                             Margin="341,90,25,0" Grid.Column="1" 
                             />

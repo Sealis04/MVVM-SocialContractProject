@@ -8,6 +8,48 @@
              xmlns:behav="clr-namespace:MVVM_SocialContractProject.Behaviors"
              mc:Ignorable="d"
              Background="White" Height="600" Width="995">
+
+    <UserControl.Resources>
+      
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+
+
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -75,11 +117,11 @@
                             FontFamily="Helvetica"
                             Foreground="White"
                        
-                      Background="#051094"
+             
                             FontWeight="Bold"
                             HorizontalAlignment="Stretch"
                             Height="35" 
-                         
+                            Style="{StaticResource Hover}"
                             VerticalAlignment="Center"
                             Command="{Binding CreateUser}" Margin="0,0,0,2" MouseEnter="CreateUser_MouseEnter" MouseLeave="CreateUser_MouseLeave"
                             />
@@ -185,12 +227,13 @@
                 Content="Return"
                 FontFamily="Helvetica"
                 Foreground="White"
-                      Background="#051094"
+               
                 FontWeight="Bold"
                 HorizontalAlignment="Stretch"
                 Height="35" 
                 VerticalAlignment="Center"
                 Command="{Binding ReturnCommand}" 
+                    Style="{StaticResource Hover}"
                             />
         </Grid>
     </Grid>

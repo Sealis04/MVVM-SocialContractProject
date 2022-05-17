@@ -6,6 +6,29 @@
              xmlns:local="clr-namespace:MVVM_SocialContractProject.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000 ">
+    <UserControl.Resources>
+
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -172,7 +195,7 @@
                             Content="Submit"
                             FontFamily="Helvetica"
                             Foreground="White"
-                         Background="#051094"
+                        Style="{StaticResource Hover}"
                             FontWeight="Bold"
                             Height="35"
                             HorizontalAlignment="Stretch"
@@ -185,7 +208,7 @@
                             FontFamily="Helvetica"
                             Foreground="White"
                             FontWeight="Bold"
-                         Background="#051094"
+                      Style="{StaticResource Hover}"
                              HorizontalAlignment="Stretch"
                             Height="35"
                              VerticalAlignment="Top"

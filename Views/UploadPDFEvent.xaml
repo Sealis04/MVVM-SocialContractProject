@@ -7,6 +7,63 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style x:Key="submitStyle" TargetType="Button">
+
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="MediumAquamarine" />
+            <Setter Property="Foreground" Value="MediumBlue" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="MyContentPresenter" 
+                                      Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="Gray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#051094"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -205,6 +262,7 @@
                             VerticalAlignment="Center"
                              HorizontalAlignment="Stretch"
                     Command="{Binding UploadPDF}"
+                     Style="{StaticResource Hover}"
                             />
             <Image
                 Grid.Row="1"
@@ -231,12 +289,13 @@
                             Content="Submit"
                             FontFamily="Arial"
                             Foreground="White"
-                      Background="#051094"
+                      
                             FontWeight="Bold"
                                     Width="100"
                     HorizontalAlignment="Stretch"
                             Height="35" 
                             VerticalAlignment="Center" 
+                           Style="{StaticResource submitStyle}"
                             Command="{Binding SubmitEvent}"  
                             />
             <Button x:Name="Cancel"
@@ -250,6 +309,7 @@
                             Height="35" 
                             VerticalAlignment="Center"
                             Command="{Binding CancelEvent}"
+                     Style="{StaticResource Hover}"
                             />
         </Grid>
     </Grid>
