@@ -7,6 +7,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              Background="White">
+    <UserControl.Resources>
+
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
     <Grid>
 
         <!--LOGO-->
@@ -233,7 +257,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Stretch"
                     Grid.Row="5"
-                      Background="#051094"
+                     Style="{StaticResource Hover}"
             VerticalAlignment="Bottom" 
             Command="{Binding ConnectDB}"
          

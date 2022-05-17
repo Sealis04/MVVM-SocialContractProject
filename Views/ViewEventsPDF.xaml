@@ -8,6 +8,48 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              Background="White">
+
+    <UserControl.Resources>
+
+
+        <Style x:Key="Hover" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Left" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+
+
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -71,13 +113,16 @@
                             Content="Add PDF"
                             FontFamily="Helvetica"
                             Foreground="White"
-                      Background="#051094"
+                 
                             FontWeight="bold"
                             Width="243"
                             Height="35" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
-                            Command="{Binding AddPDFCommand}" Margin="1,5,0,1" RenderTransformOrigin="0.427,1.067" Grid.Row="2" Grid.Column="1"
+                            Command="{Binding AddPDFCommand}" Margin="1,5,0,1" 
+                        RenderTransformOrigin="0.427,1.067" Grid.Row="2" 
+                        Grid.Column="1"
+                     Style="{StaticResource Hover}"
                             />
         </Grid>
         <!--LIST VIEW-->
@@ -145,6 +190,8 @@
                                         Command="{Binding ElementName=AllInventoryRec,
                                         Path=DataContext.PrintCommand}"
                                         CommandParameter="{Binding}"
+                                        Background="#051094"
+                                        Foreground="White"
                                         />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -179,14 +226,16 @@
                 Content="Return"
                 FontFamily="Helvetica"
                 Foreground="White"
-                      Background="#051094"
+               
         Grid.Column="5"
                 FontWeight="Bold"
                 
                 Height="35" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" 
-                Command="{Binding ReturnCommand}"  RenderTransformOrigin="0.427,1.067"
+                Command="{Binding ReturnCommand}"  
+                     Style="{StaticResource Hover}"
+                    RenderTransformOrigin="0.427,1.067"
                 Grid.ColumnSpan="3" 
                             />
 
