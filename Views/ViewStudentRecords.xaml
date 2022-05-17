@@ -51,6 +51,8 @@
         </Style>
 
 
+
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -117,7 +119,7 @@
                             Content="PDF"
                             FontFamily="Helvetica"
                             Foreground="White"
-                            
+                           
                             FontWeight="Bold"
                             Width="134"
                             Height="35" 
@@ -132,7 +134,7 @@
                             Content="View User List"
                             FontFamily="Helvetica"
                             Foreground="White"
-                 
+                            Background="#051094"
                             FontWeight="Bold"
                             Width="134"
                             Height="35" 
@@ -140,7 +142,8 @@
                             HorizontalAlignment="Stretch"
                             Command="{Binding CreateUser}"  Grid.RowSpan="2"
                             IsEnabled="{Binding IsEnabled}"
-                      Style="{StaticResource Hover}"
+                            
+                     
                             />
             <Button x:Name="LogOut"
                            Grid.Column="1"
