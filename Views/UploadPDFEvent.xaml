@@ -51,7 +51,6 @@
 
         <Style x:Key="Hover" TargetType="Button">
             <Setter Property="Background" Value="#051094"/>
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -129,21 +128,21 @@
 
             <!--Activity-->
             <TextBlock
-                        Text="Activity Name:"
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Right"
-                       FontFamily="helvaetica"
-                       FontWeight="Bold"
-                        FontSize="16px"
-                       Grid.Column="2"
+                Text="Activity Name:"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Right"
+                FontFamily="helvaetica"
+                FontWeight="Bold"
+                FontSize="16px"
+                Grid.Column="2"
                 Grid.Row="2"
                        />
             <TextBox
-                     Grid.Column="4"
+                Grid.Column="4"
                 Grid.Row="2"
-                        Height="30px"
-                       VerticalAlignment="Center"  
-                    x:Name="actNameTb"
+                Height="30px"
+                VerticalAlignment="Center"  
+                x:Name="actNameTb"
                 Text="{Binding EventName}" TextChanged="ActNameTb_TextChanged"
                 />
 
@@ -163,21 +162,21 @@
 
             <!--Firstname-->
             <TextBlock
-                        Text="Venue:"
+                       Text="Venue:"
                        VerticalAlignment="center" 
                        HorizontalAlignment="Right"
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="16px"
                        Grid.Column="2"
-                        Grid.Row="3"
+                       Grid.Row="3"
                        />
             <TextBox
                 x:Name="venueTb"
-                     Grid.Column="4"
-                    Grid.Row="3"
-                        Height="30px"
-                       VerticalAlignment="Center"
+                Grid.Column="4"
+                Grid.Row="3"
+                Height="30px"
+                VerticalAlignment="Center"
                 Text="{Binding EventVenue}" TextChanged="VenueTb_TextChanged"
                 
                 />
@@ -197,19 +196,19 @@
                        />
             <!--Date-->
             <TextBlock
-                        Text="Date:"
+                       Text="Date:"
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Right"
                        FontFamily="helvetica"
                        FontWeight="Bold"
-                           FontSize="16px"
+                       FontSize="16px"
                        Grid.Column="2"
-                        Grid.Row="4"
+                       Grid.Row="4"
                        />
             <DatePicker
                 x:Name="dateTb"
                 Grid.Column="4"
-                   Grid.ColumnSpan="1"
+                Grid.ColumnSpan="1"
                 HorizontalAlignment="Stretch"
                 Grid.Row="4"
                 Height="35px"
@@ -221,14 +220,14 @@
 
             <!--BN-->
             <TextBlock
-                        Text="Supervisor:"
+                       Text="Supervisor:"
                        VerticalAlignment="Center"  
                        HorizontalAlignment="Right"
                        FontFamily="Arial"
                        FontWeight="Bold"
-                           FontSize="16px"
+                       FontSize="16px"
                        Grid.Column="2"
-                        Grid.Row="5"
+                       Grid.Row="5"
                        />
             <TextBox
                 x:Name="supervisorTb"
@@ -255,21 +254,20 @@
                        />
             <!--PDF-->
             <Button x:Name="pdf"
-                           Grid.Column="6"
-                            Grid.Row="5"
-                            Content="PDF"
-                            FontFamily="Arial"
-                           
-                            FontWeight="ExtraBlack"
-                            Height="30px"
-                        Margin="20 0 0 0"
-                            Width="100"
-                       Foreground="White"
-                      Background="#051094"
-                            VerticalAlignment="Center"
-                             HorizontalAlignment="Stretch"
+                    Grid.Column="6"
+                    Grid.Row="5"
+                    Content="PDF"
+                    FontFamily="Arial" 
+                    FontWeight="ExtraBlack"
+                    Height="30px"
+                    Margin="20 0 0 0"
+                    Width="100"
+                    Foreground="White"
+                    Background="#051094"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
                     Command="{Binding UploadPDF}"
-                     Style="{StaticResource Hover}"
+                    Style="{StaticResource Hover}"
                             />
             <Image
                 Grid.Row="1"
@@ -310,13 +308,12 @@
                             Content="Submit"
                             FontFamily="Arial"
                             Foreground="White"
-                      
                             FontWeight="Bold"
-                                    Width="100"
-                    HorizontalAlignment="Stretch"
+                            Width="100"
+                            HorizontalAlignment="Stretch"
                             Height="35" 
                             VerticalAlignment="Center" 
-                           Style="{StaticResource submitStyle}"
+                            Style="{StaticResource submitStyle}"
                             Command="{Binding SubmitEvent}"  
                             />
             <Button x:Name="Cancel"
@@ -324,13 +321,13 @@
                             Content="Cancel"
                             FontFamily="Arial"
                             Foreground="White"
-                      Background="#051094"
+                            Background="#051094"
                             FontWeight="Bold"
-                        Width="100"
+                            Width="100"
                             Height="35" 
                             VerticalAlignment="Center"
                             Command="{Binding CancelEvent}"
-                     Style="{StaticResource Hover}"
+                            Style="{StaticResource Hover}"
                             />
         </Grid>
     </Grid>

@@ -134,7 +134,7 @@
                             Content="View User List"
                             FontFamily="Helvetica"
                             Foreground="White"
-                 
+                            Background="#051094"
                             FontWeight="Bold"
                             Width="134"
                             Height="35" 

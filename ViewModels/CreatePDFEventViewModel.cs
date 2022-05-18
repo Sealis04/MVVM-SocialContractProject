@@ -105,7 +105,6 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
    
-
         public CreatePDFEventViewModel(SocialContractMonitoringSystem _SCSystem, NavigationService navService)
         {
             SubmitEvent = new SubmitPDFEventCommand(_SCSystem, navService, this);
