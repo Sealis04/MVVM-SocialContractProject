@@ -20,7 +20,7 @@ namespace MVVM_SocialContractProject.Commands
                 {
                     Verb = "",
                     CreateNoWindow = true,
-                    FileName = "\\\\" + Properties.Settings.Default.Server+"\\SocialContractPDF.pdf",
+                    FileName = "\\\\" + Properties.Settings.Default.Server+"\\SocialContractFolder\\SocialContractPDF.pdf",
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
                 try
