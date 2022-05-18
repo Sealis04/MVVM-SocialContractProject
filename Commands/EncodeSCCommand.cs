@@ -48,32 +48,37 @@ namespace MVVM_SocialContractProject.Commands
         }
         public override void Execute(object parameter)
         {
+            bool result;
             StudentInfo student = new StudentInfo(
                 _encodeSCViewModel.StudentID, _encodeSCViewModel.Firstname, _encodeSCViewModel.Middlename, _encodeSCViewModel.Lastname ,_encodeSCViewModel.BatchNo, _encodeSCViewModel.Course);
             SocialContract socialContract = new SocialContract(0,student,_encodeSCViewModel.FirstSem, _encodeSCViewModel.SecondSem, _encodeSCViewModel.Summer,_encodeSCViewModel.SchoolYear, _encodeSCViewModel.ImageSource);
             try
             {
-                _scSystem.CreateStudentInfo(student, socialContract, _scSystem);
-                MessageBox.Show("Successfuly Encoded", "Success",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                navigationService.Navigate();
-            }
-            catch (SocialContractConflictExceptions)
-            {
-                MessageBoxResult result = MessageBox.Show("Records for the said year has already been inputted, Confirm Override?", "Error",
-                    MessageBoxButton.YesNo, MessageBoxImage.Error);
-
-                if (result == MessageBoxResult.Yes)
+                result = _scSystem.CreateStudentInfo(student, socialContract, _scSystem);
+                if (result)
                 {
-                    _scSystem.UpdateSocialContract(student, socialContract);
-                    MessageBox.Show("Successfuly Updated", "Success",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    navigationService.Navigate();
+                    MessageBoxResult decision = MessageBox.Show("Records for the said year has already been inputted, Confirm Override?", "Error",
+                    MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (decision == MessageBoxResult.Yes)
+                    {
+                        _scSystem.UpdateSocialContract(student, socialContract);
+                        MessageBox.Show("Successfuly Updated", "Success",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        navigationService.Navigate();
+                    }
                 }
                 else
                 {
-                    return;
+                    MessageBox.Show("Successfuly Encoded", "Success",
+                          MessageBoxButton.OK, MessageBoxImage.Information);
+                    navigationService.Navigate();
                 }
+            }
+            catch (SocialContractConflictExceptions)
+            {
+            }
+            catch (StudentInfoConflictException)
+            {
             }
         }
         private void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)

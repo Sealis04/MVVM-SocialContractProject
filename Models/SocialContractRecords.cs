@@ -28,34 +28,34 @@ namespace MVVM_SocialContractProject.Models
             return _socialContract.Where(r => r.StudentID == StudentID);
         }
 
-        public void AddSocialContract (SocialContract socialContract, StudentInfo StudentID)
+        public IEnumerable<SocialContract> GetSCInfo(StudentInfo StudentID)
         {
+            _socialContract.Clear();
+            _dbQueries.GetSCInfo(StudentID, _socialContract);
+            return _socialContract.Where(r => r.StudentID == StudentID);
+        }
+        public bool AddSocialContract (SocialContract socialContract, StudentInfo StudentID)
+        {
+            
             foreach (SocialContract existingSocialContract in _socialContract)
             {
                 if (existingSocialContract.IDConflict(StudentID))
                 {
                     if (existingSocialContract.Conflicts(socialContract))
                     {
-                        _socialContract.Clear();
+                        return true;
                         throw new SocialContractConflictExceptions(existingSocialContract, socialContract);
                         ///Update reservation on DB code to be updated
                     }
                 }
-             
             }
             _dbQueries.InsertSocialContract(socialContract);
-            
+            _socialContract.Add(socialContract);
+            return false;
         }
         public void UpdateSocialContract(StudentInfo student,SocialContract socialContract)
         {
-           
-            foreach (SocialContract existingSocialContract in _socialContract)
-            {
-                if (existingSocialContract.Conflicts(socialContract))
-                {
-                    _dbQueries.UpdateSocialContract(student, socialContract);
-                }
-            }
+            _dbQueries.UpdateSocialContract(student, socialContract);
             _socialContract.Clear();
         }
 

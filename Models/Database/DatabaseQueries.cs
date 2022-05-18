@@ -260,6 +260,29 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
+        public void GetSCInfo(StudentInfo student, List<SocialContract> SCList)
+        {
+            RunSystemCheck();
+            string query = "SELECT record_ID,record_FirstSemester, record_SecondSemester , record_Summer ,  record_SchoolYear, record_SocialContract FROM  tbl_recordtbl  " +
+                "WHERE  record_s_ID  = @sID AND record_IsRemoved = 0";
+            MySqlCommand cmdDB = new MySqlCommand(query, conn);
+            cmdDB.Parameters.AddWithValue("@sID", student.StudentID);
+            try
+            {
+                conn.Open();
+                MySqlDataReader reader = cmdDB.ExecuteReader();
+                while (reader.Read())
+                {
+                    SCList.Add(new SocialContract(Convert.ToInt32(reader[0]),student, Convert.ToInt32(reader[1]), Convert.ToInt32(reader[2]), Convert.ToInt32(reader[3]), Convert.ToInt32(reader[4]),reader[5].ToString()));
+                }
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                MessageBox.Show("Error Message" + e);
+            }
+        }
         public void InsertStudentRecords(StudentInfo student)
         {
             RunSystemCheck();
@@ -323,7 +346,7 @@ namespace MVVM_SocialContractProject.Models.Database
             defaultCM.Parameters.AddWithValue("@FS", contract.FirstSemester);
             defaultCM.Parameters.AddWithValue("@SS", contract.SecondSemester);
             defaultCM.Parameters.AddWithValue("@S", contract.Summer);
-            defaultCM.Parameters.AddWithValue("@SC", contract.SocialContractID);
+            defaultCM.Parameters.AddWithValue("@SC", contract.SocialContractimage);
             defaultCM.Parameters.AddWithValue("@sID", student.StudentID);
             try
             {

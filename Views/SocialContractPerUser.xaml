@@ -9,11 +9,8 @@
              mc:Ignorable="d" Height="600" Width="995">
     <UserControl.Resources>
         <commands:ImageConverter x:Key="ImageConverter"/>
-
-
         <Style x:Key="Hover" TargetType="Button">
             <Setter Property="Background" Value="#051094"/>
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -30,7 +27,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -130,9 +126,9 @@
                        FontFamily="helvetica"
                        FontWeight="Bold"
                        FontSize="13px"
-                         Grid.Row="2" Grid.RowSpan="1"
-                             Grid.Column="1"
-                           VerticalAlignment="Center"
+                       Grid.Row="2" Grid.RowSpan="1"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
                        />
                 <!--Year and section-->
                 <TextBlock Text="Year and Section:" 
@@ -144,11 +140,9 @@
                        Grid.Column="1"
                        Grid.Row="3"
                        Grid.RowSpan="3"
-                           Margin="0 0 0 10"
+                       Margin="0 0 0 10"
                        />
-
                 <Viewbox   Grid.Row="1"    HorizontalAlignment="Left"  Grid.Column="2" Height="15"  Stretch="Uniform">
-
                     <TextBlock 
                             x:Name="stu_name"
                          
@@ -274,10 +268,9 @@
                       Background="White"
                       BorderThickness="2px"
                       BorderBrush="Black" 
-                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}">
+                      >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="OverridesDefaultStyle" Value="True" />
                         <Setter Property="Height" Value="50"/>
                         <Setter Property="FontWeight" Value="DemiBold"/>
                         <Setter Property="FontFamily" Value="Arial"/>
@@ -365,15 +358,6 @@
            
         </Grid>
 
-
-
-        <local:PaginatioNView  
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Grid.Row="3"
-                Grid.Column="3"
-                RenderTransformOrigin="0.5,0.5"/>
-        
         <!--Buttons-->
         <Button x:Name="Encode"
                            Grid.Column="1"

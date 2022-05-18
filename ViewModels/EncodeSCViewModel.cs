@@ -356,6 +356,7 @@ namespace MVVM_SocialContractProject.ViewModels
             int count = 0;
             foreach (StudentInfo stu in scSystem.GetStudentInfo(StudentID))
             {
+                scSystem.GetSocialContractInfo(stu);
                 count++;
                 StudentID = stu.StudentID;
                 Firstname = stu.FirstName;
