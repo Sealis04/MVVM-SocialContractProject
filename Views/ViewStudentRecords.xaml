@@ -33,6 +33,37 @@
                     <Setter Property="Opacity" Value="0.50"/>
                 </Trigger>
             </Style.Triggers>
+            
+            
+        </Style>
+
+        <Style x:Key="Hover2" TargetType="Button">
+            <Setter Property="Background" Value="#051094"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+              
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#051094"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -139,11 +170,10 @@
                             Width="134"
                             Height="35" 
                             VerticalAlignment="Center"
+                            Style="{StaticResource Hover2}"
                             HorizontalAlignment="Stretch"
                             Command="{Binding CreateUser}"  Grid.RowSpan="2"
                             IsEnabled="{Binding IsEnabled}"
-                            
-                     
                             />
             <Button x:Name="LogOut"
                            Grid.Column="1"
@@ -163,11 +193,6 @@
         </Grid>
         <!--LIST VIEW-->
         <Grid Grid.Column="3" Grid.Row="2" Opacity="0.99">
-
-            <!--<DataGrid x:Name="dataGrid" Background="Black" HorizontalAlignment="Left" Height="448" VerticalAlignment="Top" Width="837" IsReadOnly="True" 
-                      ItemsSource="{Binding SocialContract}">
-                
-            </DataGrid>-->
             <ListView x:Name="AllInventoryRec"  
                       ItemsSource="{Binding StudentInfo}" 
                        Background="White"
@@ -175,7 +200,6 @@
                       BorderBrush="Black" 
                       FontFamily="Arial"
                       FontStretch="Normal"
-    
                       behav:GridViewColumnHeaderClick.Command="{Binding HeaderClick}"
                      >
                 <i:Interaction.Triggers>
@@ -244,7 +268,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </Grid>
 
 

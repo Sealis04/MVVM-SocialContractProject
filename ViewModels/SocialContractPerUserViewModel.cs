@@ -137,9 +137,8 @@ namespace MVVM_SocialContractProject.ViewModels
 
                     _socialContract.Add(contractInfo);
                 }
-            } catch(NullReferenceException e)
+            } catch(NullReferenceException)
             {
-                
             }
         }
     }

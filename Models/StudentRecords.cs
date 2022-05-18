@@ -40,25 +40,21 @@ namespace MVVM_SocialContractProject.Models
             _dbQueries.SearchQueryStudent(_studentInfo, StudentID);
             return _studentInfo;
         }
-        public void AddStudentInfo (StudentInfo StudentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
+        public bool AddStudentInfo (StudentInfo StudentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
         {
             Result = false;
             foreach (StudentInfo existingStudentInfo in _studentInfo)
             {
                 if (existingStudentInfo.Conflicts(StudentID))
                 {
-                    scSystem.CreateSocialContract(socialContract, StudentID);
-                    Result = true;
-                    //throw new StudentInfoConflictException(existingStudentInfo, StudentID);
+                    return scSystem.CreateSocialContract(socialContract, StudentID);
+                   throw new StudentInfoConflictException(existingStudentInfo, StudentID);
                 }
             }
-            if (!Result)
-            {
                 _dbQueries.InsertStudentRecords(StudentID);
-                scSystem.CreateSocialContract(socialContract, StudentID);
                 _studentInfo.Add(StudentID);
-            }
-          
+                return scSystem.CreateSocialContract(socialContract, StudentID);
+
         }
 
       
