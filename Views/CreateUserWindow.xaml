@@ -7,7 +7,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000 ">
     <UserControl.Resources>
+        <Style x:Key="buttonStyle" TargetType="Button">
 
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Background" Value="MediumAquamarine" />
+            <Setter Property="Foreground" Value="MediumBlue" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="MyContentPresenter" 
+                                      Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="Gray"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#051094"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style x:Key="Hover" TargetType="Button">
             <Setter Property="Background" Value="#051094"/>
@@ -28,6 +64,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -135,7 +172,7 @@
 
             <TextBlock
                 x:Name="passwordWarning"
-                Text="*Required"
+                Text="*Required (Minimum of 7 characters)"
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left"
                 Foreground="Red"
@@ -170,7 +207,7 @@
 
             <TextBlock
                 x:Name="confirmWarning"
-                Text="*Required"
+                Text="*Required (Minimum of 7 characters)"
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left"
                 Foreground="Red"
@@ -183,7 +220,8 @@
                        />
             <Grid Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="30 0 30 20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="209.762"/>
+                    <ColumnDefinition Width="90.238"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="15"/>
                     <ColumnDefinition Width="*"/>
@@ -191,11 +229,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="Submit"
-                           Grid.Column="1"
+                           Grid.Column="2"
                             Content="Submit"
                             FontFamily="Helvetica"
                             Foreground="White"
-                        Style="{StaticResource Hover}"
+                        Style="{StaticResource buttonStyle}"
                             FontWeight="Bold"
                             Height="35"
                             HorizontalAlignment="Stretch"
@@ -203,7 +241,7 @@
                         Command="{Binding SubmitCommand}"
                             />
                 <Button x:Name="Cancel"
-                           Grid.Column="3"
+                           Grid.Column="4"
                             Content="Cancel"
                             FontFamily="Helvetica"
                             Foreground="White"

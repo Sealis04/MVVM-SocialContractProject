@@ -11,13 +11,26 @@ using System.Windows.Media.Imaging;
 
 namespace MVVM_SocialContractProject.ViewModels
 {
-    public class CreatePDFEventViewModel: ViewModelBase
+    public class CreatePDFEventViewModel : ViewModelBase
     {
         private string _eventName;
         private string _eventVenue;
         private DateTime _eventDate = DateTime.Today;
         private string _eventSupervisor;
+        private int _opacity = 100;
 
+        public int OpacityValue
+        {
+            get
+            {
+                return _opacity;
+            }
+            set
+            {
+                _opacity = value;
+                OnPropertyChanged(nameof(OpacityValue));
+            }
+        }
         public string EventName
         {
             get
@@ -78,7 +91,16 @@ namespace MVVM_SocialContractProject.ViewModels
             }
             set
             {
+               
                 filePath = value;
+                if (filePath != null)
+                {
+                    OpacityValue = 0;
+                }
+                else
+                {
+                    OpacityValue = 100;
+                }
                 OnPropertyChanged(nameof(ImageSource));
             }
         }

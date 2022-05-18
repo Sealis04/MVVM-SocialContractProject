@@ -17,7 +17,7 @@
 
         <Style x:Key="Hover" TargetType="Button">
             <Setter Property="Background" Value="#051094"/>
-           
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -134,7 +134,7 @@
                             Content="View User List"
                             FontFamily="Helvetica"
                             Foreground="White"
-                            Background="#051094"
+                 
                             FontWeight="Bold"
                             Width="134"
                             Height="35" 
@@ -244,7 +244,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-          
+
         </Grid>
 
 
@@ -254,7 +254,7 @@
                 Grid.Row="3"
                 Grid.Column="3"
                 RenderTransformOrigin="0.5,0.5"/>
-        
+
         <Grid Grid.Column="3" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -281,6 +281,20 @@
                             Command="{Binding EncodeSCCommand}"
                          Style="{StaticResource Hover}"
                     
+                            />
+            <Button x:Name="encode_btn_Copy"
+                Content="Print Blank Social Contract"
+                FontFamily="Helvetica"
+                Foreground="White"
+                           
+                FontWeight="Bold"
+                Width="179"
+                Height="36" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" 
+                Command="{Binding PrintSCCommand}"
+                Style="{StaticResource Hover}"
+                Margin="0,15,170,14" Grid.ColumnSpan="3" Grid.Column="3"
                             />
 
 

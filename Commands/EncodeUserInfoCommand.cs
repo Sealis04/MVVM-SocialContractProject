@@ -37,7 +37,20 @@ namespace MVVM_SocialContractProject.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter);
+            try
+            {
+                return !string.IsNullOrEmpty(signUpViewModel.Username) &&
+                                signUpViewModel.Password.Length >= 7 &&
+                                !string.IsNullOrEmpty(signUpViewModel.Password.ToString()) &&
+                                signUpViewModel.ConfirmPassword.Length >= 7 &&
+                                !string.IsNullOrEmpty(signUpViewModel.ConfirmPassword.ToString())&&
+                 base.CanExecute(parameter);
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
+            
         }
         public override void Execute(object parameter)
         {
@@ -121,7 +134,12 @@ namespace MVVM_SocialContractProject.Commands
         }
         private void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
+            if (e.PropertyName == nameof(signUpViewModel.Username) ||
+              e.PropertyName == nameof(signUpViewModel.Password) ||
+              e.PropertyName == nameof(signUpViewModel.ConfirmPassword) )
+            {
+                OnCanExecuteChanged();
+            }
         }
     }
 }

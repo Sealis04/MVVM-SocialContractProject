@@ -38,7 +38,14 @@
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Background" Value="#051094"/>
                 </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
             </Style.Triggers>
+
+
         </Style>
 
 
@@ -85,7 +92,7 @@
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="/MVVM SocialContractProject;component/Assets/BackgroundPLV.jpg" AlignmentY="Top" AlignmentX="Center"/>
         </Grid.Background>
-        
+
         <!--Logo-->
         <!--<Image Source="Assets/plv.png" Grid.Row="1" Grid.Column="1"/>-->
 
@@ -272,6 +279,20 @@
                 Margin="10 10 10 10"
                 Source="{Binding ImageSource}"
                 />
+            <TextBlock
+                x:Name="sViserWarning_Copy"
+                Text="*Required"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                Foreground="Red"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="6"
+                Grid.Row="4" Height="12" Width="244"
+                Grid.ColumnSpan="2" Margin="10,0,-15,51" Grid.RowSpan="2"
+                Opacity="{Binding OpacityValue}"
+                       />
 
 
 

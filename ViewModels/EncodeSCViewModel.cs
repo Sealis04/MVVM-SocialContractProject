@@ -38,6 +38,22 @@ namespace MVVM_SocialContractProject.ViewModels
         private int _summer;
 
         private string _studentID;
+
+        private int _opacity = 100;
+        
+        public int OpacityValue
+        {
+            get
+            {
+                return _opacity;
+            }
+            set
+            {
+                _opacity = value;
+                OnPropertyChanged(nameof(OpacityValue));
+            }
+        }
+
         public string ImageSource
         {
             get
@@ -47,6 +63,14 @@ namespace MVVM_SocialContractProject.ViewModels
             set
             {
                 _filePath = value;
+                if (_filePath != null)
+                {
+                    OpacityValue = 0;
+                }
+                else
+                {
+                    OpacityValue = 100;
+                }
                 OnPropertyChanged(nameof(ImageSource));
             }
         }
