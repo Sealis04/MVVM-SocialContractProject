@@ -22,7 +22,6 @@ namespace MVVM_SocialContractProject.Commands
             this.scSystem = scSystem;
             this.navService = navService;
             this.pdfVM = pdfVM;
-
             pdfVM.PropertyChanged += OnViewPropertyChanged;
         }
 

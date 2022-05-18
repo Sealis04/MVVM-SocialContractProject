@@ -33,6 +33,7 @@ namespace MVVM_SocialContractProject.Commands
 
         public override bool CanExecute(object parameter)
         {
+        
             return !string.IsNullOrEmpty(_encodeSCViewModel.StudentID) &&
                    !string.IsNullOrEmpty(_encodeSCViewModel.Firstname) &&
                    !string.IsNullOrEmpty(_encodeSCViewModel.Lastname) &&

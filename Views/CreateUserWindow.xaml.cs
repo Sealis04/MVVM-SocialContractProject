@@ -32,7 +32,7 @@ namespace MVVM_SocialContractProject.Views
                 ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
             }
 
-            if (confirmPassTB.Password.Length > 0)
+            if (confirmPassTB.Password.Length >= 7)
             {
                 confirmWarning.Opacity = 0;
             }
@@ -48,7 +48,7 @@ namespace MVVM_SocialContractProject.Views
             {
                 ((dynamic)this.DataContext).ConfirmPassword = ((PasswordBox)sender).SecurePassword;
             }
-            if (passTB.Password.Length > 0)
+            if (passTB.Password.Length >= 7)
             {
                 passwordWarning.Opacity = 0;
             }

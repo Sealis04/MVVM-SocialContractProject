@@ -43,6 +43,11 @@
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Background" Value="#051094"/>
                 </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#051094"/>
+                    <Setter Property="Opacity" Value="0.50"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
 
@@ -367,26 +372,27 @@
                 Grid.Row="1"
                        />
             <Image
+                x:Name="ImagePreview"
                 Grid.Row="5"
                 Grid.Column="6" 
                 Grid.ColumnSpan="2" 
                 Grid.RowSpan="2"
-                Source="{Binding ImageSource}" Margin="0,0,0,45"
+                Source="{Binding ImageSource}" Margin="0,0,0,49"
+                
                 />
             <Button x:Name="uploadBtn"
-                Grid.Column="6"
-                Content="Upload Social Contract"
-                FontFamily="helvetica"
-                Foreground="White"
-            
-                FontWeight="Bold" 
-                Height="35" 
-                    FontSize="12px"
-                VerticalAlignment="Bottom"
-                    HorizontalAlignment="Center"
+               Grid.Column="6"
+               Content="Upload Social Contract"
+               FontFamily="helvetica"
+               Foreground="White"
+               FontWeight="Bold" 
+               Height="35" 
+               FontSize="12px"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
                Grid.Row="6" Width="150"
-                Command="{Binding UploadImage}" Grid.ColumnSpan="2" 
-                        Style="{StaticResource Hover}"
+               Command="{Binding UploadImage}" Grid.ColumnSpan="2" 
+               Style="{StaticResource Hover}"
                             />
 
             <Button x:Name="Submit"
@@ -502,6 +508,18 @@
                 FontSize="10px"
                 Grid.Column="6"
                 Grid.Row="4" Height="12" Width="244" Grid.ColumnSpan="2"
+                       />
+            <TextBlock
+                x:Name="ImagePreviewWarning"
+                Text="*Required "
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left"
+                FontFamily="helvetica"
+                FontWeight="regular"
+                FontSize="10px"
+                Grid.Column="6"
+                Grid.Row="6" Foreground="Red" Height="12" Width="49" Margin="0,0,0,37"
+                Opacity="{Binding OpacityValue}"
                        />
 
         </Grid>

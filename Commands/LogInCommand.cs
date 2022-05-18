@@ -44,13 +44,9 @@ namespace MVVM_SocialContractProject.Commands
                              base.CanExecute(parameter);
             }
           
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
-                return
-                           !string.IsNullOrEmpty(_loginVM.Username) &&
-                           _loginVM.SecurePassword.Length > 0 &&
-                           !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
-                           base.CanExecute(parameter);
+                return false;
             }
         }
         public override void Execute(object parameter)
