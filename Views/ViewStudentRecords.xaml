@@ -234,7 +234,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="100" Header="Batch No.">
+                        <GridViewColumn Width="100" Header="Year of Enrollment">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding BatchNo}"/>

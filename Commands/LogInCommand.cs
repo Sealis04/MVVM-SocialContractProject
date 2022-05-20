@@ -37,13 +37,12 @@ namespace MVVM_SocialContractProject.Commands
         {
             try
             {
-                return
-                             !string.IsNullOrEmpty(_loginVM.Username) &&
+
+                return       !string.IsNullOrEmpty(_loginVM.Username) &&
                              _loginVM.SecurePassword.Length > 0 &&
                              !string.IsNullOrWhiteSpace(_loginVM.SecurePassword.ToString()) &&
                              base.CanExecute(parameter);
             }
-          
             catch (NullReferenceException)
             {
                 return false;

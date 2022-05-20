@@ -131,7 +131,7 @@
                        VerticalAlignment="Center"
                        />
                 <!--Year and section-->
-                <TextBlock Text="Year and Section:" 
+                <TextBlock Text="Year of Enrollment:" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Left"
                        FontFamily="helvetica"

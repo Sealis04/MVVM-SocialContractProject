@@ -9,6 +9,7 @@ using MVVM_SocialContractProject.Services;
 using MVVM_SocialContractProject.Commands;
 using System.Windows.Input;
 using System.Windows;
+using System.Net;
 
 namespace MVVM_SocialContractProject.ViewModels
 {
