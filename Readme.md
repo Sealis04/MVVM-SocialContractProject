@@ -13,7 +13,7 @@ To let uploading work, on the server you set at startup,
 create the following folders:
 PDFFolder
 SocialContractsFolder 
-SocialContractFolder (without an s)
+SocialContractFolder (without an s) - On this specific folder, place the blank soocial contract form with the name SocialContractPDF
 
 After creating, setup advanced sharing for the local network
 Guide on how to Advance Share: 
