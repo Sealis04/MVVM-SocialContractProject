@@ -31,13 +31,13 @@ namespace MVVM_SocialContractProject.Models
         {
             return _socialContractRecord.GetSocialRecords(StudentID, query, direction);
         }
-        public bool  CreateSocialContract(SocialContract socialcontract, StudentInfo StudentID)
+        public SocialContract CreateSocialContract(SocialContract socialcontract, StudentInfo StudentID)
         {
             return _socialContractRecord.AddSocialContract(socialcontract, StudentID);
         }
-        public void UpdateSocialContract(StudentInfo studentID, SocialContract socialContract)
+        public void UpdateSocialContract(SocialContract ConflictSC, StudentInfo studentID, SocialContract socialContract)
         {
-           _socialContractRecord.UpdateSocialContract(studentID, socialContract);
+           _socialContractRecord.UpdateSocialContract(ConflictSC, studentID, socialContract);
         }
 
         public IEnumerable<StudentInfo> GetStudentInfo(string StudentID)
@@ -50,7 +50,7 @@ namespace MVVM_SocialContractProject.Models
             return _socialContractRecord.GetSCInfo(StudentID);
         }
 
-        public bool CreateStudentInfo(StudentInfo studentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
+        public SocialContract CreateStudentInfo(StudentInfo studentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
         {
           return  _studentRecords.AddStudentInfo(studentID, socialContract, scSystem);
         }

@@ -40,10 +40,6 @@ namespace MVVM_SocialContractProject.Commands
             try
             {
                 return !string.IsNullOrEmpty(signUpViewModel.Username) &&
-                                signUpViewModel.Password.Length >= 7 &&
-                                !string.IsNullOrEmpty(signUpViewModel.Password.ToString()) &&
-                                signUpViewModel.ConfirmPassword.Length >= 7 &&
-                                !string.IsNullOrEmpty(signUpViewModel.ConfirmPassword.ToString())&&
                  base.CanExecute(parameter);
             }
             catch (NullReferenceException)
@@ -63,6 +59,7 @@ namespace MVVM_SocialContractProject.Commands
                     string theString = new NetworkCredential("", signUpViewModel.Password).Password;
                     _scSystem.CreateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
                     navigationService.Navigate();
+                 
                 }
                 else
                 {

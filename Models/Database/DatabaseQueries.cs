@@ -308,26 +308,29 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
-        public void InsertSocialContract(SocialContract contract)
+        public void InsertSocialContract(StudentInfo student,SocialContract contract)
         {
             RunSystemCheck();
             string defaultQuery = "INSERT INTO tbl_recordtbl (`record_s_ID`, `record_SchoolYear`, `record_FirstSemester`, `record_SecondSemester`, `record_Summer`,`record_SocialContract`)" +
                "VALUES (@sID,@rSy,@rFs,@rSs,@rS,@rSC)";
+            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + student.StudentID + Path.GetExtension(contract.SocialContractimage);
+            var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
             MySqlCommand defaultCM = new MySqlCommand(defaultQuery, conn);
             defaultCM.Parameters.AddWithValue("@sID", contract.StudentID.StudentID);
             defaultCM.Parameters.AddWithValue("@rSy", contract.SchoolYear);
             defaultCM.Parameters.AddWithValue("@rFs", contract.FirstSemester);
             defaultCM.Parameters.AddWithValue("@rSs", contract.SecondSemester);
             defaultCM.Parameters.AddWithValue("@rS", contract.Summer);
-            defaultCM.Parameters.AddWithValue("@rSC", contract.SocialContractimage);
-            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(contract.SocialContractimage);
-            var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
+            defaultCM.Parameters.AddWithValue("@rSC", imagepath);
+            
             try
             {
                 conn.Open();
                 MySqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
                 File.Copy(contract.SocialContractimage, imagepath);
+                MessageBox.Show("Successfuly Updated", "Success",
+                         MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception c)
             {
@@ -336,23 +339,39 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
-        public void UpdateSocialContract(StudentInfo student, SocialContract contract)
+        public void UpdateSocialContract(SocialContract ConflictSC, StudentInfo student, SocialContract contract)
         {
             RunSystemCheck();
             string defaultQuery = "UPDATE tbl_recordtbl SET record_FirstSemester=@FS, " +
                 "record_SecondSemester=@SS, record_Summer=@S ,record_SocialContract= @SC  WHERE record_s_ID = @sID AND record_SchoolYear = @SY";
+            var ConflictImage = ConflictSC.SocialContractimage;
+            var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff")+ student.StudentID + Path.GetExtension(contract.SocialContractimage);
+            var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
             MySqlCommand defaultCM = new MySqlCommand(defaultQuery, conn);
             defaultCM.Parameters.AddWithValue("@SY", contract.SchoolYear);
             defaultCM.Parameters.AddWithValue("@FS", contract.FirstSemester);
             defaultCM.Parameters.AddWithValue("@SS", contract.SecondSemester);
             defaultCM.Parameters.AddWithValue("@S", contract.Summer);
-            defaultCM.Parameters.AddWithValue("@SC", contract.SocialContractimage);
+            defaultCM.Parameters.AddWithValue("@SC", imagepath);
             defaultCM.Parameters.AddWithValue("@sID", student.StudentID);
             try
             {
                 conn.Open();
+                if (File.Exists(ConflictImage))
+                {
+                    File.Delete(ConflictImage);
+                    File.Copy(contract.SocialContractimage, imagepath);
+                    MessageBox.Show("Successfuly Updated", "Success",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 MySqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
+              
+            }
+            catch (IOException s)
+            {
+                conn.Close();
+                MessageBox.Show("Network Connection Error:" + s);
             }
             catch (Exception c)
             {
@@ -406,6 +425,8 @@ namespace MVVM_SocialContractProject.Models.Database
                 //Execute Query
                 MySqlDataReader myReader = commandDatabase.ExecuteReader();
                 conn.Close();
+                MessageBox.Show("UserCreated!", "Success!",
+             MessageBoxButton.OK);
             }
             catch (Exception e)
             {

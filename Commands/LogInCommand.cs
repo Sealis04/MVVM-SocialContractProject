@@ -35,15 +35,8 @@ namespace MVVM_SocialContractProject.Commands
 
         public override bool CanExecute(object parameter)
         {
-            try
-            {
                 return       !string.IsNullOrEmpty(_loginVM.Username) &&
                              base.CanExecute(parameter);
-            }
-            catch (NullReferenceException)
-            {
-                return false;
-            }
         }
         public override void Execute(object parameter)
         {

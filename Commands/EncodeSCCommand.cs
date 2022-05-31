@@ -48,29 +48,27 @@ namespace MVVM_SocialContractProject.Commands
         }
         public override void Execute(object parameter)
         {
-            bool result;
+            SocialContract result;
             StudentInfo student = new StudentInfo(
                 _encodeSCViewModel.StudentID, _encodeSCViewModel.Firstname, _encodeSCViewModel.Middlename, _encodeSCViewModel.Lastname ,_encodeSCViewModel.BatchNo, _encodeSCViewModel.Course);
             SocialContract socialContract = new SocialContract(0,student,_encodeSCViewModel.FirstSem, _encodeSCViewModel.SecondSem, _encodeSCViewModel.Summer,_encodeSCViewModel.SchoolYear, _encodeSCViewModel.ImageSource);
             try
             {
                 result = _scSystem.CreateStudentInfo(student, socialContract, _scSystem);
-                if (result)
+                if (result != null)
                 {
                     MessageBoxResult decision = MessageBox.Show("Records for the said year has already been inputted, Confirm Override?", "Error",
                     MessageBoxButton.YesNo, MessageBoxImage.Error);
                     if (decision == MessageBoxResult.Yes)
                     {
-                        _scSystem.UpdateSocialContract(student, socialContract);
-                        MessageBox.Show("Successfuly Updated", "Success",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        _scSystem.UpdateSocialContract(result,student, socialContract);
                         navigationService.Navigate();
                     }
                 }
                 else
                 {
                     MessageBox.Show("Successfuly Encoded", "Success",
-                          MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                     navigationService.Navigate();
                 }
             }

@@ -23,23 +23,40 @@ namespace MVVM_SocialContractProject.Views
         public CreateUserWindow()
         {
             InitializeComponent();
+            Confirmpassword();
         }
-
+        private void Confirmpassword()
+        {
+            if (confirmPassTB.Password.Length >= 7)
+            {
+                Submit.IsEnabled = true;
+                confirmWarning.Opacity = 0;
+                if (passTB.Password.Length >= 7)
+                {
+                    Submit.IsEnabled = true;
+                    passwordWarning.Opacity = 0;
+                }
+                else
+                {
+                    Submit.IsEnabled = false;
+                    passwordWarning.Opacity = 100;
+                }
+            }
+            else
+            {
+                Submit.IsEnabled = false;
+                confirmWarning.Opacity = 100;
+            }
+           
+        }
         private void ConfirmPassTB_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (this.DataContext != null)
             {
                 ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
             }
-
-            if (confirmPassTB.Password.Length >= 7)
-            {
-                confirmWarning.Opacity = 0;
-            }
-            else
-            {
-                confirmWarning.Opacity = 100;
-            }
+            Confirmpassword();
+          
         }
 
         private void PassTB_PasswordChanged(object sender, RoutedEventArgs e)
@@ -48,15 +65,8 @@ namespace MVVM_SocialContractProject.Views
             {
                 ((dynamic)this.DataContext).ConfirmPassword = ((PasswordBox)sender).SecurePassword;
             }
-            if (passTB.Password.Length >= 7)
-            {
-                passwordWarning.Opacity = 0;
-            }
-            else
-            {
-                passwordWarning.Opacity = 100;
-            }
 
+            Confirmpassword();
         }
 
         private void UsernameTB_TextChanged(object sender, TextChangedEventArgs e)
