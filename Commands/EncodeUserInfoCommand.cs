@@ -50,6 +50,7 @@ namespace MVVM_SocialContractProject.Commands
         }
         public override void Execute(object parameter)
         {
+            string result2;
             try
             {
                 if(IsEqualTo(signUpViewModel.Password, signUpViewModel.ConfirmPassword))
@@ -57,40 +58,49 @@ namespace MVVM_SocialContractProject.Commands
                     byte[] saltvar = salt();
                     string password = Convert.ToBase64String(databaseQueries.DeriveKey(signUpViewModel.Password, saltvar));
                     string theString = new NetworkCredential("", signUpViewModel.Password).Password;
-                    _scSystem.CreateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
-                    navigationService.Navigate();
-                 
+                    result2 = _scSystem.CreateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
+                    _scSystem.GetUserInfo(signUpViewModel.Username);
+                    if (result2 == "adminconflict")
+                    {
+                        MessageBoxResult result = MessageBox.Show("User is an admin, cannot override", "Error",
+                                       MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if(result2 == "false")
+                    {
+                        MessageBoxResult result = MessageBox.Show("User already exists, overwrite?", "Error",
+                                         MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            if (IsEqualTo(signUpViewModel.Password, signUpViewModel.ConfirmPassword))
+                            {
+                                _scSystem.UpdateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
+                                navigationService.Navigate();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Passwords do not match", "Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        navigationService.Navigate();
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Passwords do not match", "Error",
                  MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                
-            }catch (UserLoginConflictException)
+            }
+            catch (UserLoginConflictException)
             {
-                MessageBoxResult result =  MessageBox.Show("User already exists, overwrite?", "Error",
-                 MessageBoxButton.YesNo, MessageBoxImage.Error);
-                if(result == MessageBoxResult.Yes)
-                {
-                    if (IsEqualTo(signUpViewModel.Password, signUpViewModel.ConfirmPassword))
-                    {
-                        byte[] saltvar = salt();
-                        string password = Convert.ToBase64String(databaseQueries.DeriveKey(signUpViewModel.Password, saltvar));
-                        string theString = new NetworkCredential("", signUpViewModel.Password).Password;
-                        _scSystem.UpdateUserInfo(new UserInfo(signUpViewModel.Username, password, Convert.ToBase64String(saltvar), 0));
-                        navigationService.Navigate();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Passwords do not match", "Error",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    return;
-                }
+                
             }
         }
 

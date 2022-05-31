@@ -35,16 +35,16 @@ namespace MVVM_SocialContractProject.Commands
         {
             if (viewModel != null)
             {
-                return viewModel.CurrentPageIndex != viewModel.TotalPages - 1;
+                return viewModel.CurrentPageIndex != (viewModel.TotalPages - 1 <0 ? 0 : viewModel.TotalPages - 1);
 
             }
             else if (viewModel2 != null)
             {
-                return viewModel2.CurrentPageIndex != viewModel2.TotalPages - 1;
+                return viewModel2.CurrentPageIndex != (viewModel2.TotalPages - 1 < 0 ? 0 : viewModel2.TotalPages - 1);
             }
             else
             {
-                return viewModel3.CurrentPageIndex != viewModel3.TotalPages - 1;
+                return viewModel3.CurrentPageIndex != (viewModel3.TotalPages - 1 < 0 ? 0 : viewModel3.TotalPages - 1);
             }
         }
 

@@ -174,7 +174,7 @@ namespace MVVM_SocialContractProject.Commands
                     return 1;
                 case "Student Name":
                     return 2;
-                case "Batch No.":
+                case "Year of Enrollment":
                     return 3;
                 case "Course":
                     return 4;
@@ -191,8 +191,6 @@ namespace MVVM_SocialContractProject.Commands
             {
                 case "Username":
                     return 1;
-                case "IsAdmin":
-                    return 2;
                 case "Edit":
                     return 0;
                 case "Remove":

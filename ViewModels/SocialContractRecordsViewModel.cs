@@ -89,6 +89,7 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 _currentPageIndex = value;
                 OnPropertyChanged(nameof(CurrentPageChosen));
+                OnPropertyChanged(nameof(CurrentPageChosen));
             }
         }
 
@@ -102,7 +103,6 @@ namespace MVVM_SocialContractProject.ViewModels
                 OnPropertyChanged(nameof(TotalPages));
             }
         }
-
         private bool _isEnabled;
 
         public bool IsEnabled
@@ -133,6 +133,7 @@ namespace MVVM_SocialContractProject.ViewModels
             PrintSCCommand = new PrintSocialContract();
             _navigationService = viewUserNavigationView;
              _scSystem = SCSystem;
+            CurrentPageChosen = _currentPageIndex;
             EncodeSCCommand = new NavigateCommand(encodeSCNavigationView);
             CreateUser = new NavigateCommand(encodeUserNavigationView);
             CreatePDF = new NavigateCommand(createPDFNavigationView);
@@ -143,6 +144,8 @@ namespace MVVM_SocialContractProject.ViewModels
         }
         public int StudentQuery { get; set; }
         public bool Direction { get; set; }
+
+        private int totalItems;
         public void UpdateReservations(string searchQuery, int page, int studentQuery,bool direction)
         {
             totalItems = _dbQueries.GetStudentCount(searchQuery);
@@ -165,18 +168,23 @@ namespace MVVM_SocialContractProject.ViewModels
                 _studentInfo.Add(studentInfoViewModel);
             }
             CalculateTotalPages(totalItems);
-        }
-
-        private int totalItems;
+        }       
         private void CalculateTotalPages(int totalItems)
         {
-            if (totalItems % itemPerPage == 0)
+            if(totalItems == 0)
             {
-                TotalPages = (totalItems / itemPerPage);
+                TotalPages = (totalItems / itemPerPage) + 1;
             }
             else
             {
-                TotalPages = (totalItems / itemPerPage) + 1;
+                if (totalItems % itemPerPage == 0)
+                {
+                    TotalPages = (totalItems / itemPerPage);
+                }
+                else
+                {
+                    TotalPages = (totalItems / itemPerPage) + 1;
+                }
             }
         }
         public string SearchText

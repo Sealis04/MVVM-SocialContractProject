@@ -49,6 +49,7 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 _currentPageIndex = value;
                 OnPropertyChanged(nameof(CurrentPageIndex));
+                OnPropertyChanged(nameof(CurrentPageChosen));
             }
         }
         public int CurrentPageChosen
@@ -57,7 +58,7 @@ namespace MVVM_SocialContractProject.ViewModels
             set
             {
                 _currentPageIndex = value;
-                OnPropertyChanged(nameof(CurrentPageChosen));
+                OnPropertyChanged(nameof(CurrentPageIndex));
             }
         }
 
@@ -107,13 +108,20 @@ namespace MVVM_SocialContractProject.ViewModels
 
         private void CalculateTotalPages(int totalItems)
         {
-            if (totalItems % itemPerPage == 0)
+            if (totalItems == 0)
             {
-                TotalPages = (totalItems / itemPerPage);
+                TotalPages = (totalItems / itemPerPage) + 1;
             }
             else
             {
-                TotalPages = (totalItems / itemPerPage) + 1;
+                if (totalItems % itemPerPage == 0)
+                {
+                    TotalPages = (totalItems / itemPerPage);
+                }
+                else
+                {
+                    TotalPages = (totalItems / itemPerPage) + 1;
+                }
             }
         }
 

@@ -60,9 +60,9 @@ namespace MVVM_SocialContractProject.Models
             return _userInfoRecord.GetUserInfo(Username);
         }
 
-        public void CreateUserInfo(UserInfo user)
+        public string CreateUserInfo(UserInfo user)
         {
-            _userInfoRecord.AddUserInfo(user);
+           return _userInfoRecord.AddUserInfo(user);
         }
 
         public void UpdateUserInfo(UserInfo user)
