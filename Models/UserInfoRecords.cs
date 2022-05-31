@@ -35,16 +35,24 @@ namespace MVVM_SocialContractProject.Models
             return _userInfo;
         }
 
-        public void AddUserInfo(UserInfo user)
+        public string AddUserInfo(UserInfo user)
         {
             foreach(UserInfo existingUser in _userInfo)
             {
+               
                 if (existingUser.Conflicts(user))
                 {
-                    throw new UserLoginConflictException();
+                    if (existingUser.type == 1)
+                    {
+                        return "adminconflict";
+                        throw new UserLoginConflictException();
+                    }
+                        return "false";
+                        throw new UserLoginConflictException();
                 }
             }
             _dbQueries.CreateUserInfo(user);
+            return "true";
         }
         public void UpdateUserInfo(UserInfo user)
         {

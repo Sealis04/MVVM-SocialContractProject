@@ -54,10 +54,11 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             string query = "SELECT s_ID, s_fn, s_mn,s_ln,s_batchNo,s_Course " +
-                "FROM tbl_studentinfo INNER JOIN tbl_recordtbl ON tbl_studentinfo.s_ID = tbl_recordtbl.record_s_ID  ";
+                "FROM tbl_studentinfo INNER JOIN tbl_recordtbl ON tbl_studentinfo.s_ID = tbl_recordtbl.record_s_ID " +
+                "WHERE tbl_recordtbl.record_IsRemoved = 0 ";
             if (SearchQuery != null)
             {
-                query += " WHERE s_ID LIKE @SID ";
+                query += "AND s_ID LIKE @SID ";
             }
             query += "GROUP BY s_ID ";
             if (studentQuery != 0)
@@ -329,8 +330,6 @@ namespace MVVM_SocialContractProject.Models.Database
                 MySqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
                 File.Copy(contract.SocialContractimage, imagepath);
-                MessageBox.Show("Successfuly Updated", "Success",
-                         MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception c)
             {
@@ -425,7 +424,7 @@ namespace MVVM_SocialContractProject.Models.Database
                 //Execute Query
                 MySqlDataReader myReader = commandDatabase.ExecuteReader();
                 conn.Close();
-                MessageBox.Show("UserCreated!", "Success!",
+                MessageBox.Show("User Created!", "Success!",
              MessageBoxButton.OK);
             }
             catch (Exception e)
@@ -637,14 +636,10 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT COUNT(*) ";
-            if (SearchQuery == null)
+            string query = "SELECT COUNT(*) FROM tbl_events";
+            if (SearchQuery != null)
             {
-                query += " FROM tbl_events";
-            }
-            else
-            {
-                query += " FROM tbl_events WHERE event_name LIKE @SearchQuery";
+                query += " WHERE event_name LIKE @SearchQuery";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if (SearchQuery != null)
@@ -733,14 +728,10 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT COUNT(*) ";
-            if (SearchQuery == null)
+            string query = "SELECT COUNT(*) FROM tbl_adminacc";
+            if (SearchQuery != null)
             {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0";
-            }
-            else
-            {
-                query += " FROM tbl_adminacc WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery";
+                query += " WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery";
             }
             MySqlCommand cmdDb = new MySqlCommand(query, conn);
             if (SearchQuery != null)

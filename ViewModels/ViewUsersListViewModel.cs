@@ -60,6 +60,7 @@ namespace MVVM_SocialContractProject.ViewModels
             {
                 _currentPageIndex = value;
                 OnPropertyChanged(nameof(CurrentPageChosen));
+                OnPropertyChanged(nameof(CurrentPageChosen));
             }
         }
 
@@ -74,6 +75,7 @@ namespace MVVM_SocialContractProject.ViewModels
                 OnPropertyChanged(nameof(TotalPages));
             }
         }
+
         public ViewUsersListViewModel(SocialContractMonitoringSystem scSystem, NavigationService Return, NavigationService CreateUser, NavigationService ReturnThis)
         {
             EditCommand = new NavigateCommand(CreateUser, true);
@@ -108,13 +110,20 @@ namespace MVVM_SocialContractProject.ViewModels
 
         private void CalculateTotalPages(int totalItems)
         {
-            if (totalItems % itemPerPage == 0)
+            if (totalItems == 0)
             {
-                TotalPages = (totalItems / itemPerPage);
+                TotalPages = (totalItems / itemPerPage) + 1;
             }
             else
             {
-                TotalPages = (totalItems / itemPerPage) + 1;
+                if (totalItems % itemPerPage == 0)
+                {
+                    TotalPages = (totalItems / itemPerPage);
+                }
+                else
+                {
+                    TotalPages = (totalItems / itemPerPage) + 1;
+                }
             }
         }
         public string SearchText

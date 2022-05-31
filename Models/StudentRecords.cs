@@ -42,7 +42,6 @@ namespace MVVM_SocialContractProject.Models
         }
         public SocialContract AddStudentInfo (StudentInfo StudentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
         {
-            Result = false;
             foreach (StudentInfo existingStudentInfo in _studentInfo)
             {
                 if (existingStudentInfo.Conflicts(StudentID))
