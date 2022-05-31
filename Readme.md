@@ -2,7 +2,7 @@ SocialContractMonitoringSystem for the Pamantasan ng Lungsod ng Valenzuela
 
 MVVM Wpf architecture
 
-Requirements to run:
+Requirements to debug the application:
 
 Install the MYSQL Connector:
 https://dev.mysql.com/downloads/connector/net/8.0.html
@@ -21,6 +21,8 @@ https://www.digitalcitizen.life/share-libraries-or-folders-using-advanced-sharin
 
 On the Advanced Sharing window, click on "Permissions" then check all on the boxes below "Allow"
 
+
+--the application exe itself
 Before you start anything, make sure that network sharing is turned on for both (or all) pcs who's going to use the application (and the server, ofc) and turn off passwordsharing. if you know how to specifically do network sharing with a bunch of security, feel free, just make sure the other pc's can actually access the folders shared (instructions below). 
 
 User Manual:
