@@ -40,7 +40,7 @@ namespace MVVM_SocialContractProject.Models
             _dbQueries.SearchQueryStudent(_studentInfo, StudentID);
             return _studentInfo;
         }
-        public bool AddStudentInfo (StudentInfo StudentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
+        public SocialContract AddStudentInfo (StudentInfo StudentID, SocialContract socialContract, SocialContractMonitoringSystem scSystem)
         {
             Result = false;
             foreach (StudentInfo existingStudentInfo in _studentInfo)

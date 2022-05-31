@@ -23,6 +23,10 @@ namespace MVVM_SocialContractProject.Views
         public LogInWindow()
         {
             InitializeComponent();
+            //if (passTB.Password.Length <= 7)
+            //{
+            //    LoginBTN.IsEnabled = false;
+            //}
         }
 
         private void PassTB_PasswordChanged(object sender, RoutedEventArgs e)
@@ -31,6 +35,14 @@ namespace MVVM_SocialContractProject.Views
             {
                 ((dynamic)this.DataContext).SecurePassword = ((PasswordBox)sender).SecurePassword;
             }
+            //if (passTB.Password.Length <= 7)
+            //{
+            //    LoginBTN.IsEnabled = false;
+            //}
+            //else
+            //{
+            //    LoginBTN.IsEnabled = true;
+            //}
         }
     }
 }

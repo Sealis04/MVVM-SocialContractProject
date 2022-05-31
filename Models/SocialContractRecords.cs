@@ -34,7 +34,7 @@ namespace MVVM_SocialContractProject.Models
             _dbQueries.GetSCInfo(StudentID, _socialContract);
             return _socialContract.Where(r => r.StudentID == StudentID);
         }
-        public bool AddSocialContract (SocialContract socialContract, StudentInfo StudentID)
+        public SocialContract AddSocialContract (SocialContract socialContract, StudentInfo StudentID)
         {
             
             foreach (SocialContract existingSocialContract in _socialContract)
@@ -43,19 +43,19 @@ namespace MVVM_SocialContractProject.Models
                 {
                     if (existingSocialContract.Conflicts(socialContract))
                     {
-                        return true;
+                        return existingSocialContract;
                         throw new SocialContractConflictExceptions(existingSocialContract, socialContract);
                         ///Update reservation on DB code to be updated
                     }
                 }
             }
-            _dbQueries.InsertSocialContract(socialContract);
+            _dbQueries.InsertSocialContract(StudentID, socialContract);
             _socialContract.Add(socialContract);
-            return false;
+            return null;
         }
-        public void UpdateSocialContract(StudentInfo student,SocialContract socialContract)
+        public void UpdateSocialContract(SocialContract ConflictSC, StudentInfo student,SocialContract socialContract)
         {
-            _dbQueries.UpdateSocialContract(student, socialContract);
+            _dbQueries.UpdateSocialContract(ConflictSC, student, socialContract);
             _socialContract.Clear();
         }
 
