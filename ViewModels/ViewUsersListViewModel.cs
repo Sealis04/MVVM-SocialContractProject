@@ -101,7 +101,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             totalItems = dbQueries.GetAllUserCount(SearchQuery);
             _userInfo.Clear();
-            foreach (UserInfo user in ScSystem.GetAllUsers(SearchQuery,page, studentQuery,direction))
+            foreach (UserInfo user in ScSystem.GetAllUsers(SearchQuery,(0 + (page * 20)), studentQuery,direction))
             {
                 _userInfo.Add(new UserInfoViewModel(new UserInfo(user.Username, user.Password, user.Salt, user.type)));
             }

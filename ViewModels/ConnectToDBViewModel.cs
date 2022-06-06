@@ -15,6 +15,7 @@ namespace MVVM_SocialContractProject.ViewModels
         private string database;
         private string username;
         private string password;
+        private string tcpip;
 
         public string Server
         {
@@ -29,6 +30,18 @@ namespace MVVM_SocialContractProject.ViewModels
             }
         }
 
+        public string TCPIP
+        {
+            get
+            {
+                return tcpip;
+            }
+            set
+            {
+                tcpip = value;
+                OnPropertyChanged(nameof(TCPIP));
+            }
+        }
         public string Database
         {
             get

@@ -64,7 +64,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -167,12 +167,24 @@
                 Style="{StaticResource buttonStyle }"
                     
                             />
-           
-         
+
+
         </Grid>
         <Grid Grid.RowSpan="3">
 
             <Image Source="/MVVM SocialContractProject;component/Assets/logo.png" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <TextBlock Text="(c) to PLV Students Batch 2018" 
+                    
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="center"
+                FontFamily="Helvetiva"
+                FontWeight="Regular"
+                FontSize="12px"
+                Grid.Row="2"
+                     
+                       Margin="10,0,35,10" Width="205" Height="14"
+                     
+                       />
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -184,7 +196,7 @@
             </Grid.RowDefinitions>
 
         </Grid>
-    <Button x:Name="ConnectDB"
+        <Button x:Name="ConnectDB"
             Grid.Row="2"
             Content="Connect DB"
             FontFamily="Helvetica"

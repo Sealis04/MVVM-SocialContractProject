@@ -57,6 +57,54 @@ namespace MVVM_SocialContractProject.Commands
 
             //Creating the table rows
             TableRowGroup RowGroup1 = new TableRowGroup();
+            TableRow tblHeaderRow = new TableRow();
+            RowGroup1.Rows.Add(tblHeaderRow);
+            //header cells
+            TableCell headerCell1 = new TableCell();
+            headerCell1.Padding = new Thickness(0, 0, 0, 10);
+            headerCell1.ColumnSpan = 4;
+            Image ImageLinkh = new Image();
+            ImageLinkh.Height = 75;
+            ImageLinkh.Width = 75;
+            ImageLinkh.Source = new BitmapImage(new Uri("pack://application:,,,/MVVM SocialContractProject;component/Assets/plv.png"));
+            ImageLinkh.HorizontalAlignment = HorizontalAlignment.Center;
+            //BlockUIContainer ImageContainerh = new BlockUIContainer(ImageLinkh);
+            //ImageContainerh.Padding = new Thickness(0);
+            //ImageContainerh.Margin = new Thickness(0);
+            Paragraph imagepar = new Paragraph();
+            
+            Paragraph HeadPar = new Paragraph();
+            HeadPar.Padding = new Thickness(0.0);
+            HeadPar.Margin = new Thickness(0.0);
+            HeadPar.TextAlignment = TextAlignment.Center;
+            HeadPar.LineHeight = 13;
+            HeadPar.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
+            Run street = new Run("\n Tongco st., Maysan, Valenzuela City");
+            street.FontSize = street.FontSize - 2;
+            HeadPar.Inlines.Add(new Run("Pamantasan ng Lungsod ng Valenzuela"));
+            HeadPar.Inlines.Add(street);
+            InlineUIContainer inlineUI = new InlineUIContainer(ImageLinkh);
+            inlineUI.BaselineAlignment = BaselineAlignment.Center;
+            imagepar.Inlines.Add(inlineUI);
+            imagepar.TextAlignment = TextAlignment.Center;
+            imagepar.Margin = new Thickness(0, 0, 0, 10);
+            headerCell1.Blocks.Add(imagepar);
+            headerCell1.Blocks.Add(HeadPar);
+            tblHeaderRow.Cells.Add(headerCell1);
+
+            TableRow Title = new TableRow();
+            RowGroup1.Rows.Add(Title);
+            TableCell TitleCell = new TableCell();
+            TitleCell.Padding = new Thickness(0, 0, 0, 10);
+            TitleCell.ColumnSpan = 4;
+            Paragraph TitlePar = new Paragraph();
+            TitlePar.Inlines.Add(new Run("SOCIAL CONTRACT MONITORING RECORD"));
+            TitlePar.TextAlignment = TextAlignment.Center;
+            TitleCell.Blocks.Add(TitlePar);
+            Title.Cells.Add(TitleCell);
+            //Paragraph triel = new Paragraph();
+            //HeadPar.Inlines.Add(inlineUI);
+
             TableRow tblRow1 = new TableRow();
             RowGroup1.Rows.Add(tblRow1);
             //Row 1 Cell1
@@ -71,11 +119,10 @@ namespace MVVM_SocialContractProject.Commands
             tblRow1_Cell2.ColumnSpan = 2;
 
             Paragraph Cell2_ys = new Paragraph();
-            Cell2_ys.Inlines.Add(new Run("Year and Section: " + _student.Course + " " +_student.BatchNo));
+            Cell2_ys.Inlines.Add(new Run("Course and Batch No: " + _student.Course + " " +_student.BatchNo));
             tblRow1_Cell2.Blocks.Add(Cell2_ys);
 
-
-            //Row1 Cell3 -> Move to Row2
+            //Move to Row2
             TableRow tblRow2 = new TableRow();
             RowGroup1.Rows.Add(tblRow2);
             TableCell tblRow2_Cell1 = new TableCell();
@@ -91,7 +138,7 @@ namespace MVVM_SocialContractProject.Commands
 
             table.Columns.Add(tblColumn1);
             table.Columns.Add(tblColumn2);
-            table.Columns.Add(tblColumn3);
+            table.Columns.Add(tblColumn3);  
             table.RowGroups.Add(RowGroup1);
 
             //Table for records
@@ -212,7 +259,24 @@ namespace MVVM_SocialContractProject.Commands
             table2.RowGroups.Add(tbl_2tblRowGroup);
             sec.Blocks.Add(table);
             sec.Blocks.Add(table2);
+            //Validation part sht third table
+            Table botable = new Table();
+            TableColumn bottablecolumn = new TableColumn();
+            TableRowGroup bottablerowgroup = new TableRowGroup();
+            botable.Columns.Add(bottablecolumn);
+            botable.RowGroups.Add(bottablerowgroup);
+            sec.Blocks.Add(botable);
 
+            TableRow botrows = new TableRow();
+            bottablerowgroup.Rows.Add(botrows);
+            TableCell Validation = new TableCell();
+            Paragraph blank = new Paragraph(new Run("________________________"));
+            Paragraph title = new Paragraph(new Run("Social Monitoring Coordinator"));
+            blank.TextAlignment = TextAlignment.Right;
+            title.TextAlignment = TextAlignment.Right;
+            Validation.Blocks.Add(blank);
+            Validation.Blocks.Add(title);
+            botrows.Cells.Add(Validation);
             //Adding Image at the end
             Table table3 = new Table();
             TableColumn tbl3_TableColumn1 = new TableColumn();
@@ -231,6 +295,7 @@ namespace MVVM_SocialContractProject.Commands
                 tbl3_RowGroup.Rows.Add(tbl3Row);
                 TableCell CellImage = new TableCell();
                 Image ImageLink = new Image();
+                ImageLink.Height = 288;
                 ImageLink.Source = new BitmapImage(new Uri(@scVM.ImageSource));
                 BlockUIContainer ImageContainer = new BlockUIContainer(ImageLink);
                 CellImage.Blocks.Add(ImageContainer);
@@ -244,6 +309,7 @@ namespace MVVM_SocialContractProject.Commands
                     tbl3_RowGroup.Rows.Add(tbl3Row);
                     TableCell CellImage = new TableCell();
                     Image ImageLink = new Image();
+                    ImageLink.Height = 288;
                     ImageLink.Source = new BitmapImage(new Uri(@scVM2.ImageSource));
                     BlockUIContainer ImageContainer = new BlockUIContainer(ImageLink);
                     Rectangle line3 = new Rectangle();

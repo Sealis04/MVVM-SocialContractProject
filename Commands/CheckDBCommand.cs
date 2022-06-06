@@ -31,6 +31,7 @@ namespace MVVM_SocialContractProject.Commands
             return !string.IsNullOrEmpty(_db.Server) &&
                    !string.IsNullOrEmpty(_db.Username) &&
                    !string.IsNullOrEmpty(_db.Database) &&
+                   !string.IsNullOrEmpty(_db.TCPIP)&&
                     base.CanExecute(parameter);
         }
         public override void Execute(object parameter)
@@ -39,6 +40,7 @@ namespace MVVM_SocialContractProject.Commands
             Properties.Settings.Default.Username = _db.Username;
             Properties.Settings.Default.Database = _db.Database;
             Properties.Settings.Default.Password = (_db.Password == null) ? "" : _db.Password;
+            Properties.Settings.Default.TCPIP = _db.TCPIP;
             Properties.Settings.Default.Save();
             databaseQueries.RunConnectionCheck();
             LoginVm.Navigate();
@@ -48,7 +50,8 @@ namespace MVVM_SocialContractProject.Commands
         {
             if (e.PropertyName == nameof(_db.Server) ||
                 e.PropertyName == nameof(_db.Username) ||
-                e.PropertyName == nameof(_db.Database))
+                e.PropertyName == nameof(_db.Database)||
+                e.PropertyName == nameof(_db.TCPIP))
             {
                 OnCanExecuteChanged();
             }

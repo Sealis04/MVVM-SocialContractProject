@@ -152,7 +152,7 @@ namespace MVVM_SocialContractProject.ViewModels
             _studentInfo.Clear();
             _socialContract.Clear();
             CurrentPageChosen = _currentPageIndex;
-            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery,page, studentQuery, direction))
+            foreach (StudentInfo student in _scSystem.GetAllStudentInfo(searchQuery, (0 + (page * 20)), studentQuery, direction))
             {
                 TotalHours = 0;
                 foreach (SocialContract contract in _scSystem.GetSocialContractForUser(student, 0, false))

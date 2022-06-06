@@ -111,12 +111,11 @@ namespace MVVM_SocialContractProject.ViewModels
             NavigationService encodeSCModel,
             NavigationService thisModel)
         {
-            
             _SCSystem = sCSystem;
             _socialContract = new ObservableCollection<SocialContractViewModel>();
             _student = navigation.CurrentStudent;
             PrintCommand = new PrintCommandForContract(_student);
-            RemoveCommand = new RemoveSocialContract(thisModel, _student, this);
+            RemoveCommand = new RemoveSocialContract(thisModel, _student);
             LoadSocialContractInfo(_student,StudentQuery,Direction);
             Return = new NavigateCommand(navigationService);
             Encode = new NavigateCommand(encodeSCModel, _student);
