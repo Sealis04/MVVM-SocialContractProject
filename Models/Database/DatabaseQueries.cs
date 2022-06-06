@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,17 +12,19 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace MVVM_SocialContractProject.Models.Database
 {
     public class DatabaseQueries
     {
         private readonly sqlDB dbConnect;
-        private MySqlConnection conn { get; set; }
+        private SqlConnection conn { get; set; }
         public DatabaseQueries()
         {
             dbConnect = new sqlDB();
         }
+
 
         public bool RunConnectionCheck()
         {
@@ -29,25 +32,20 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                MySqlCommand cmdDb = new MySqlCommand("SELECT * FROM tbl_recordtbl WHERE 1", conn);
+                SqlCommand cmdDb = new SqlCommand("SELECT * FROM tbl_recordtbl", conn);
                 cmdDb.ExecuteReader();
                 conn.Close();
                 return true;
-            }
-            catch (MySqlException e)
+            }catch (Exception e)
             {
                 conn.Close();
-                MessageBox.Show("Error code:" + e.Number + "\nPlease contact the administrator for more details", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error Message:" + e + "\nPlease contact the administrator for more details", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
         public void RunSystemCheck()
         {
             conn = dbConnect.SqlQuery();
-            if (conn != null && conn.State == System.Data.ConnectionState.Open)
-            {
-                conn.Close();
-            }
         }
 
         public void LoadStudentInfo(List<StudentInfo> _studentInfo, string SearchQuery, int page, int studentQuery, bool direction)
@@ -60,7 +58,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 query += "AND s_ID LIKE @SID ";
             }
-            query += "GROUP BY s_ID ";
+            query += "GROUP BY  s_ID,s_mn, s_fn, s_ln, s_batchNo, s_Course ";
             if (studentQuery != 0)
             {
                 if (direction)
@@ -108,16 +106,21 @@ namespace MVVM_SocialContractProject.Models.Database
                      "END DESC ";
                 }
             }
-            query += " LIMIT @page,20;";
-            MySqlCommand CommandDB = new MySqlCommand(query, conn);
+            else
+            {
+                query += "ORDER BY s_ID ";
+            }
+            query += "OFFSET @page ROWS FETCH NEXT @maxpage ROWS ONLY";
+            SqlCommand CommandDB = new  SqlCommand(query, conn);
             CommandDB.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
             CommandDB.Parameters.AddWithValue("@sort", studentQuery);
-            CommandDB.Parameters.AddWithValue("@page", page);
+            CommandDB.Parameters.AddWithValue("@page", 0);
+            CommandDB.Parameters.AddWithValue("@maxpage", 0 + 20);
             try
             {
                 //---open DB---
                 conn.Open();
-                MySqlDataReader reader = CommandDB.ExecuteReader();
+                SqlDataReader reader = CommandDB.ExecuteReader();
                 while (reader.Read())
                 {
                     string sID = reader[0].ToString();
@@ -139,12 +142,12 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             string query = "SELECT s_ID, s_fn, s_mn, s_ln, s_batchNo, s_Course from tbl_studentinfo WHERE s_ID = @SID";
-            MySqlCommand cmdDB = new MySqlCommand(query, conn);
+             SqlCommand cmdDB = new  SqlCommand(query, conn);
             cmdDB.Parameters.AddWithValue("@SID", studentID);
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmdDB.ExecuteReader();
+                SqlDataReader reader = cmdDB.ExecuteReader();
                 while (reader.Read())
                 {
                     _studentInfo.Add(new StudentInfo(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), Convert.ToInt32(reader[4]), reader[5].ToString()));
@@ -166,7 +169,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 query += " WHERE s_ID LIKE @SID";
             }
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+             SqlCommand cmdDb = new  SqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SID", "%" + SearchQuery + "%");
@@ -174,7 +177,7 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmdDb.ExecuteReader();
+                SqlDataReader reader = cmdDb.ExecuteReader();
                 while (reader.Read())
                 {
                     return Convert.ToInt32(reader[0]);
@@ -234,14 +237,14 @@ namespace MVVM_SocialContractProject.Models.Database
                 query += "ORDER BY record_SchoolYear";
             }
             
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+             SqlCommand cmdDb = new  SqlCommand(query, conn);
             cmdDb.Parameters.AddWithValue("@studentID", student.StudentID.ToString());
             cmdDb.Parameters.AddWithValue("@sort", intQuery);
             try
             {
                 //---open DB---
                 conn.Open();
-                MySqlDataReader reader = cmdDb.ExecuteReader();
+                SqlDataReader reader = cmdDb.ExecuteReader();
                 while (reader.Read())
                 {
                     int SocialContractID = Convert.ToInt32(reader[5]);
@@ -266,12 +269,12 @@ namespace MVVM_SocialContractProject.Models.Database
             RunSystemCheck();
             string query = "SELECT record_ID,record_FirstSemester, record_SecondSemester , record_Summer ,  record_SchoolYear, record_SocialContract FROM  tbl_recordtbl  " +
                 "WHERE  record_s_ID  = @sID AND record_IsRemoved = 0";
-            MySqlCommand cmdDB = new MySqlCommand(query, conn);
+             SqlCommand cmdDB = new  SqlCommand(query, conn);
             cmdDB.Parameters.AddWithValue("@sID", student.StudentID);
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmdDB.ExecuteReader();
+                SqlDataReader reader = cmdDB.ExecuteReader();
                 while (reader.Read())
                 {
                     SCList.Add(new SocialContract(Convert.ToInt32(reader[0]),student, Convert.ToInt32(reader[1]), Convert.ToInt32(reader[2]), Convert.ToInt32(reader[3]), Convert.ToInt32(reader[4]),reader[5].ToString()));
@@ -287,9 +290,9 @@ namespace MVVM_SocialContractProject.Models.Database
         public void InsertStudentRecords(StudentInfo student)
         {
             RunSystemCheck();
-            string addOnQuery = "INSERT INTO tbl_studentinfo ( `s_ID`, `s_fn`, `s_mn`, `s_ln`, `s_batchNo`, `s_Course`)";
+            string addOnQuery = "INSERT INTO tbl_studentinfo ( s_ID, s_fn, s_mn, s_ln, s_batchNo, s_Course)";
             addOnQuery += "VALUES (@sID, @sfn, @smn,@sln,@sbNo,@sc)";
-            MySqlCommand customCM = new MySqlCommand(addOnQuery, conn);
+             SqlCommand customCM = new  SqlCommand(addOnQuery, conn);
             customCM.Parameters.AddWithValue("@sID", student.StudentID);
             customCM.Parameters.AddWithValue("@sfn", student.FirstName);
             customCM.Parameters.AddWithValue("@smn", student.MiddleName);
@@ -299,7 +302,7 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                MySqlDataReader reader = customCM.ExecuteReader();
+                SqlDataReader reader = customCM.ExecuteReader();
                 conn.Close();
             }
             catch (Exception a)
@@ -312,11 +315,11 @@ namespace MVVM_SocialContractProject.Models.Database
         public void InsertSocialContract(StudentInfo student,SocialContract contract)
         {
             RunSystemCheck();
-            string defaultQuery = "INSERT INTO tbl_recordtbl (`record_s_ID`, `record_SchoolYear`, `record_FirstSemester`, `record_SecondSemester`, `record_Summer`,`record_SocialContract`)" +
+            string defaultQuery = "INSERT INTO tbl_recordtbl (record_s_ID, record_SchoolYear, record_FirstSemester, record_SecondSemester, record_Summer,record_SocialContract)" +
                "VALUES (@sID,@rSy,@rFs,@rSs,@rS,@rSC)";
             var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff") + student.StudentID + Path.GetExtension(contract.SocialContractimage);
             var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
-            MySqlCommand defaultCM = new MySqlCommand(defaultQuery, conn);
+             SqlCommand defaultCM = new  SqlCommand(defaultQuery, conn);
             defaultCM.Parameters.AddWithValue("@sID", contract.StudentID.StudentID);
             defaultCM.Parameters.AddWithValue("@rSy", contract.SchoolYear);
             defaultCM.Parameters.AddWithValue("@rFs", contract.FirstSemester);
@@ -327,7 +330,7 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                MySqlDataReader reader = defaultCM.ExecuteReader();
+                SqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
                 File.Copy(contract.SocialContractimage, imagepath);
             }
@@ -346,7 +349,7 @@ namespace MVVM_SocialContractProject.Models.Database
             var ConflictImage = ConflictSC.SocialContractimage;
             var fileNameToSave = DateTime.Now.ToString("yyyyMMddHHmmssfff")+ student.StudentID + Path.GetExtension(contract.SocialContractimage);
             var imagepath = Path.Combine("\\\\" + Properties.Settings.Default.Server + "\\SocialContractsFolder\\" + fileNameToSave);
-            MySqlCommand defaultCM = new MySqlCommand(defaultQuery, conn);
+             SqlCommand defaultCM = new  SqlCommand(defaultQuery, conn);
             defaultCM.Parameters.AddWithValue("@SY", contract.SchoolYear);
             defaultCM.Parameters.AddWithValue("@FS", contract.FirstSemester);
             defaultCM.Parameters.AddWithValue("@SS", contract.SecondSemester);
@@ -356,16 +359,12 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                if (File.Exists(ConflictImage))
-                {
-                    File.Delete(ConflictImage);
-                    File.Copy(contract.SocialContractimage, imagepath);
-                    MessageBox.Show("Successfuly Updated", "Success",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                MySqlDataReader reader = defaultCM.ExecuteReader();
+                SqlDataReader reader = defaultCM.ExecuteReader();
                 conn.Close();
-              
+                    File.Copy(contract.SocialContractimage, imagepath);
+                File.Delete(ConflictImage);
+                MessageBox.Show("Successfuly Updated", "Success",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (IOException s)
             {
@@ -377,6 +376,7 @@ namespace MVVM_SocialContractProject.Models.Database
                 conn.Close();
                 MessageBox.Show("Error Message" + c);
             }
+          
         }
 
         public void GetUserInfo(List<UserInfo> UserInfo)
@@ -384,14 +384,14 @@ namespace MVVM_SocialContractProject.Models.Database
             RunSystemCheck();
             //---get stored password---
             string query = "SELECT admin_user, admin_pass,admin_salt,admin_type FROM tbl_adminacc";
-            MySqlCommand commandDatabase = new MySqlCommand(query, conn);
+             SqlCommand commandDatabase = new  SqlCommand(query, conn);
 
             //---Open Connection--
             try
             {
                 conn.Open();
                 //---ExecuteQuery---
-                MySqlDataReader myReader = commandDatabase.ExecuteReader();
+                SqlDataReader myReader = commandDatabase.ExecuteReader();
                 while (myReader.Read())
                 {
                     string username = myReader["admin_user"].ToString();
@@ -413,7 +413,7 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             string query = "INSERT INTO tbl_adminacc (admin_user,admin_pass,admin_salt) VALUES (@user,@pass,@salt)";
-            MySqlCommand commandDatabase = new MySqlCommand(query, conn);
+             SqlCommand commandDatabase = new  SqlCommand(query, conn);
             commandDatabase.Parameters.AddWithValue("@user", user.Username.ToLower());
             commandDatabase.Parameters.AddWithValue("@pass", user.Password);
             commandDatabase.Parameters.AddWithValue("@salt", user.Salt);
@@ -422,7 +422,7 @@ namespace MVVM_SocialContractProject.Models.Database
                 //Open connection
                 conn.Open();
                 //Execute Query
-                MySqlDataReader myReader = commandDatabase.ExecuteReader();
+                SqlDataReader myReader = commandDatabase.ExecuteReader();
                 conn.Close();
                 MessageBox.Show("User Created!", "Success!",
              MessageBoxButton.OK);
@@ -471,13 +471,13 @@ namespace MVVM_SocialContractProject.Models.Database
             RunSystemCheck();
             string query = "SELECT stu.s_ID, stu.s_fn, stu.s_mn,stu.s_ln,stu.s_batchNo,stu.s_Course ";
             query += "FROM tbl_studentinfo stu WHERE stu.s_ID LIKE @SID";
-            MySqlCommand cmdDB = new MySqlCommand(query, conn);
+             SqlCommand cmdDB = new  SqlCommand(query, conn);
             cmdDB.Parameters.AddWithValue("SID", "%" + s_ID + "%");
             try
             {
                 int count = 0;
                 conn.Open();
-                MySqlDataReader reader = cmdDB.ExecuteReader();
+                SqlDataReader reader = cmdDB.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -514,10 +514,10 @@ namespace MVVM_SocialContractProject.Models.Database
 
             //Save to DB part here (copy paste ez) 
             string query = "INSERT INTO " +
-                "`tbl_events`( `event_name`, `event_date`, `event_supervisor`, " +
-                "`event_PDF`, `event_venue`) VALUES (@e_Name,@e_date,@e_supervisor,@e_filePath,@e_venue)";
+                "tbl_events( event_name, event_date, event_supervisor, " +
+                "event_PDF, event_venue) VALUES (@e_Name,@e_date,@e_supervisor,@e_filePath,@e_venue)";
 
-            MySqlCommand cmDB = new MySqlCommand(query, conn);
+             SqlCommand cmDB = new  SqlCommand(query, conn);
             cmDB.Parameters.AddWithValue("@e_Name", activity);
             cmDB.Parameters.AddWithValue("@e_date", date);
             cmDB.Parameters.AddWithValue("@e_supervisor", supervisor);
@@ -526,9 +526,10 @@ namespace MVVM_SocialContractProject.Models.Database
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmDB.ExecuteReader();
+                SqlDataReader reader = cmDB.ExecuteReader();
                 conn.Close();
                 File.Copy(pdf.EventPDFSource, imagepath);
+
                 MessageBox.Show("Event Saved");
             }
             catch (Exception ex)
@@ -539,16 +540,19 @@ namespace MVVM_SocialContractProject.Models.Database
             }
         }
 
-        public void RemoveSocialContract(int recordID)
+        public void RemoveSocialContract(int recordID, string Image)
         {
             RunSystemCheck();
             string query = "UPDATE tbl_recordtbl SET record_IsRemoved = 1 WHERE record_ID = @recordID";
-            MySqlCommand cmDB = new MySqlCommand(query, conn);
+             SqlCommand cmDB = new  SqlCommand(query, conn);
             cmDB.Parameters.AddWithValue("@recordID", recordID);
             try
             {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                File.Delete(Image);
                 conn.Open();
-                MySqlDataReader reader = cmDB.ExecuteReader();
+                SqlDataReader reader = cmDB.ExecuteReader();
                 conn.Close();
 
             }
@@ -564,11 +568,12 @@ namespace MVVM_SocialContractProject.Models.Database
         public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery, int page, int intQuery, bool direction)
         {
             RunSystemCheck();
-            string query = "SELECT event_name, event_date, event_supervisor, event_PDF, event_venue FROM tbl_events ";
+            string query = "SELECT event_ID, event_name, event_date, event_supervisor, event_PDF, event_venue FROM tbl_events ";
             if (SearchQuery != null)
             {
                 query += "WHERE event_name LIKE @SearchQuery ";
             }
+            query += "GROUP BY event_name, event_date, event_supervisor, event_PDF, event_venue ";
             if (intQuery != 0)
             {
                 if (direction)
@@ -604,22 +609,28 @@ namespace MVVM_SocialContractProject.Models.Database
                            "END DESC ";
                 }
             }
-            query += "LIMIT @page,20;";
-            MySqlCommand cmDB = new MySqlCommand(query, conn);
+            else
+            {
+                query += "ORDER BY event_name ";
+            }
+            query += " OFFSET @page ROWS " +
+                  "FETCH NEXT @maxpage ROWS ONLY;";
+            SqlCommand cmDB = new  SqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmDB.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
             cmDB.Parameters.AddWithValue("@sort", intQuery);
             cmDB.Parameters.AddWithValue("@page", page);
+            cmDB.Parameters.AddWithValue("@maxpage", page + 20);
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmDB.ExecuteReader();
+                SqlDataReader reader = cmDB.ExecuteReader();
                 while (reader.Read())
                 {
                     DateTime date = reader.GetDateTime(1);
-                    pdf.Add(new PDFInfo(reader[0].ToString(), reader[2].ToString(),
+                    pdf.Add(new PDFInfo(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(),
                         reader[3].ToString(), reader[4].ToString(), date));
                 }
                 conn.Close();
@@ -641,7 +652,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 query += " WHERE event_name LIKE @SearchQuery";
             }
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+             SqlCommand cmdDb = new  SqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
@@ -651,7 +662,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 conn.Open();
                 //---ExecuteQuery---
-                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                SqlDataReader myReader = cmdDb.ExecuteReader();
                 while (myReader.Read())
                 {
                     return Convert.ToInt32(myReader[0]);
@@ -676,6 +687,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 query += "AND admin_user LIKE @SearchQuery ";
             }
+            query += "GROUP BY admin_user, admin_pass,admin_salt, admin_type ";
             if (intQuery != 0)
             {
                 if (direction)
@@ -693,20 +705,26 @@ namespace MVVM_SocialContractProject.Models.Database
                             "END DESC ";
                 }
             }
-            query += "LIMIT @page,20;";
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+            else
+            {
+                query += "ORDER BY admin_user ";
+            }
+            query += "OFFSET @page ROWS " +
+                "FETCH NEXT @maxpage ROWS ONLY;";
+            SqlCommand cmdDb = new  SqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
             }
             cmdDb.Parameters.AddWithValue("@sort", intQuery);
             cmdDb.Parameters.AddWithValue("@page", page);
+            cmdDb.Parameters.AddWithValue("@maxpage", page + 20);
             //---Open Connection--
             try
             {
                 conn.Open();
                 //---ExecuteQuery---
-                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                SqlDataReader myReader = cmdDb.ExecuteReader();
                 while (myReader.Read())
                 {
                     string username = myReader["admin_user"].ToString();
@@ -733,7 +751,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 query += " WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery";
             }
-            MySqlCommand cmdDb = new MySqlCommand(query, conn);
+             SqlCommand cmdDb = new  SqlCommand(query, conn);
             if (SearchQuery != null)
             {
                 cmdDb.Parameters.AddWithValue("@SearchQuery", "%" + SearchQuery + "%");
@@ -743,7 +761,7 @@ namespace MVVM_SocialContractProject.Models.Database
             {
                 conn.Open();
                 //---ExecuteQuery---
-                MySqlDataReader myReader = cmdDb.ExecuteReader();
+                SqlDataReader myReader = cmdDb.ExecuteReader();
                 while (myReader.Read())
                 {
                     return Convert.ToInt32(myReader[0]);
@@ -764,12 +782,12 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             string query = "UPDATE tbl_adminacc SET admin_IsRemoved = 1 WHERE admin_user = @recordID";
-            MySqlCommand cmDB = new MySqlCommand(query, conn);
+             SqlCommand cmDB = new  SqlCommand(query, conn);
             cmDB.Parameters.AddWithValue("@recordID", username.ToLower());
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmDB.ExecuteReader();
+                SqlDataReader reader = cmDB.ExecuteReader();
                 conn.Close();
             }
             catch (Exception e)
@@ -784,14 +802,14 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             string query = "UPDATE tbl_adminacc SET admin_pass = @pass,  admin_salt = @salt WHERE admin_user = @user";
-            MySqlCommand cmDB = new MySqlCommand(query, conn);
+             SqlCommand cmDB = new  SqlCommand(query, conn);
             cmDB.Parameters.AddWithValue("@pass", user.Password);
             cmDB.Parameters.AddWithValue("@salt", user.Salt);
             cmDB.Parameters.AddWithValue("@user", user.Username.ToLower());
             try
             {
                 conn.Open();
-                MySqlDataReader reader = cmDB.ExecuteReader();
+                SqlDataReader reader = cmDB.ExecuteReader();
                 conn.Close();
             }
             catch (Exception e)

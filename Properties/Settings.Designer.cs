@@ -94,5 +94,17 @@ namespace MVVM_SocialContractProject.Properties {
                 this["Setting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TCPIP {
+            get {
+                return ((string)(this["TCPIP"]));
+            }
+            set {
+                this["TCPIP"] = value;
+            }
+        }
     }
 }

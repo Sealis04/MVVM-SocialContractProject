@@ -37,7 +37,7 @@ namespace MVVM_SocialContractProject.Commands
         {
             try
             {
-                scSystem.CreateEventPdf(new PDFInfo(pdfVM.EventName, pdfVM.EventSupervisor, pdfVM.ImageSource, pdfVM.EventVenue,pdfVM.EventDate));
+                scSystem.CreateEventPdf(new PDFInfo("0",pdfVM.EventName, pdfVM.EventSupervisor, pdfVM.ImageSource, pdfVM.EventVenue,pdfVM.EventDate));
                 navService.Navigate();
             }
             catch (Exception e)

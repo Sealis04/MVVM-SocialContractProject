@@ -24,5 +24,10 @@ namespace MVVM_SocialContractProject.Views
         {
             InitializeComponent();
         }
+
+        private void AllInventoryRec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

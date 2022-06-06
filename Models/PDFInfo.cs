@@ -4,7 +4,7 @@ namespace MVVM_SocialContractProject.Models
 {
     public class PDFInfo
     {
-        public PDFInfo(string eventName, string eventSupervisor, string eventPDFSource, string eventVenue, DateTime eventDate)
+        public PDFInfo(string EventID, string eventName, string eventSupervisor, string eventPDFSource, string eventVenue, DateTime eventDate)
         {
             this.EventName = eventName;
             this.EventSupervisor = eventSupervisor;

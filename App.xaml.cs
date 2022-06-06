@@ -10,6 +10,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
+using System.ServiceProcess;
+using System.Net.Sockets;
 
 namespace MVVM_SocialContractProject
 {
@@ -30,7 +33,10 @@ namespace MVVM_SocialContractProject
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            
+            String thisprocessname = Process.GetCurrentProcess().ProcessName;
+
+            if (Process.GetProcesses().Count(p => p.ProcessName == thisprocessname) > 1)
+            return;
             ConnectDB();
             MainWindow = new MainWindow()
             {
@@ -98,7 +104,8 @@ namespace MVVM_SocialContractProject
         private ViewPDFEventsViewModel PDFViewModel()
         {
             return new ViewPDFEventsViewModel(_SCSystem, new NavigationService(_navigationStore, CreatePDFViewModel), 
-                                            new NavigationService(_navigationStore, ViewStudentRecords));
+                                            new NavigationService(_navigationStore, ViewStudentRecords),
+                                            new NavigationService(_navigationStore,PDFViewModel);
         }
 
         private ViewUsersListViewModel ViewUserListVM()

@@ -196,6 +196,21 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        
+                        <GridViewColumn Width="150" Header="Remove">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Content="Remove"
+                                        Command="{Binding ElementName=AllInventoryRec,
+                                        Path=DataContext.RemoveCommand}"
+                                        CommandParameter="{Binding}"
+                                           Background="#051094"
+                            Foreground="White"
+                                        />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

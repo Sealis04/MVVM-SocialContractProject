@@ -317,7 +317,7 @@
                                 <DataTemplate>
                                     <Image
                                         HorizontalAlignment="Center"
-                                        Source="{Binding ImageSource, Converter={StaticResource ImageConverter}}"
+                                        Source="{Binding ButtonImage}"
                                      />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

@@ -28,6 +28,7 @@ namespace MVVM_SocialContractProject.ViewModels
         public ICommand FirstCommand { get; private set; }
         public ICommand LastCommand { get; private set; }
         public ICommand PrintCommand { get; }
+        public ICommand RemoveCommand { get; }
         public ICommand _headerClick;
         public ICommand HeaderClick
         {
@@ -73,7 +74,8 @@ namespace MVVM_SocialContractProject.ViewModels
                 OnPropertyChanged(nameof(TotalPages));
             }
         }
-        public ViewPDFEventsViewModel(SocialContractMonitoringSystem ScSystem, NavigationService AddPDFNav, NavigationService ViewStudentService)
+        public ViewPDFEventsViewModel(SocialContractMonitoringSystem ScSystem, NavigationService AddPDFNav, NavigationService ViewStudentService
+            ,NavigationService thisModel)
         {
             Start = 0;
             CurrentPageChosen = _currentPageIndex;
@@ -85,6 +87,7 @@ namespace MVVM_SocialContractProject.ViewModels
             PreviousCommand = new PreviousPageCommand(this);
             dbQueries = new DatabaseQueries();
             PrintCommand = new PrintPDFCommand();
+            RemoveCommand = new RemovePDFCommand(thisModel, ScSystem);
             viewStudentService = ViewStudentService;
             _pdfInfo = new ObservableCollection<EventsPDFViewModel>();
             AddPDFCommand = new NavigateCommand(addPDFNav);
@@ -98,7 +101,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             totalItems = dbQueries.GetAllPDFCount(searchText);
             _pdfInfo.Clear();
-           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, page,intQuery,direction))
+           foreach (PDFInfo pdf in ScSystem.GetAllPDF(searchText, (0 + (page * 20)), intQuery,direction))
             {
                 EventsPDFViewModel pdfvm = new EventsPDFViewModel(pdf);
                 _pdfInfo.Add(pdfvm);

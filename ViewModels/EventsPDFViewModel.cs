@@ -16,7 +16,7 @@ namespace MVVM_SocialContractProject.ViewModels
         {
             pdf = _pdf;
         }
-
+        public string EventID => pdf.EventID;
         public string EventName => pdf.EventName;
         public string EventDate => pdf.EventDate.ToShortDateString();
 
