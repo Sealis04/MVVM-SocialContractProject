@@ -69,7 +69,6 @@ namespace MVVM_SocialContractProject.Views
                 firstSem_Tb.Text = "0";
             
             }
-            CheckOpacity();
         }
 
         private void SecondSem_Tb_TextChanged(object sender, TextChangedEventArgs e)
@@ -79,7 +78,6 @@ namespace MVVM_SocialContractProject.Views
             {
                 SecondSem_Tb.Text = "0";
             }
-            CheckOpacity();
         }
 
         private void Summer_Tb_TextChanged(object sender, TextChangedEventArgs e)
@@ -89,31 +87,6 @@ namespace MVVM_SocialContractProject.Views
             {
                 summer_Tb.Text = "0";
             }
-            CheckOpacity();
-        }
-
-        private void CheckOpacity()
-        {
-            try
-            {
-                if (firstSem_Tb.Text != null && SecondSem_Tb.Text != null && summer_Tb.Text != null)
-                {
-                    if (Convert.ToInt32(firstSem_Tb.Text) > 0 || Convert.ToInt32(SecondSem_Tb.Text) > 0
-                    || Convert.ToInt32(summer_Tb.Text) > 0)
-                    {
-                        RecordsWarning.Opacity = 0;
-                    }
-                    else
-                    {
-                        RecordsWarning.Opacity = 100;
-                    }
-                }
-            }catch(FormatException e)
-            {
-               
-            }
-          
-           
         }
 
         private void SID_tb_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)

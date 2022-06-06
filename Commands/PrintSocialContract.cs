@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace MVVM_SocialContractProject.Commands
                     Verb = "",
                     CreateNoWindow = true,
                     FileName = "\\\\" + Properties.Settings.Default.Server+"\\SocialContractFolder\\SocialContractPDF.pdf",
-                    WindowStyle = ProcessWindowStyle.Hidden
+                    //WindowStyle = ProcessWindowStyle.Hidden
                 };
                 try
                 {
@@ -29,10 +30,15 @@ namespace MVVM_SocialContractProject.Commands
                     {
                     }
                 }
+                catch (Win32Exception e)
+                {
+                    MessageBox.Show("Error found \n Have you tried checking if your printer was connected/installed?", "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 catch (Exception e)
                 {
                     MessageBox.Show("Error Message" + e, "PRINTING ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
         }
     }

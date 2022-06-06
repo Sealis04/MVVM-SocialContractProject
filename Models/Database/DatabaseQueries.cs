@@ -383,7 +383,7 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT admin_user, admin_pass,admin_salt,admin_type FROM tbl_adminacc";
+            string query = "SELECT admin_user, admin_pass,admin_salt,admin_type FROM tbl_adminacc WHERE admin_IsRemoved = 0";
              SqlCommand commandDatabase = new  SqlCommand(query, conn);
 
             //---Open Connection--
@@ -539,7 +539,28 @@ namespace MVVM_SocialContractProject.Models.Database
                     "\n Error Message:" + ex);
             }
         }
-
+        public void RemovePDF(int eventID, string image)
+        {
+            RunSystemCheck();
+            string query = "UPDATE tbl_events SET event_IsRemoved = 1 WHERE event_ID = @eventID";
+            SqlCommand cmDB = new SqlCommand(query, conn);
+            cmDB.Parameters.AddWithValue("@eventID", eventID);
+            try
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                File.Delete(image);
+                conn.Open();
+                SqlDataReader reader = cmDB.ExecuteReader();
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                MessageBox.Show("DB related Error, please contact the administratior " +
+                  "\n Error Message:" + e);
+            }
+        }
         public void RemoveSocialContract(int recordID, string Image)
         {
             RunSystemCheck();
@@ -568,12 +589,12 @@ namespace MVVM_SocialContractProject.Models.Database
         public void GetAllPDF(List<PDFInfo> pdf, string SearchQuery, int page, int intQuery, bool direction)
         {
             RunSystemCheck();
-            string query = "SELECT event_ID, event_name, event_date, event_supervisor, event_PDF, event_venue FROM tbl_events ";
+            string query = "SELECT event_ID, event_name, event_date, event_supervisor, event_PDF, event_venue FROM tbl_events WHERE event_isRemoved = 0 ";
             if (SearchQuery != null)
             {
-                query += "WHERE event_name LIKE @SearchQuery ";
+                query += "AND event_name LIKE @SearchQuery ";
             }
-            query += "GROUP BY event_name, event_date, event_supervisor, event_PDF, event_venue ";
+            query += "GROUP BY event_ID, event_name, event_date, event_supervisor, event_PDF, event_venue ";
             if (intQuery != 0)
             {
                 if (direction)
@@ -629,9 +650,9 @@ namespace MVVM_SocialContractProject.Models.Database
                 SqlDataReader reader = cmDB.ExecuteReader();
                 while (reader.Read())
                 {
-                    DateTime date = reader.GetDateTime(1);
-                    pdf.Add(new PDFInfo(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(),
-                        reader[3].ToString(), reader[4].ToString(), date));
+                    DateTime date = reader.GetDateTime(2);
+                    pdf.Add(new PDFInfo(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[3].ToString(),
+                        reader[4].ToString(), reader[5].ToString(), date));
                 }
                 conn.Close();
             }
@@ -647,7 +668,7 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT COUNT(*) FROM tbl_events";
+            string query = "SELECT COUNT(*) FROM tbl_events WHERE event_isRemoved = 0";
             if (SearchQuery != null)
             {
                 query += " WHERE event_name LIKE @SearchQuery";
@@ -746,10 +767,10 @@ namespace MVVM_SocialContractProject.Models.Database
         {
             RunSystemCheck();
             //---get stored password---
-            string query = "SELECT COUNT(*) FROM tbl_adminacc";
+            string query = "SELECT COUNT(*) FROM tbl_adminacc WHERE admin_IsRemoved = 0 ";
             if (SearchQuery != null)
             {
-                query += " WHERE admin_IsRemoved = 0 AND admin_user LIKE @SearchQuery";
+                query += "AND admin_user LIKE @SearchQuery";
             }
              SqlCommand cmdDb = new  SqlCommand(query, conn);
             if (SearchQuery != null)

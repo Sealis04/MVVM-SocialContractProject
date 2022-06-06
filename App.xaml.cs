@@ -105,7 +105,7 @@ namespace MVVM_SocialContractProject
         {
             return new ViewPDFEventsViewModel(_SCSystem, new NavigationService(_navigationStore, CreatePDFViewModel), 
                                             new NavigationService(_navigationStore, ViewStudentRecords),
-                                            new NavigationService(_navigationStore,PDFViewModel);
+                                            new NavigationService(_navigationStore,PDFViewModel));
         }
 
         private ViewUsersListViewModel ViewUserListVM()
